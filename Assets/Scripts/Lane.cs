@@ -46,7 +46,6 @@ public class Lane : MonoBehaviour
         {
             if ((double)audioSource.timeSamples / audioSource.clip.frequency >= timeStamps[index])
             {
-                Debug.Log("e");
                 var note = Instantiate(notePrefab, transform);
                 notes.Add(note);
                 index++;
