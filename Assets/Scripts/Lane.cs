@@ -46,12 +46,6 @@ public class Lane : MonoBehaviour
         {
             if (SongControl.GetSongTime() >= timeStamps[index])
             {
-<<<<<<< Updated upstream
-=======
-                Debug.Log(SongControl.GetSongTime());
-                Debug.Log(timeStamps[index]);
-
->>>>>>> Stashed changes
                 var note = Instantiate(notePrefab, transform);
                 note.transform.position = note.transform.parent.transform.parent.transform.position;
                 notes.Add(note.GetComponent<Note>());
