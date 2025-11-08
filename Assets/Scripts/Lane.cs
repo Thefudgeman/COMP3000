@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class Lane : MonoBehaviour
 {
     public List<double> timeStamps = new List<double>();
-    List<GameObject> notes = new List<GameObject>();
+    List<Note> notes = new List<Note>();
     public string input;
     public string LaneNumber;
     public TextAsset txt;
@@ -44,10 +44,27 @@ public class Lane : MonoBehaviour
     {
         if (index < timeStamps.Count)
         {
-            if ((double)audioSource.timeSamples / audioSource.clip.frequency >= timeStamps[index])
+            if (SongControl.GetSongTime() >= timeStamps[index])
             {
+<<<<<<< Updated upstream
+=======
+                Debug.Log(SongControl.GetSongTime());
+                Debug.Log(timeStamps[index]);
+
+>>>>>>> Stashed changes
                 var note = Instantiate(notePrefab, transform);
-                notes.Add(note);
+                note.transform.position = note.transform.parent.transform.parent.transform.position;
+                notes.Add(note.GetComponent<Note>());
+                note.GetComponent<Note>().hitTime = (float)timeStamps[index];
+                note.GetComponent<Note>().laneNumber = Convert.ToInt32(LaneNumber);
+                if(Convert.ToInt32(LaneNumber) < 4)
+                {
+                    note.GetComponent<Note>().noteSpawnX = -500;
+                }
+                else
+                {
+                    note.GetComponent<Note>().noteSpawnX = 500;
+                }
                 index++;
             }
         }
