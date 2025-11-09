@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Note : MonoBehaviour
 {
@@ -31,25 +32,58 @@ public class Note : MonoBehaviour
         timeInstantiated = hitTime - 0.7;
         noteTapX = transform.parent.transform.position.x;
         noteTapY = transform.parent.transform.position.y;
+
+        if (laneNumber == 1 || laneNumber == 7)
+        {
+            transform.Rotate(0, 0, 90);
+
+        }
+        else if (laneNumber == 3 || laneNumber == 5)
+        {
+            transform.Rotate(0, 0, 90);
+        }
+        if (laneNumber == 6 || laneNumber == 2)
+        {
+            noteSpawnY = -400;
+        }
+        else if(laneNumber == 0 || laneNumber == 4)
+        {
+            noteSpawnY = 400;
+        }
+
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        float time = Time.deltaTime / (0.7f * 2);
+        float spawnDelay = SongControl.Instance.songDelay - 0.7f;
+        double timeSinceInstantiated = spawnDelay > 0 && timeInstantiated < 0
+            ? (Time.timeSinceLevelLoad - spawnDelay) + timeInstantiated
+            : SongControl.GetSongTime() - timeInstantiated;
+        float t = (float)(timeSinceInstantiated / (0.7f * 2));
 
-        if(laneNumber == 0 || laneNumber == 4 || laneNumber == 2 || laneNumber == 6)
+
+        if (timeSinceInstantiated > 0.7 + 0.2) //if player does not hit the object destroy it once it is outside of the margin of error
         {
-           // transform.localPosition += Vector3.Lerp(Vector3.up * noteSpawnY, Vector3.up * noteDespawnY, 4500);
-
+            Destroy(gameObject);
         }
-        else if(laneNumber == 1 || laneNumber == 5 || laneNumber == 3 || laneNumber == 7)
+        else
         {
-          //  transform.localPosition += Vector3.Lerp(Vector3.left * noteSpawnX, Vector3.left * noteDespawnX, 4500);
+            if (laneNumber == 0 || laneNumber == 4 || laneNumber == 2 || laneNumber == 6)
+            {
+                transform.localPosition = Vector3.Lerp(Vector3.up * noteSpawnY, Vector3.up * noteDespawnY, t);
+            }
+            else if (laneNumber == 1 || laneNumber == 7)
+            {
+                transform.localPosition = Vector3.Lerp(Vector3.left * noteSpawnX, Vector3.left * noteDespawnX, t);
 
+            }
+            else if (laneNumber == 3 || laneNumber == 5)
+            {
+                transform.localPosition = Vector3.Lerp(Vector3.right * noteSpawnX, Vector3.right * noteDespawnX, t);
+            }
         }
 
-        transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(transform.localPosition.x, transform.localPosition.y + 0.5f), 2);
     }
 }

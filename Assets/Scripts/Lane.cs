@@ -44,7 +44,7 @@ public class Lane : MonoBehaviour
     {
         if (index < timeStamps.Count)
         {
-            if (SongControl.GetSongTime() >= timeStamps[index])
+            if (SongControl.GetSongTime() >= timeStamps[index] - 0.7)
             {
                 var note = Instantiate(notePrefab, transform);
                 note.transform.position = note.transform.parent.transform.parent.transform.position;
@@ -53,11 +53,11 @@ public class Lane : MonoBehaviour
                 note.GetComponent<Note>().laneNumber = Convert.ToInt32(LaneNumber);
                 if(Convert.ToInt32(LaneNumber) < 4)
                 {
-                    note.GetComponent<Note>().noteSpawnX = -500;
+                    note.GetComponent<Note>().noteSpawnX = -400;
                 }
                 else
                 {
-                    note.GetComponent<Note>().noteSpawnX = 500;
+                    note.GetComponent<Note>().noteSpawnX = 400;
                 }
                 index++;
             }
