@@ -71,6 +71,7 @@ public class GridUI : MonoBehaviour
                     beatNum = 0;
                 }
                 spawnedTile.transform.localPosition = new Vector3(x * 100 - 500, y * -100);
+                spawnedTile.transform.Rotate(0, 0, 180);
             }
         }
 
@@ -123,6 +124,142 @@ public class GridUI : MonoBehaviour
                     beatNum = 0;
                 }
                 spawnedTile.transform.localPosition = new Vector3(x * 100 + 500, y * -100);
+                spawnedTile.transform.Rotate(0, 0, 180);
+            }
+        }
+
+        beatNum = 0;
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                if (beatNum == 0)
+                {
+                    spawnedTile = Instantiate(fullBeat, transform);
+                }
+                else if (beatNum == 1 || beatNum == 3)
+                {
+                    spawnedTile = Instantiate(quarterBeat, transform);
+                }
+                else
+                {
+                    spawnedTile = Instantiate(halfBeat, transform);
+                }
+                beatNum++;
+                if (beatNum > 3)
+                {
+                    beatNum = 0;
+                }
+                spawnedTile.transform.localPosition = new Vector3(y * 100 + 500, x * -100);
+                spawnedTile.transform.Rotate(0, 0, 270);
+            }
+        }
+
+        beatNum = 0;
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                if (beatNum == 0)
+                {
+                    spawnedTile = Instantiate(fullBeat, transform);
+                }
+                else if (beatNum == 1 || beatNum == 3)
+                {
+                    spawnedTile = Instantiate(quarterBeat, transform);
+                }
+                else
+                {
+                    spawnedTile = Instantiate(halfBeat, transform);
+                }
+                beatNum++;
+                if (beatNum > 3)
+                {
+                    beatNum = 0;
+                }
+                spawnedTile.transform.localPosition = new Vector3(y * -100 - 500, x * -100);
+                spawnedTile.transform.Rotate(0, 0, 90);
+            }
+        }
+
+        beatNum = 0;
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                if (beatNum == 0)
+                {
+                    spawnedTile = Instantiate(fullBeat, transform);
+                }
+                else if (beatNum == 1 || beatNum == 3)
+                {
+                    spawnedTile = Instantiate(quarterBeat, transform);
+                }
+                else
+                {
+                    spawnedTile = Instantiate(halfBeat, transform);
+                }
+                beatNum++;
+                if (beatNum > 3)
+                {
+                    beatNum = 0;
+                }
+                spawnedTile.transform.localPosition = new Vector3(y * 100 - 500, x * -100);
+                spawnedTile.transform.Rotate(0, 0, 270);
+            }
+        }
+
+        beatNum = 0;
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                if (beatNum == 0)
+                {
+                    spawnedTile = Instantiate(fullBeat, transform);
+                }
+                else if (beatNum == 1 || beatNum == 3)
+                {
+                    spawnedTile = Instantiate(quarterBeat, transform);
+                }
+                else
+                {
+                    spawnedTile = Instantiate(halfBeat, transform);
+                }
+                beatNum++;
+                if (beatNum > 3)
+                {
+                    beatNum = 0;
+                }
+                spawnedTile.transform.localPosition = new Vector3(y * -100 - 500, x * 100);
+                spawnedTile.transform.Rotate(0, 0, 90);
+            }
+        }
+
+        beatNum = 0;
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                if (beatNum == 0)
+                {
+                    spawnedTile = Instantiate(fullBeat, transform);
+                }
+                else if (beatNum == 1 || beatNum == 3)
+                {
+                    spawnedTile = Instantiate(quarterBeat, transform);
+                }
+                else
+                {
+                    spawnedTile = Instantiate(halfBeat, transform);
+                }
+                beatNum++;
+                if (beatNum > 3)
+                {
+                    beatNum = 0;
+                }
+                spawnedTile.transform.localPosition = new Vector3(y * -100 + 500, x * 100);
+                spawnedTile.transform.Rotate(0, 0, 90);
             }
         }
     }

@@ -398,7 +398,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   width: 1
-  height: 10
+  height: 5
   fullBeat: {fileID: 6776527381791250089, guid: a41e0f682abbd2c44b2e1e1d4c8a694c, type: 3}
   halfBeat: {fileID: 7282304948408599031, guid: f2b3db965ba4f3c42b65bc3faa755fe5, type: 3}
   quarterBeat: {fileID: 7511750288758989692, guid: ed0361e71cf347747ad68e6053523a58, type: 3}
@@ -427,6 +427,7 @@ GameObject:
   - component: {fileID: 1136396551}
   - component: {fileID: 1136396550}
   - component: {fileID: 1136396549}
+  - component: {fileID: 1136396553}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -518,6 +519,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1136396553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1136396548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cf1e38adc5590a43b05e6a9601e3e82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  note: {fileID: 0}
 --- !u!1 &1784916717
 GameObject:
   m_ObjectHideFlags: 0
