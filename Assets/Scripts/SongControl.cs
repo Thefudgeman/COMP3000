@@ -8,6 +8,7 @@ public class SongControl : MonoBehaviour
     public AudioSource audioSource;
     public static SongControl Instance;
     public float songDelay;
+    public float noteSpeed;
     // Start is called before the first frame update
     void Start()
     {

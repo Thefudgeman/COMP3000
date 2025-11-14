@@ -86,6 +86,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f888ce7104927e648b01afc6a7aa00f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  noteSpeed: 1
   laneNumber: 0
   hitTime: 0
   noteSpawnX: 0

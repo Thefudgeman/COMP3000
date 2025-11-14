@@ -44,7 +44,7 @@ public class Lane : MonoBehaviour
     {
         if (index < timeStamps.Count)
         {
-            if (SongControl.GetSongTime() >= timeStamps[index] - 0.7)
+            if (SongControl.GetSongTime() >= timeStamps[index] - (0.7/SongControl.Instance.noteSpeed))
             {
                 var note = Instantiate(notePrefab, transform);
                 note.transform.position = note.transform.parent.transform.parent.transform.position;

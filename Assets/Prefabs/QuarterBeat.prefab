@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5785376500593931220}
   - component: {fileID: 3689271768055522837}
   - component: {fileID: 1318366123083312278}
+  - component: {fileID: 2004246376051837991}
   m_Layer: 5
   m_Name: QuarterBeat
   m_TagString: Untagged
@@ -144,3 +145,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   note: {fileID: 672450209737632265, guid: 7cc7ad18251ab924ca1fd29f6f431134, type: 3}
+--- !u!114 &2004246376051837991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7511750288758989692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8292ce70d640654ab18571403b677e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -29,7 +29,7 @@ public class Note : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        timeInstantiated = hitTime - 0.7;
+        timeInstantiated = hitTime - (0.7/SongControl.Instance.noteSpeed);
         noteTapX = transform.parent.transform.position.x;
         noteTapY = transform.parent.transform.position.y;
 
@@ -57,14 +57,14 @@ public class Note : MonoBehaviour
     void Update()
     {
 
-        float spawnDelay = SongControl.Instance.songDelay - 0.7f;
+        float spawnDelay = SongControl.Instance.songDelay - (0.7f / SongControl.Instance.noteSpeed);
         double timeSinceInstantiated = spawnDelay > 0 && timeInstantiated < 0
             ? (Time.timeSinceLevelLoad - spawnDelay) + timeInstantiated
             : SongControl.GetSongTime() - timeInstantiated;
-        float t = (float)(timeSinceInstantiated / (0.7f * 2));
+        float t = (float)(timeSinceInstantiated / (0.7f * 2 / SongControl.Instance.noteSpeed));
 
 
-        if (timeSinceInstantiated > 0.7 + 0.2) //if player does not hit the object destroy it once it is outside of the margin of error
+        if (timeSinceInstantiated > 0.7/ SongControl.Instance.noteSpeed + 0.2) //if player does not hit the object destroy it once it is outside of the margin of error
         {
             Destroy(gameObject);
         }
