@@ -1107,6 +1107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 2059307748}
   songDelay: 1
+  noteSpeed: 1
 --- !u!4 &1121523935
 Transform:
   m_ObjectHideFlags: 0
