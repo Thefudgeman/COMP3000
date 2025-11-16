@@ -611,13 +611,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   width: 1
-  height: 5
+  height: 4
   fullBeat: {fileID: 6776527381791250089, guid: a41e0f682abbd2c44b2e1e1d4c8a694c, type: 3}
   halfBeat: {fileID: 7282304948408599031, guid: f2b3db965ba4f3c42b65bc3faa755fe5, type: 3}
   quarterBeat: {fileID: 7511750288758989692, guid: ed0361e71cf347747ad68e6053523a58, type: 3}
+  quarterBeat2: {fileID: 7511750288758989692, guid: 96c5e5c614448ec4ebe1e737aca6bc41, type: 3}
   music: {fileID: 1765844603}
   timeStamps: []
-  bpm: 300
+  editorTimingLines: []
 --- !u!65 &568918942
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1823,7 +1824,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -5363026523679860781, guid: 7f4f076f4c3955e4cb90650ff4123e5b, type: 2}
   m_audioClip: {fileID: 8300000, guid: 112f8ad37297d414f968f8f96dd9d67c, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -1937,6 +1938,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 1765844603}
   songDelay: 0
+  noteSpeed: 1
+  bpm: 300
+  editor: 1
 --- !u!1 &1784916717
 GameObject:
   m_ObjectHideFlags: 0

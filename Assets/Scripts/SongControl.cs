@@ -9,11 +9,16 @@ public class SongControl : MonoBehaviour
     public static SongControl Instance;
     public float songDelay;
     public float noteSpeed;
+    public int bpm;
+    public bool editor;
     // Start is called before the first frame update
     void Start()
     {
         Instance = this;
-        Invoke(nameof(StartSong), songDelay);
+        if(!editor)
+        {
+            Invoke(nameof(StartSong), songDelay);
+        }
     }
 
 
