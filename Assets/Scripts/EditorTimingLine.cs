@@ -8,7 +8,8 @@ public class EditorTimingLine : MonoBehaviour
 {
     public int laneNumber;
     public Vector3 position;
-    public float startingTimestamp;
+    public float hitTime;
+    public float timeInstantiated;
     public float noteSpawnX;
     public float noteTapX;
     public float noteDespawnX
@@ -27,25 +28,27 @@ public class EditorTimingLine : MonoBehaviour
             return noteTapY - (noteSpawnY - noteTapY);
         }
     }
+    public float timeStampIncrement;
     // Start is called before the first frame update
     void Start()
     {
+        timeStampIncrement = 1f / (SongControl.Instance.bpm / 60f) / 4f;
         noteSpawnY = 0;
         if (gameObject.name == "FullBeat(Clone)")
         {
-            startingTimestamp = 0;
+            timeInstantiated = 0;
         }
         else if (gameObject.name == "HalfBeat(Clone)")
         {
-            startingTimestamp = 1f/(SongControl.Instance.bpm/60f)/2f;
+            timeInstantiated = 1f/(SongControl.Instance.bpm/60f)/2f;
         }
         else if (gameObject.name =="QuarterBeat(Clone)")
         {
-            startingTimestamp = 1f / (SongControl.Instance.bpm / 60f) / 4f;
+            timeInstantiated = 1f / (SongControl.Instance.bpm / 60f) / 4f;
         }
         else if (gameObject.name == "QuarterBeat2(Clone)")
         {
-            startingTimestamp = 1f / (SongControl.Instance.bpm / 60f) / 4f * 3f;
+            timeInstantiated = 1f / (SongControl.Instance.bpm / 60f) / 4f * 3f;
         }
 
         if (laneNumber == 6 || laneNumber == 2)
@@ -62,11 +65,11 @@ public class EditorTimingLine : MonoBehaviour
         }
         else if (laneNumber == 5)
         {
-            noteTapX = 0;
+            noteTapX = 100;
         }
         else if (laneNumber == 3)
         {
-            noteTapX = 0;
+            noteTapX = -100;
         }
         else if (laneNumber == 7)
         {
@@ -79,15 +82,23 @@ public class EditorTimingLine : MonoBehaviour
     {
 
         float spawnDelay = SongControl.Instance.songDelay - (0.7f / SongControl.Instance.noteSpeed);
-        double timeSinceInstantiated = spawnDelay > 0 && startingTimestamp < 0
-            ? (Time.timeSinceLevelLoad - spawnDelay) + startingTimestamp
-            : SongControl.GetSongTime() - startingTimestamp;
+        double timeSinceInstantiated = spawnDelay > 0 && timeInstantiated < 0
+            ? (Time.timeSinceLevelLoad - spawnDelay) + timeInstantiated
+            : SongControl.GetSongTime() - timeInstantiated;
         float t = (float)(timeSinceInstantiated / (0.7f * 2 / SongControl.Instance.noteSpeed));
 
 
         if (timeSinceInstantiated > 0.7 / SongControl.Instance.noteSpeed)
         {
-            Destroy(gameObject);
+            if(laneNumber < 4)
+            {
+                transform.localPosition = new Vector3(-500, 0);
+            }
+            else
+            {
+                transform.localPosition = new Vector3(500, 0);
+            }
+            timeInstantiated += timeStampIncrement*14;
         }
         else
         {
