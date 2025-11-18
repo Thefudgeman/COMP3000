@@ -67,6 +67,7 @@ public class Note : MonoBehaviour
         if (timeSinceInstantiated > 0.7/ SongControl.Instance.noteSpeed + 0.2) //if player does not hit the object destroy it once it is outside of the margin of error
         {
             Destroy(gameObject);
+            Debug.Log(SongControl.GetSongTime());
         }
         else
         {

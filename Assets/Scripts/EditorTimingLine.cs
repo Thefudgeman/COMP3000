@@ -32,23 +32,23 @@ public class EditorTimingLine : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        timeStampIncrement = 1f / (SongControl.Instance.bpm / 60f) / 4f;
+        timeStampIncrement = (0.7f / SongControl.Instance.noteSpeed);
         noteSpawnY = 0;
         if (gameObject.name == "FullBeat(Clone)")
         {
-            timeInstantiated = 0;
+            timeInstantiated = 0f - (0.7f / SongControl.Instance.noteSpeed);
         }
         else if (gameObject.name == "HalfBeat(Clone)")
         {
-            timeInstantiated = 1f/(SongControl.Instance.bpm/60f)/2f;
+            timeInstantiated = 1f / (SongControl.Instance.bpm / 60f) / 2f - (0.7f / SongControl.Instance.noteSpeed);
         }
         else if (gameObject.name =="QuarterBeat(Clone)")
         {
-            timeInstantiated = 1f / (SongControl.Instance.bpm / 60f) / 4f;
+            timeInstantiated = 1f / (SongControl.Instance.bpm / 60f) / 4f - (0.7f / SongControl.Instance.noteSpeed);
         }
         else if (gameObject.name == "QuarterBeat2(Clone)")
         {
-            timeInstantiated = 1f / (SongControl.Instance.bpm / 60f) / 4f * 3f;
+            timeInstantiated = 1f / (SongControl.Instance.bpm / 60f) / 4f * 3f - (0.7f / SongControl.Instance.noteSpeed);
         }
 
         if (laneNumber == 6 || laneNumber == 2)
@@ -98,15 +98,13 @@ public class EditorTimingLine : MonoBehaviour
             {
                 transform.localPosition = new Vector3(500, 0);
             }
-            timeInstantiated += timeStampIncrement*14;
+            timeInstantiated += timeStampIncrement;
         }
         else
         {
             if (laneNumber == 0 || laneNumber == 4 || laneNumber == 2 || laneNumber == 6)
             {
-                transform.localPosition = Vector3.Lerp(new Vector3(noteSpawnX, noteSpawnY, 0), new Vector3(noteSpawnX, noteDespawnY, 0),
-        t
-    );
+                transform.localPosition = Vector3.Lerp(new Vector3(noteSpawnX, noteSpawnY, 0), new Vector3(noteSpawnX, noteDespawnY, 0), t);
             }
             else if (laneNumber == 1 || laneNumber == 7)
             {
