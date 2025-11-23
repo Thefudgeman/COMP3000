@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 
 public class EditorTimingLine : MonoBehaviour
 {
+    public List<float> noteTimeStamps = new List<float>();
     public int laneNumber;
     public Vector3 position;
     public float hitTime;
@@ -99,6 +100,10 @@ public class EditorTimingLine : MonoBehaviour
             else
             {
                 transform.localPosition = new Vector3(500, 0);
+            }
+            if (transform.childCount > 0)
+            {
+                Destroy(transform.GetChild(0).gameObject);
             }
             timeInstantiated += timeStampIncrement;
             GetComponent<RawImage>().enabled = false;

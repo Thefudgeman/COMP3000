@@ -159,8 +159,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   laneNumber: 0
   position: {x: 0, y: 0, z: 0}
-  startingTimestamp: 0
+  hitTime: 0
+  timeInstantiated: 0
   noteSpawnX: 0
   noteTapX: 0
   noteSpawnY: 0
   noteTapY: 0
+  timeStampIncrement: 0
+  times: 0
+  timeStampIncrementMultiplayer: 0
