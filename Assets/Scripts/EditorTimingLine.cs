@@ -29,26 +29,28 @@ public class EditorTimingLine : MonoBehaviour
         }
     }
     public float timeStampIncrement;
+    public float times;
+    public float timeStampIncrementMultiplayer;
     // Start is called before the first frame update
     void Start()
     {
-        timeStampIncrement = (0.7f / SongControl.Instance.noteSpeed);
+        timeStampIncrement = timeStampIncrementMultiplayer * (1f / (SongControl.Instance.bpm / 60f));
         noteSpawnY = 0;
         if (gameObject.name == "FullBeat(Clone)")
         {
-            timeInstantiated = 0f - (0.7f / SongControl.Instance.noteSpeed);
+            timeInstantiated = 0f - (0.7f / SongControl.Instance.noteSpeed) + (1f / (SongControl.Instance.bpm / 60f) * times);
         }
         else if (gameObject.name == "HalfBeat(Clone)")
         {
-            timeInstantiated = 1f / (SongControl.Instance.bpm / 60f) / 2f - (0.7f / SongControl.Instance.noteSpeed);
+            timeInstantiated = 1f / (SongControl.Instance.bpm / 60f) / 2f - (0.7f / SongControl.Instance.noteSpeed) + (1f / (SongControl.Instance.bpm / 60f) * times);
         }
         else if (gameObject.name =="QuarterBeat(Clone)")
         {
-            timeInstantiated = 1f / (SongControl.Instance.bpm / 60f) / 4f - (0.7f / SongControl.Instance.noteSpeed);
+            timeInstantiated = 1f / (SongControl.Instance.bpm / 60f) / 4f - (0.7f / SongControl.Instance.noteSpeed) + (1f / (SongControl.Instance.bpm / 60f) * times);
         }
         else if (gameObject.name == "QuarterBeat2(Clone)")
         {
-            timeInstantiated = 1f / (SongControl.Instance.bpm / 60f) / 4f * 3f - (0.7f / SongControl.Instance.noteSpeed);
+            timeInstantiated = 1f / (SongControl.Instance.bpm / 60f) / 4f * 3f - (0.7f / SongControl.Instance.noteSpeed) + (1f / (SongControl.Instance.bpm / 60f) * times);
         }
 
         if (laneNumber == 6 || laneNumber == 2)
@@ -99,9 +101,14 @@ public class EditorTimingLine : MonoBehaviour
                 transform.localPosition = new Vector3(500, 0);
             }
             timeInstantiated += timeStampIncrement;
+            GetComponent<RawImage>().enabled = false;
         }
         else
         {
+            if(timeSinceInstantiated > 0 && !GetComponent<RawImage>().enabled)
+            {
+                GetComponent<RawImage>().enabled = true;
+            }
             if (laneNumber == 0 || laneNumber == 4 || laneNumber == 2 || laneNumber == 6)
             {
                 transform.localPosition = Vector3.Lerp(new Vector3(noteSpawnX, noteSpawnY, 0), new Vector3(noteSpawnX, noteDespawnY, 0), t);
