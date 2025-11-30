@@ -210,9 +210,9 @@ public class GridUI : MonoBehaviour
                         beatNum = 0;
                     }
                     //   spawnedTile.transform.localPosition = new Vector3(y * 100 + 600, x * -100);
-                    spawnedTile.transform.Rotate(0, 0, 270);
+                    spawnedTile.transform.Rotate(0, 0, 90);
                     editorTimingLines.Add(spawnedTile.GetComponent<EditorTimingLine>());
-                    spawnedTile.GetComponent<EditorTimingLine>().laneNumber = 7;
+                    spawnedTile.GetComponent<EditorTimingLine>().laneNumber = 1;
                     spawnedTile.GetComponent<EditorTimingLine>().noteSpawnX = 500;
                     spawnedTile.GetComponent<EditorTimingLine>().times = i;
                     spawnedTile.GetComponent<EditorTimingLine>().timeStampIncrementMultiplayer = timesInt;
@@ -282,9 +282,9 @@ public class GridUI : MonoBehaviour
                         beatNum = 0;
                     }
                     //   spawnedTile.transform.localPosition = new Vector3(y * -100 - 600, x * 100);
-                    spawnedTile.transform.Rotate(0, 0, 90);
+                    spawnedTile.transform.Rotate(0, 0, 270);
                     editorTimingLines.Add(spawnedTile.GetComponent<EditorTimingLine>());
-                    spawnedTile.GetComponent<EditorTimingLine>().laneNumber = 1;
+                    spawnedTile.GetComponent<EditorTimingLine>().laneNumber = 7;
                     spawnedTile.GetComponent<EditorTimingLine>().noteSpawnX = -500;
                     spawnedTile.GetComponent<EditorTimingLine>().times = i;
                     spawnedTile.GetComponent<EditorTimingLine>().timeStampIncrementMultiplayer = timesInt;

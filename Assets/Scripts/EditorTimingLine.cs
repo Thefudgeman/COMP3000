@@ -62,7 +62,7 @@ public class EditorTimingLine : MonoBehaviour
         {
             noteTapY = -400;
         }
-        if (laneNumber == 1)
+        if (laneNumber == 7)
         {
             noteTapX = -900;
         }
@@ -74,7 +74,7 @@ public class EditorTimingLine : MonoBehaviour
         {
             noteTapX = -100;
         }
-        else if (laneNumber == 7)
+        else if (laneNumber == 1)
         {
             noteTapX = 900;
         }

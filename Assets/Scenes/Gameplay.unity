@@ -249,7 +249,7 @@ MonoBehaviour:
   timeStamps: []
   input: Dpad Horizontal
   LaneNumber: 3
-  txt: {fileID: 4900000, guid: fe83f5830a9d0794dbbd41e3df08351e, type: 3}
+  txt: {fileID: 4900000, guid: 52959423ff344034b94f4c73718549c9, type: 3}
   notePrefab: {fileID: 7006354101777941004, guid: b96f2add80af1b04bab23cc94254bd37, type: 3}
   audioSource: {fileID: 2059307748}
 --- !u!1 &242146015
@@ -657,9 +657,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeStamps: []
-  input: 
+  input: X Button
   LaneNumber: 5
-  txt: {fileID: 4900000, guid: fe83f5830a9d0794dbbd41e3df08351e, type: 3}
+  txt: {fileID: 4900000, guid: 52959423ff344034b94f4c73718549c9, type: 3}
   notePrefab: {fileID: 7006354101777941004, guid: b96f2add80af1b04bab23cc94254bd37, type: 3}
   audioSource: {fileID: 2059307748}
 --- !u!1 &480643349
@@ -759,7 +759,7 @@ MonoBehaviour:
   timeStamps: []
   input: Dpad Horizontal
   LaneNumber: 1
-  txt: {fileID: 4900000, guid: fe83f5830a9d0794dbbd41e3df08351e, type: 3}
+  txt: {fileID: 4900000, guid: 52959423ff344034b94f4c73718549c9, type: 3}
   notePrefab: {fileID: 7006354101777941004, guid: b96f2add80af1b04bab23cc94254bd37, type: 3}
   audioSource: {fileID: 2059307748}
 --- !u!1 &841155310
@@ -948,9 +948,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeStamps: []
-  input: 
+  input: A Button
   LaneNumber: 4
-  txt: {fileID: 4900000, guid: fe83f5830a9d0794dbbd41e3df08351e, type: 3}
+  txt: {fileID: 4900000, guid: 52959423ff344034b94f4c73718549c9, type: 3}
   notePrefab: {fileID: 7006354101777941004, guid: b96f2add80af1b04bab23cc94254bd37, type: 3}
   audioSource: {fileID: 2059307748}
 --- !u!1 &905427990
@@ -1071,9 +1071,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeStamps: []
-  input: 
+  input: B Button
   LaneNumber: 7
-  txt: {fileID: 4900000, guid: fe83f5830a9d0794dbbd41e3df08351e, type: 3}
+  txt: {fileID: 4900000, guid: 52959423ff344034b94f4c73718549c9, type: 3}
   notePrefab: {fileID: 7006354101777941004, guid: b96f2add80af1b04bab23cc94254bd37, type: 3}
   audioSource: {fileID: 2059307748}
 --- !u!1 &1121523933
@@ -1108,6 +1108,8 @@ MonoBehaviour:
   audioSource: {fileID: 2059307748}
   songDelay: 1
   noteSpeed: 1
+  bpm: 0
+  editor: 0
 --- !u!4 &1121523935
 Transform:
   m_ObjectHideFlags: 0
@@ -1926,9 +1928,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeStamps: []
-  input: 
+  input: Y Button
   LaneNumber: 6
-  txt: {fileID: 4900000, guid: fe83f5830a9d0794dbbd41e3df08351e, type: 3}
+  txt: {fileID: 4900000, guid: 52959423ff344034b94f4c73718549c9, type: 3}
   notePrefab: {fileID: 7006354101777941004, guid: b96f2add80af1b04bab23cc94254bd37, type: 3}
   audioSource: {fileID: 2059307748}
 --- !u!1 &1891207364
@@ -2088,7 +2090,7 @@ MonoBehaviour:
   timeStamps: []
   input: Dpad Vertical
   LaneNumber: 2
-  txt: {fileID: 4900000, guid: fe83f5830a9d0794dbbd41e3df08351e, type: 3}
+  txt: {fileID: 4900000, guid: 52959423ff344034b94f4c73718549c9, type: 3}
   notePrefab: {fileID: 7006354101777941004, guid: b96f2add80af1b04bab23cc94254bd37, type: 3}
   audioSource: {fileID: 2059307748}
 --- !u!1 &1953417245
@@ -2354,6 +2356,6 @@ MonoBehaviour:
   timeStamps: []
   input: Dpad Vertical
   LaneNumber: 0
-  txt: {fileID: 4900000, guid: fe83f5830a9d0794dbbd41e3df08351e, type: 3}
+  txt: {fileID: 4900000, guid: 52959423ff344034b94f4c73718549c9, type: 3}
   notePrefab: {fileID: 7006354101777941004, guid: b96f2add80af1b04bab23cc94254bd37, type: 3}
   audioSource: {fileID: 2059307748}

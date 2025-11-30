@@ -1,9 +1,8 @@
-Test
-Test
-Test
-Test
-Test
-Test
-Test
-Test
-Test
+3,2500
+2,250
+0,2650
+6,2600
+1,300
+5,2650
+4,400
+7,400
