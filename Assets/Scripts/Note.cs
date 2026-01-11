@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class Note : MonoBehaviour
 {
@@ -26,6 +28,8 @@ public class Note : MonoBehaviour
             return noteTapY - (noteSpawnY - noteTapY);
         }
     }
+    RectTransform size;
+    float timeAlive;
     // Start is called before the first frame update
     void Start()
     {
@@ -53,7 +57,10 @@ public class Note : MonoBehaviour
             transform.Rotate(0, 0, 90);
 
         }
+        size = this.GetComponent<RectTransform>();
+        size.sizeDelta = new Vector2(0, 0);
 
+        timeAlive = 0.7f / SongControl.Instance.noteSpeed;
     }
 
     // Update is called once per frame
@@ -65,7 +72,7 @@ public class Note : MonoBehaviour
             ? (Time.timeSinceLevelLoad - spawnDelay) + timeInstantiated
             : SongControl.GetSongTime() - timeInstantiated;
         float t = (float)(timeSinceInstantiated / (0.7f * 2 / SongControl.Instance.noteSpeed));
-
+        float sizeScale = timeAlive/(float)timeSinceInstantiated;
 
         if (timeSinceInstantiated > 0.7/ SongControl.Instance.noteSpeed + 0.2) //if player does not hit the object destroy it once it is outside of the margin of error
         {
@@ -74,6 +81,7 @@ public class Note : MonoBehaviour
         }
         else
         {
+            
             if (laneNumber == 0 || laneNumber == 4 || laneNumber == 2 || laneNumber == 6)
             {
                 transform.localPosition = Vector3.Lerp(Vector3.up * noteSpawnY, Vector3.up * noteDespawnY, t);
@@ -87,6 +95,7 @@ public class Note : MonoBehaviour
             {
                 transform.localPosition = Vector3.Lerp(Vector3.right * noteSpawnX, Vector3.right * noteDespawnX, t);
             }
+            size.sizeDelta = new Vector2(162.0f/ sizeScale, 557.0f/ sizeScale);
         }
 
     }
