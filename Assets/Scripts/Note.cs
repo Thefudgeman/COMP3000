@@ -33,22 +33,25 @@ public class Note : MonoBehaviour
         noteTapX = transform.parent.transform.position.x;
         noteTapY = transform.parent.transform.position.y;
 
-        if (laneNumber == 1 || laneNumber == 7)
+        if (laneNumber == 1 || laneNumber == 5)
         {
-            transform.Rotate(0, 0, 90);
+          //  transform.Rotate(0, 0, 90);
 
         }
-        else if (laneNumber == 3 || laneNumber == 5)
+        else if (laneNumber == 3 || laneNumber == 7)
         {
-            transform.Rotate(0, 0, 90);
+            transform.Rotate(0, 0, 180);
         }
         if (laneNumber == 6 || laneNumber == 2)
         {
             noteSpawnY = -400;
+            transform.Rotate(0, 0, 270);
         }
         else if(laneNumber == 0 || laneNumber == 4)
         {
             noteSpawnY = 400;
+            transform.Rotate(0, 0, 90);
+
         }
 
     }
