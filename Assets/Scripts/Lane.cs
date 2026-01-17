@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +10,8 @@ using UnityEngine.UI;
 public class Lane : MonoBehaviour
 {
     public List<double> timeStamps = new List<double>();
+    public List<double> holdTimeStamps = new List<double>();
+
     List<Note> notes = new List<Note>();
     public string input;
     public string LaneNumber;
@@ -22,13 +25,21 @@ public class Lane : MonoBehaviour
     {
         string text = txt.text;
         string[] lines = text.Replace("\r", "").Split('\n');
-        for(int i = 0; i < lines.Length; i++)
+        for(int i = 0; i < lines.Length-1; i++)
         {
             if (lines[i].Substring(0,1) == LaneNumber)
             {
-                Debug.Log(lines[i]);
-                Debug.Log(lines[i].Substring(0, 1));
-                AddNote(lines[i]);
+                if (lines[i].Substring(lines[i].IndexOf(":")+1,1) == "0")
+                {
+                    Debug.Log(lines[i]);
+                    Debug.Log(lines[i].Substring(0, 1));
+                    AddNote(lines[i]);
+                }
+                else if (lines[i].Substring(lines[i].IndexOf(":")+1, 1) == "1")
+                {
+                    AddHoldNote(lines[i]);
+                }
+                
             }
         }
     }
@@ -36,7 +47,12 @@ public class Lane : MonoBehaviour
     void AddNote(string Line)
     {
         Debug.Log(Line.Substring(Line.IndexOf(",") + 1, Line.Length - 2));
-        timeStamps.Add(Convert.ToDouble(Line.Substring(Line.IndexOf(",")+1, Line.Length - 2))/1000);
+        timeStamps.Add(Convert.ToDouble(Line.Substring(Line.IndexOf(",")+1, Line.Length - 4))/1000);
+    }
+
+    void AddHoldNote(string Line)
+    {
+        holdTimeStamps.Add(Convert.ToDouble(Line.Substring(Line.IndexOf(",") + 1, Line.Length - 4)) / 1000);
     }
 
     // Update is called once per frame
