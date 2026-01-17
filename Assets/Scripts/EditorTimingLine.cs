@@ -89,9 +89,10 @@ public class EditorTimingLine : MonoBehaviour
             ? (Time.timeSinceLevelLoad - spawnDelay) + timeInstantiated
             : SongControl.GetSongTime() - timeInstantiated;
         float t = (float)(timeSinceInstantiated / (0.7f * 2 / SongControl.Instance.noteSpeed));
-
-
-        if (timeSinceInstantiated > 0.7 / SongControl.Instance.noteSpeed)
+        Debug.Log(timeInstantiated + ",,");
+        Debug.Log(SongControl.GetSongTime());
+        
+        if (timeSinceInstantiated - 0.001 > 0.7 / SongControl.Instance.noteSpeed) //minus one millisecond so if arrow keys are used to go through map the editor line still shows properly
         {
             if(laneNumber < 4)
             {
@@ -106,11 +107,12 @@ public class EditorTimingLine : MonoBehaviour
                 Destroy(transform.GetChild(0).gameObject);
             }
             timeInstantiated += timeStampIncrement;
+            Debug.Log("qweqwe");
             GetComponent<RawImage>().enabled = false;
         }
         else
         {
-            if(timeSinceInstantiated > 0 && !GetComponent<RawImage>().enabled)
+            if(timeSinceInstantiated - 0.001 > 0 && !GetComponent<RawImage>().enabled) // add one millisecond so that when skipping through song with arrow keys editor line is shown properly
             {
                 GetComponent<RawImage>().enabled = true;
             }
@@ -126,6 +128,28 @@ public class EditorTimingLine : MonoBehaviour
             {
                 transform.localPosition = Vector3.Lerp(Vector3.right * noteSpawnX, Vector3.right * noteDespawnX, t);
             }
+        }
+
+        if (timeInstantiated > SongControl.GetSongTime())
+        {
+            Debug.Log(timeSinceInstantiated);
+            if (laneNumber == 0 || laneNumber == 4)
+            {
+                transform.localPosition += new Vector3(0, -400);
+            }
+            else if (laneNumber == 2 || laneNumber == 6)
+            {
+                transform.localPosition += new Vector3(0, 400);
+            }
+            else if (laneNumber == 1 || laneNumber == 5)
+            {
+                transform.localPosition += new Vector3(400, 0);
+            }
+            else if (laneNumber == 3 || laneNumber == 7)
+            {
+                transform.localPosition += new Vector3(-400, 0);
+            }
+            timeInstantiated -= timeStampIncrement;
         }
     }
 }
