@@ -89,12 +89,10 @@ public class EditorTimingLine : MonoBehaviour
             ? (Time.timeSinceLevelLoad - spawnDelay) + timeInstantiated
             : SongControl.GetSongTime() - timeInstantiated;
         float t = (float)(timeSinceInstantiated / (0.7f * 2 / SongControl.Instance.noteSpeed));
-        Debug.Log(timeInstantiated + ",,");
-        Debug.Log(SongControl.GetSongTime());
         
         if (timeSinceInstantiated - 0.001 > 0.7 / SongControl.Instance.noteSpeed) //minus one millisecond so if arrow keys are used to go through map the editor line still shows properly
         {
-            if(laneNumber < 4)
+            if(laneNumber < 4) 
             {
                 transform.localPosition = new Vector3(-500, 0);
             }
@@ -107,7 +105,6 @@ public class EditorTimingLine : MonoBehaviour
                 Destroy(transform.GetChild(0).gameObject);
             }
             timeInstantiated += timeStampIncrement;
-            Debug.Log("qweqwe");
             GetComponent<RawImage>().enabled = false;
         }
         else
@@ -132,7 +129,6 @@ public class EditorTimingLine : MonoBehaviour
 
         if (timeInstantiated > SongControl.GetSongTime())
         {
-            Debug.Log(timeSinceInstantiated);
             if (laneNumber == 0 || laneNumber == 4)
             {
                 transform.localPosition += new Vector3(0, -400);
