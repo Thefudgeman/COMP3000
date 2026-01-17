@@ -545,7 +545,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 8c61d042ddecdf244bac6fa342832e63, type: 3}
+  m_Texture: {fileID: 2800000, guid: a4a7003403c139f4d83173d4d756bd06, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -2573,6 +2573,7 @@ GameObject:
   - component: {fileID: 1765844604}
   - component: {fileID: 1765844603}
   - component: {fileID: 1765844605}
+  - component: {fileID: 1765844606}
   m_Layer: 0
   m_Name: Music
   m_TagString: Untagged
@@ -2708,6 +2709,18 @@ MonoBehaviour:
   noteSpeed: 1
   bpm: 300
   editor: 1
+--- !u!114 &1765844606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1765844602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa82f43742d81f8478bf470c9879b73f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1784916717
 GameObject:
   m_ObjectHideFlags: 0
@@ -2770,7 +2783,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 8c61d042ddecdf244bac6fa342832e63, type: 3}
+  m_Texture: {fileID: 2800000, guid: a4a7003403c139f4d83173d4d756bd06, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
