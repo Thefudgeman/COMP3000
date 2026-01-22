@@ -12,12 +12,13 @@ public class Lane : MonoBehaviour
 {
     public List<double> timeStamps = new List<double>();
     public List<HoldNoteData> holdTimeStamps = new List<HoldNoteData>();
-
+    List<HoldNote> holdNotes = new List<HoldNote>();
     List<Note> notes = new List<Note>();
     public string input;
     public string LaneNumber;
     public TextAsset txt;
     public GameObject notePrefab;
+    public GameObject holdPrefab;
     public AudioSource audioSource;
     int index = 0;
     int holdIndex = 0;
@@ -92,14 +93,19 @@ public class Lane : MonoBehaviour
             if (SongControl.GetSongTime() >= holdTimeStamps[holdIndex].headTime - ((0.7 / SongControl.Instance.noteSpeed)))
             {
                 //holdNote prefab needed
-
+                var note = Instantiate(holdPrefab, transform);
+                note.transform.position = note.transform.parent.transform.parent.transform.position;
+                holdNotes.Add(note.GetComponent<HoldNote>());
+                note.GetComponent<HoldNote>().headHitTime = (float)holdTimeStamps[holdIndex].headTime;
+                note.GetComponent<HoldNote>().tailHitTime = (float)holdTimeStamps[holdIndex].tailTime;
+                note.GetComponent<HoldNote>().laneNumber = Convert.ToInt32(LaneNumber);
                 if (Convert.ToInt32(LaneNumber) < 4)
                 {
-                 //   holdNote.GetComponent<Note>().noteSpawnX = -400;
+                    holdPrefab.GetComponent<Note>().noteSpawnX = -400;
                 }
                 else
                 {
-               //     holdNote.GetComponent<Note>().noteSpawnX = 400;
+                    holdPrefab.GetComponent<Note>().noteSpawnX = 400;
                 }
                 holdIndex++;
             }
