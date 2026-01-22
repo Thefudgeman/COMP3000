@@ -251,7 +251,7 @@ MonoBehaviour:
   LaneNumber: 3
   txt: {fileID: 4900000, guid: 52959423ff344034b94f4c73718549c9, type: 3}
   notePrefab: {fileID: 8992053151806931671, guid: 30f9788e297829e4e8a022115d6b372f, type: 3}
-  holdPrefab: {fileID: 8992053151806931671, guid: 30f9788e297829e4e8a022115d6b372f, type: 3}
+  holdPrefab: {fileID: 7926207165129435114, guid: d074d24f67d6e3e498bb2348257e0b7a, type: 3}
   audioSource: {fileID: 2059307748}
 --- !u!1 &242146015
 GameObject:
