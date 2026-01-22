@@ -251,6 +251,7 @@ MonoBehaviour:
   LaneNumber: 3
   txt: {fileID: 4900000, guid: 52959423ff344034b94f4c73718549c9, type: 3}
   notePrefab: {fileID: 8992053151806931671, guid: 30f9788e297829e4e8a022115d6b372f, type: 3}
+  holdPrefab: {fileID: 8992053151806931671, guid: 30f9788e297829e4e8a022115d6b372f, type: 3}
   audioSource: {fileID: 2059307748}
 --- !u!1 &242146015
 GameObject:
@@ -661,6 +662,7 @@ MonoBehaviour:
   LaneNumber: 5
   txt: {fileID: 4900000, guid: 52959423ff344034b94f4c73718549c9, type: 3}
   notePrefab: {fileID: 8992053151806931671, guid: 30f9788e297829e4e8a022115d6b372f, type: 3}
+  holdPrefab: {fileID: 7926207165129435114, guid: d074d24f67d6e3e498bb2348257e0b7a, type: 3}
   audioSource: {fileID: 2059307748}
 --- !u!1 &480643349
 GameObject:
@@ -761,6 +763,7 @@ MonoBehaviour:
   LaneNumber: 1
   txt: {fileID: 4900000, guid: 52959423ff344034b94f4c73718549c9, type: 3}
   notePrefab: {fileID: 8992053151806931671, guid: 30f9788e297829e4e8a022115d6b372f, type: 3}
+  holdPrefab: {fileID: 7926207165129435114, guid: d074d24f67d6e3e498bb2348257e0b7a, type: 3}
   audioSource: {fileID: 2059307748}
 --- !u!1 &841155310
 GameObject:
@@ -952,6 +955,7 @@ MonoBehaviour:
   LaneNumber: 4
   txt: {fileID: 4900000, guid: 52959423ff344034b94f4c73718549c9, type: 3}
   notePrefab: {fileID: 8992053151806931671, guid: 30f9788e297829e4e8a022115d6b372f, type: 3}
+  holdPrefab: {fileID: 7926207165129435114, guid: d074d24f67d6e3e498bb2348257e0b7a, type: 3}
   audioSource: {fileID: 2059307748}
 --- !u!1 &905427990
 GameObject:
@@ -1075,6 +1079,7 @@ MonoBehaviour:
   LaneNumber: 7
   txt: {fileID: 4900000, guid: 52959423ff344034b94f4c73718549c9, type: 3}
   notePrefab: {fileID: 8992053151806931671, guid: 30f9788e297829e4e8a022115d6b372f, type: 3}
+  holdPrefab: {fileID: 7926207165129435114, guid: d074d24f67d6e3e498bb2348257e0b7a, type: 3}
   audioSource: {fileID: 2059307748}
 --- !u!1 &1121523933
 GameObject:
@@ -1932,6 +1937,7 @@ MonoBehaviour:
   LaneNumber: 6
   txt: {fileID: 4900000, guid: 52959423ff344034b94f4c73718549c9, type: 3}
   notePrefab: {fileID: 8992053151806931671, guid: 30f9788e297829e4e8a022115d6b372f, type: 3}
+  holdPrefab: {fileID: 7926207165129435114, guid: d074d24f67d6e3e498bb2348257e0b7a, type: 3}
   audioSource: {fileID: 2059307748}
 --- !u!1 &1891207364
 GameObject:
@@ -2092,6 +2098,7 @@ MonoBehaviour:
   LaneNumber: 2
   txt: {fileID: 4900000, guid: 52959423ff344034b94f4c73718549c9, type: 3}
   notePrefab: {fileID: 8992053151806931671, guid: 30f9788e297829e4e8a022115d6b372f, type: 3}
+  holdPrefab: {fileID: 7926207165129435114, guid: d074d24f67d6e3e498bb2348257e0b7a, type: 3}
   audioSource: {fileID: 2059307748}
 --- !u!1 &1953417245
 GameObject:
@@ -2358,4 +2365,5 @@ MonoBehaviour:
   LaneNumber: 0
   txt: {fileID: 4900000, guid: 52959423ff344034b94f4c73718549c9, type: 3}
   notePrefab: {fileID: 8992053151806931671, guid: 30f9788e297829e4e8a022115d6b372f, type: 3}
+  holdPrefab: {fileID: 7926207165129435114, guid: d074d24f67d6e3e498bb2348257e0b7a, type: 3}
   audioSource: {fileID: 2059307748}

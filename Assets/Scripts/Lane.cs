@@ -57,12 +57,11 @@ public class Lane : MonoBehaviour
     {
         HoldNoteData holdNote = new HoldNoteData();
         string[] data = Line.Split(",");
-        holdNote.headTime = Convert.ToDouble(data[1]);
-        holdNote.tailTime = Convert.ToDouble(data[2].Substring(0,data[2].Length-2));
+        holdNote.headTime = Convert.ToDouble(data[1])/1000;
+        holdNote.tailTime = Convert.ToDouble(data[2].Substring(0,data[2].Length-2))/1000;
         holdTimeStamps.Add(holdNote);
         Debug.Log(holdNote.headTime);
         Debug.Log(holdNote.tailTime);
-        Debug.Log("ert");
     }
 
     // Update is called once per frame
@@ -99,13 +98,18 @@ public class Lane : MonoBehaviour
                 note.GetComponent<HoldNote>().headHitTime = (float)holdTimeStamps[holdIndex].headTime;
                 note.GetComponent<HoldNote>().tailHitTime = (float)holdTimeStamps[holdIndex].tailTime;
                 note.GetComponent<HoldNote>().laneNumber = Convert.ToInt32(LaneNumber);
+
+
+                note.GetComponent<HoldNote>().headHitTime = (float)holdTimeStamps[holdIndex].headTime;
+                note.GetComponent<HoldNote>().tailHitTime = (float)holdTimeStamps[holdIndex].tailTime;
+
                 if (Convert.ToInt32(LaneNumber) < 4)
                 {
-                    holdPrefab.GetComponent<Note>().noteSpawnX = -400;
+                    note.GetComponent<HoldNote>().noteSpawnX = -400;
                 }
                 else
                 {
-                    holdPrefab.GetComponent<Note>().noteSpawnX = 400;
+                    note.GetComponent<HoldNote>().noteSpawnX = 400;
                 }
                 holdIndex++;
             }
