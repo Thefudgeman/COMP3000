@@ -32,6 +32,7 @@ public class EditorTimingLine : MonoBehaviour
     public float timeStampIncrement;
     public float times;
     public float timeStampIncrementMultiplayer;
+    public int beatDivsion;
     // Start is called before the first frame update
     void Start()
     {
@@ -47,11 +48,11 @@ public class EditorTimingLine : MonoBehaviour
         }
         else if (gameObject.name =="QuarterBeat(Clone)")
         {
-            timeInstantiated = 1f / (SongControl.Instance.bpm / 60f) / 4f - (0.7f / SongControl.Instance.noteSpeed) + (1f / (SongControl.Instance.bpm / 60f) * times);
+            timeInstantiated = 1f / (SongControl.Instance.bpm / 60f) / beatDivsion - (0.7f / SongControl.Instance.noteSpeed) + (1f / (SongControl.Instance.bpm / 60f) * times);
         }
         else if (gameObject.name == "QuarterBeat2(Clone)")
         {
-            timeInstantiated = 1f / (SongControl.Instance.bpm / 60f) / 4f * 3f - (0.7f / SongControl.Instance.noteSpeed) + (1f / (SongControl.Instance.bpm / 60f) * times);
+            timeInstantiated = 1f / (SongControl.Instance.bpm / 60f) / beatDivsion *(beatDivsion-1) - (0.7f / SongControl.Instance.noteSpeed) + (1f / (SongControl.Instance.bpm / 60f) * times);
         }
 
         if (laneNumber == 6 || laneNumber == 2)
@@ -64,7 +65,7 @@ public class EditorTimingLine : MonoBehaviour
         }
         if (laneNumber == 7)
         {
-            noteTapX = -900;
+            noteTapX = 900;
         }
         else if (laneNumber == 5)
         {
@@ -76,7 +77,7 @@ public class EditorTimingLine : MonoBehaviour
         }
         else if (laneNumber == 1)
         {
-            noteTapX = 900;
+            noteTapX = -900;
         }
     }
 
@@ -119,7 +120,7 @@ public class EditorTimingLine : MonoBehaviour
             }
             else if (laneNumber == 1 || laneNumber == 7)
             {
-                transform.localPosition = Vector3.Lerp(Vector3.left * noteSpawnX, Vector3.left * noteDespawnX, t);
+                transform.localPosition = Vector3.Lerp(Vector3.left * -noteSpawnX, Vector3.left * -noteDespawnX, t);
             }
             else if (laneNumber == 3 || laneNumber == 5)
             {
