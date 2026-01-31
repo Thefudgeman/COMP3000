@@ -11,6 +11,7 @@ public class enableButtons : MonoBehaviour
     public Button quitButton, playPauseButton, saveButton;
     public TMP_Dropdown dropdown;
     public GameObject setup;
+    public TMP_InputField bpm;
 
     public void enableButton()
     {
@@ -62,6 +63,7 @@ public class enableButtons : MonoBehaviour
         playPauseButton.GetComponent<Button>().enabled = true;
         saveButton.GetComponent<Button>().enabled = true;
         setup.SetActive(false);
+        SongControl.Instance.bpm = float.Parse(bpm.text);
         GridUI.Instance.GenerateGrid();
     }
 }
