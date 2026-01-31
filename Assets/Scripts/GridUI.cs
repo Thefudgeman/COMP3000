@@ -13,11 +13,12 @@ public class GridUI : MonoBehaviour
     public List<double> timeStamps = new List<double>();
     public List<EditorTimingLine> editorTimingLines = new List<EditorTimingLine>();
     public int beatDivision;
-
+    public static GridUI Instance;
     // Start is called before the first frame update
     void Start()
     {
-       Invoke(nameof(GenerateGrid), 0.01f); //wait for SongControl.Instance to be created first to get bpm and noteSpeed
+    //   Invoke(nameof(GenerateGrid), 0.01f); //wait for SongControl.Instance to be created first to get bpm and noteSpeed
+        Instance = this;
     }
 
     // Update is called once per frame

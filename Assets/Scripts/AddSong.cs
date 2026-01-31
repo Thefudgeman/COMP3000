@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
+using TMPro;
 using Unity.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -15,10 +16,13 @@ using UnityEngine.UI;
 public class AddSong : MonoBehaviour, IPointerDownHandler {
     public RawImage output;
     public AudioSource audioSource;
+    public static AddSong Instance;
+    public TMP_InputField inputField;
 
     public void OnPointerDown(PointerEventData eventData) { }
 
     void Start() {
+        Instance = this;
         var button = GetComponent<Button>();
         button.onClick.AddListener(OnClick);
     }
@@ -37,20 +41,7 @@ public class AddSong : MonoBehaviour, IPointerDownHandler {
         Debug.Log(loader.url);
         AudioClip audio = loader.GetAudioClip();
         audioSource.clip = audio;
-        Debug.Log(audio.frequency);
-        audioSource.Play();
-        Debug.Log(loader.url);
-        Debug.Log(url);
-        int i;
-        for (i = url.Length-1; i > 0; i--)
-        {
-            if (url[i] == '\\')
-            {
-                break;
-            }
-        }
-        Debug.Log(i);
-        File.Copy(url, "Assets/Music/"+url.Substring(i+1));
+        inputField.text = url;
     }
 
 }
