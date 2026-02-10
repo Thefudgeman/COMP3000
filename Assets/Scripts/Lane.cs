@@ -120,6 +120,6 @@ public class Lane : MonoBehaviour
 
 public class HoldNoteData
 {
-    public double headTime;
-    public double tailTime;
+    public double headTime = -1;
+    public double tailTime = -1;
 }
