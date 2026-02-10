@@ -19,20 +19,37 @@ public class GridOnClick : MonoBehaviour
 
     public void click()
     {
-        if(transform.childCount == 0)
+        if(!GridUI.Instance.addHoldNote)
         {
-            var newNote = Instantiate(note, transform);
-            newNote.transform.position = newNote.transform.parent.transform.position;
-            newNote.transform.localPosition += new Vector3(0, 23);
-            newNote.GetComponent<EditorNote>().timeStamp = GetComponentInParent<EditorTimingLine>().timeInstantiated + (0.7f/ SongControl.Instance.noteSpeed);
-            GetComponentInParent<EditorTimingLine>().noteTimeStamps.Add(newNote.GetComponent<EditorNote>().timeStamp);
+            if (transform.childCount == 0)
+            {
+                var newNote = Instantiate(note, transform);
+                newNote.transform.position = newNote.transform.parent.transform.position;
+                newNote.transform.localPosition += new Vector3(0, 23);
+                newNote.GetComponent<EditorNote>().timeStamp = GetComponentInParent<EditorTimingLine>().timeInstantiated + (0.7f / SongControl.Instance.noteSpeed);
+                GetComponentInParent<EditorTimingLine>().noteTimeStamps.Add(newNote.GetComponent<EditorNote>().timeStamp);
+            }
+            else
+            {
+                GetComponentInParent<EditorTimingLine>().noteTimeStamps.Remove(transform.GetChild(0).GetComponent<EditorNote>().timeStamp);
+                Destroy(this.transform.GetChild(0).gameObject);
+            }
         }
         else
         {
-            GetComponentInParent<EditorTimingLine>().noteTimeStamps.Remove(transform.GetChild(0).GetComponent<EditorNote>().timeStamp);
-            Destroy(this.transform.GetChild(0).gameObject);
+            if(!GridUI.Instance.headAdded)
+            {
+                GridUI.Instance.headTimingLine = transform.gameObject;
+                GridUI.Instance.holdNoteData.headTime = GetComponentInParent<EditorTimingLine>().timeInstantiated + (0.7f / SongControl.Instance.noteSpeed);
+                GridUI.Instance.headAdded = true;
+            }
+            else
+            {
+                GridUI.Instance.tailTimingLine = transform.gameObject;
+                GridUI.Instance.holdNoteData.tailTime = GetComponentInParent<EditorTimingLine>().timeInstantiated + (0.7f / SongControl.Instance.noteSpeed);
+                GridUI.Instance.tailAdded = true;
+            }
         }
-
             Debug.Log("afasfa");
     }
 }

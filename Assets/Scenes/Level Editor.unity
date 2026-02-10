@@ -1223,6 +1223,15 @@ MonoBehaviour:
   timeStamps: []
   editorTimingLines: []
   beatDivision: 3
+  addHoldNote: 1
+  headAdded: 0
+  tailAdded: 0
+  holdNoteCreated: 0
+  holdNote: {fileID: 7926207165129435114, guid: d074d24f67d6e3e498bb2348257e0b7a, type: 3}
+  newNote: {fileID: 0}
+  timingLine: {fileID: 0}
+  headTimingLine: {fileID: 0}
+  tailTimingLine: {fileID: 0}
 --- !u!65 &568918942
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -7,6 +7,8 @@ using UnityEngine.UIElements;
 public class EditorTimingLine : MonoBehaviour
 {
     public List<float> noteTimeStamps = new List<float>();
+    public List<HoldNoteData> holdNoteTimeStamps = new List<HoldNoteData>();
+
     public int laneNumber;
     public Vector3 position;
     public float hitTime;

@@ -14,17 +14,70 @@ public class GridUI : MonoBehaviour
     public List<EditorTimingLine> editorTimingLines = new List<EditorTimingLine>();
     public int beatDivision;
     public static GridUI Instance;
+    public bool addHoldNote = true;
+    public bool headAdded = false;
+    public bool tailAdded = false;
+    public bool holdNoteCreated = false;
+    public GameObject holdNote;
+    public GameObject newNote;
+    public HoldNoteData holdNoteData = new HoldNoteData();
+    public GameObject timingLine;
+    public GameObject headTimingLine;
+    public GameObject tailTimingLine;
     // Start is called before the first frame update
     void Start()
     {
     //   Invoke(nameof(GenerateGrid), 0.01f); //wait for SongControl.Instance to be created first to get bpm and noteSpeed
         Instance = this;
+        holdNoteData.tailTime = -1;
+        holdNoteData.headTime = -1;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(addHoldNote)
+        {
+           // if (timingLine.transform.childCount == 0)
+          //  {
+
+
+
+            if (holdNoteData.headTime != -1)
+            {
+                if (!holdNoteCreated)
+                {
+                    newNote = Instantiate(holdNote, headTimingLine.transform);
+                    holdNoteCreated = true;
+                }
+                newNote.transform.GetChild(0).localPosition = headTimingLine.transform.position;
+             //   newNote.transform.localPosition += new Vector3(0, 23);
+                newNote.GetComponent<HoldNote>().headHitTime = (float)holdNoteData.headTime;
+            }
+                
+            if(holdNoteData.tailTime != -1)
+            {
+                newNote.transform.GetChild(1).position = tailTimingLine.transform.position;
+             //   newNote.transform.localPosition += new Vector3(0, 23);
+                newNote.GetComponent<HoldNote>().tailHitTime = (float)holdNoteData.tailTime;
+            }
+
+            if(headAdded && tailAdded)
+            {
+                headTimingLine.GetComponent<EditorTimingLine>().holdNoteTimeStamps.Add(holdNoteData);
+                headAdded = false;
+                tailAdded = false;
+                holdNoteCreated= false;
+                holdNoteData.tailTime = -1;
+                holdNoteData.headTime = -1;
+            }
+
+        //    }
+       //     else
+        //    {
+
+        //   }
+        }
     }
 
     public void GenerateGrid()
