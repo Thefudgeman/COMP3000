@@ -49,26 +49,11 @@ public class GridUI : MonoBehaviour
                 {
                     newNote = Instantiate(holdNote, headTimingLine.transform);
                     holdNoteCreated = true;
-                    if (headTimingLine.GetComponent<EditorTimingLine>().laneNumber == 3 || headTimingLine.GetComponent<EditorTimingLine>().laneNumber == 7)
-                    {
-                        newNote.transform.Rotate(0, 0, 180);
-                    }
-                    else if (headTimingLine.GetComponent<EditorTimingLine>().laneNumber == 2 || headTimingLine.GetComponent<EditorTimingLine>().laneNumber == 6)
-                    {
-                        newNote.transform.Rotate(0, 0, 180);
-                    }
-                    else if (headTimingLine.GetComponent<EditorTimingLine>().laneNumber == 1 || headTimingLine.GetComponent<EditorTimingLine>().laneNumber == 5)
-                    {
-                        newNote.transform.Rotate(0, 0, 180);
-                    }
-                    else if (headTimingLine.GetComponent<EditorTimingLine>().laneNumber == 0 || headTimingLine.GetComponent<EditorTimingLine>().laneNumber == 4)
-                    {
-                        newNote.transform.Rotate(0, 0,180);
-                    }
+                    newNote.transform.Rotate(0, 0, -90);
                 }
                 newNote.transform.GetChild(0).localPosition = headTimingLine.transform.position;
              //   newNote.transform.localPosition += new Vector3(0, 23);
-                newNote.GetComponent<HoldNote>().headHitTime = (float)holdNoteData.headTime;
+                newNote.GetComponent<EditorHoldNote>().headHitTime = (float)holdNoteData.headTime;
 
             }
                 
@@ -76,7 +61,7 @@ public class GridUI : MonoBehaviour
             {
                 newNote.transform.GetChild(1).position = tailTimingLine.transform.position;
              //   newNote.transform.localPosition += new Vector3(0, 23);
-                newNote.GetComponent<HoldNote>().tailHitTime = (float)holdNoteData.tailTime;
+                newNote.GetComponent<EditorHoldNote>().tailHitTime = (float)holdNoteData.tailTime;
 
             }
 

@@ -105,7 +105,20 @@ public class EditorTimingLine : MonoBehaviour
             }
             if (transform.childCount > 0)
             {
-                Destroy(transform.GetChild(0).gameObject);
+                if(transform.GetChild(0).gameObject.GetComponent<EditorHoldNote>() != null) 
+                {
+                    transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
+                    if(transform.GetChild(0).GetComponent<EditorHoldNote>().tailHitTime * 1000.0f > SongControl.GetSongTime())
+                    {
+                     //   Destroy(transform.GetChild(0).gameObject);
+
+                    }
+                }
+                else
+                {
+                    Destroy(transform.GetChild(0).gameObject);
+
+                }
             }
             timeInstantiated += timeStampIncrement;
             GetComponent<RawImage>().enabled = false;

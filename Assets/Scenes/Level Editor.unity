@@ -1227,10 +1227,10 @@ MonoBehaviour:
   headAdded: 0
   tailAdded: 0
   holdNoteCreated: 0
-  holdNote: {fileID: 7926207165129435114, guid: d074d24f67d6e3e498bb2348257e0b7a, type: 3}
-  newNote: {fileID: 0}
+  holdNote: {fileID: 7926207165129435114, guid: fbd7264b721fab44086ed2647e905e26, type: 3}
   timingLine: {fileID: 0}
   headTimingLine: {fileID: 0}
+  newNote: {fileID: 0}
   tailTimingLine: {fileID: 0}
 --- !u!65 &568918942
 BoxCollider:

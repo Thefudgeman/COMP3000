@@ -74,7 +74,7 @@ public class Note : MonoBehaviour
         float t = (float)(timeSinceInstantiated / (0.7f * 2 / SongControl.Instance.noteSpeed));
         float sizeScale = timeAlive/(float)timeSinceInstantiated;
 
-        if (timeSinceInstantiated > 0.7/ SongControl.Instance.noteSpeed + 0.2) //if player does not hit the object destroy it once it is outside of the margin of error
+        if (timeSinceInstantiated > (0.7/ SongControl.Instance.noteSpeed) + 0.13) //if player does not hit the object destroy it once it is outside of the margin of error
         {
             Destroy(gameObject);
             Debug.Log(SongControl.GetSongTime());
