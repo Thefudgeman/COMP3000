@@ -19,10 +19,10 @@ public class GridUI : MonoBehaviour
     public bool tailAdded = false;
     public bool holdNoteCreated = false;
     public GameObject holdNote;
-    public GameObject newNote;
     public HoldNoteData holdNoteData = new HoldNoteData();
-    public GameObject timingLine;
+    public EditorTimingLine timingLine;
     public GameObject headTimingLine;
+    public GameObject newNote;
     public GameObject tailTimingLine;
     // Start is called before the first frame update
     void Start()
@@ -49,10 +49,27 @@ public class GridUI : MonoBehaviour
                 {
                     newNote = Instantiate(holdNote, headTimingLine.transform);
                     holdNoteCreated = true;
+                    if (headTimingLine.GetComponent<EditorTimingLine>().laneNumber == 3 || headTimingLine.GetComponent<EditorTimingLine>().laneNumber == 7)
+                    {
+                        newNote.transform.Rotate(0, 0, 180);
+                    }
+                    else if (headTimingLine.GetComponent<EditorTimingLine>().laneNumber == 2 || headTimingLine.GetComponent<EditorTimingLine>().laneNumber == 6)
+                    {
+                        newNote.transform.Rotate(0, 0, 180);
+                    }
+                    else if (headTimingLine.GetComponent<EditorTimingLine>().laneNumber == 1 || headTimingLine.GetComponent<EditorTimingLine>().laneNumber == 5)
+                    {
+                        newNote.transform.Rotate(0, 0, 180);
+                    }
+                    else if (headTimingLine.GetComponent<EditorTimingLine>().laneNumber == 0 || headTimingLine.GetComponent<EditorTimingLine>().laneNumber == 4)
+                    {
+                        newNote.transform.Rotate(0, 0,180);
+                    }
                 }
                 newNote.transform.GetChild(0).localPosition = headTimingLine.transform.position;
              //   newNote.transform.localPosition += new Vector3(0, 23);
                 newNote.GetComponent<HoldNote>().headHitTime = (float)holdNoteData.headTime;
+
             }
                 
             if(holdNoteData.tailTime != -1)
@@ -60,6 +77,7 @@ public class GridUI : MonoBehaviour
                 newNote.transform.GetChild(1).position = tailTimingLine.transform.position;
              //   newNote.transform.localPosition += new Vector3(0, 23);
                 newNote.GetComponent<HoldNote>().tailHitTime = (float)holdNoteData.tailTime;
+
             }
 
             if(headAdded && tailAdded)
@@ -68,6 +86,7 @@ public class GridUI : MonoBehaviour
                 headAdded = false;
                 tailAdded = false;
                 holdNoteCreated= false;
+                Debug.Log(holdNoteCreated);
                 holdNoteData.tailTime = -1;
                 holdNoteData.headTime = -1;
             }

@@ -83,40 +83,40 @@ public class HoldNote : MonoBehaviour
         float headT = (float)(headTimeSinceInstantiated / (0.7f * 2 / SongControl.Instance.noteSpeed));
         float headSizeScale = timeAlive / (float)headTimeSinceInstantiated;
 
-    //    if (headTimeSinceInstantiated > 0.7 / SongControl.Instance.noteSpeed + 0.2) //if player does not hit the object destroy it once it is outside of the margin of error
-    //    {
-    //        Destroy(transform.GetChild(0).gameObject);
-    //        Debug.Log(SongControl.GetSongTime());
-    //    }
-    //    else
-    //    {
+        if (headTimeSinceInstantiated > 0.7 / SongControl.Instance.noteSpeed + 0.2) //if player does not hit the object destroy it once it is outside of the margin of error
+        {
+            Destroy(transform.GetChild(0).gameObject);
+            Debug.Log(SongControl.GetSongTime());
+        }
+        else
+        {
 
-    //        if (laneNumber == 0 || laneNumber == 4 || laneNumber == 2 || laneNumber == 6)
-    //        {
-    //            transform.GetChild(0).position = Vector3.Lerp(Vector3.up * noteSpawnY, Vector3.up * noteDespawnY, headT);
-    //        }
-    //        else if (laneNumber == 1 || laneNumber == 7)
-    //        {
-    //            transform.GetChild(0).position = Vector3.Lerp(Vector3.left * noteSpawnX, Vector3.left * noteDespawnX, headT);
+            if (laneNumber == 0 || laneNumber == 4 || laneNumber == 2 || laneNumber == 6)
+            {
+                transform.GetChild(0).position = Vector3.Lerp(Vector3.up * noteSpawnY, Vector3.up * noteDespawnY, headT);
+            }
+            else if (laneNumber == 1 || laneNumber == 7)
+            {
+                transform.GetChild(0).position = Vector3.Lerp(Vector3.left * noteSpawnX, Vector3.left * noteDespawnX, headT);
 
-    //        }
-    //        else if (laneNumber == 3 || laneNumber == 5)
-    //        {
-    //            transform.GetChild(0).position = Vector3.Lerp(Vector3.right * noteSpawnX, Vector3.right * noteDespawnX, headT);
-    //        }
+            }
+            else if (laneNumber == 3 || laneNumber == 5)
+            {
+                transform.GetChild(0).position = Vector3.Lerp(Vector3.right * noteSpawnX, Vector3.right * noteDespawnX, headT);
+            }
 
-    //        if(laneNumber<4)
-    //        {
-    //            transform.GetChild(0).localPosition += new Vector3(-500, 0, 0);
-    //        }
-    //        else
-    //        {
-    //            transform.GetChild(0).localPosition += new Vector3(500, 0, 0);
+            if (laneNumber < 4)
+            {
+                transform.GetChild(0).localPosition += new Vector3(-500, 0, 0);
+            }
+            else
+            {
+                transform.GetChild(0).localPosition += new Vector3(500, 0, 0);
 
-    //        }
+            }
 
             headSize.sizeDelta = new Vector2(162.0f / headSizeScale, 557.0f / headSizeScale);
-    //    }
+        }
 
         double tailTimeSinceInstantiated = spawnDelay > 0 && tailTimeInstantiated < 0
             ? (Time.timeSinceLevelLoad - spawnDelay) + tailTimeInstantiated
@@ -124,40 +124,40 @@ public class HoldNote : MonoBehaviour
         float tailT = (float)(tailTimeSinceInstantiated / (0.7f * 2 / SongControl.Instance.noteSpeed));
         float tailSizeScale = timeAlive / (float)tailTimeSinceInstantiated;
 
-    //    if (tailTimeSinceInstantiated > 0.7 / SongControl.Instance.noteSpeed + 0.2) //if player does not hit the object destroy it once it is outside of the margin of error
-    //    {
-    ////        Destroy(transform.GetChild(1).gameObject);
-    //        Debug.Log(SongControl.GetSongTime());
-    //    }
-    //    else
-    //    {
+        if (tailTimeSinceInstantiated > 0.7 / SongControl.Instance.noteSpeed + 0.2) //if player does not hit the object destroy it once it is outside of the margin of error
+        {
+            //        Destroy(transform.GetChild(1).gameObject);
+            Debug.Log(SongControl.GetSongTime());
+        }
+        else
+        {
 
-    //        if (laneNumber == 0 || laneNumber == 4 || laneNumber == 2 || laneNumber == 6)
-    //        {
-    //            transform.GetChild(1).position = Vector3.Lerp(Vector3.up * noteSpawnY, Vector3.up * noteDespawnY, tailT);
-    //        }
-    //        else if (laneNumber == 1 || laneNumber == 7)
-    //        {
-    //            transform.GetChild(1).position = Vector3.Lerp(Vector3.left * noteSpawnX, Vector3.left * noteDespawnX, tailT);
+            if (laneNumber == 0 || laneNumber == 4 || laneNumber == 2 || laneNumber == 6)
+            {
+                transform.GetChild(1).position = Vector3.Lerp(Vector3.up * noteSpawnY, Vector3.up * noteDespawnY, tailT);
+            }
+            else if (laneNumber == 1 || laneNumber == 7)
+            {
+                transform.GetChild(1).position = Vector3.Lerp(Vector3.left * noteSpawnX, Vector3.left * noteDespawnX, tailT);
 
-    //        }
-    //        else if (laneNumber == 3 || laneNumber == 5)
-    //        {
-    //            transform.GetChild(1).position = Vector3.Lerp(Vector3.right * noteSpawnX, Vector3.right * noteDespawnX, tailT);
-    //        }
+            }
+            else if (laneNumber == 3 || laneNumber == 5)
+            {
+                transform.GetChild(1).position = Vector3.Lerp(Vector3.right * noteSpawnX, Vector3.right * noteDespawnX, tailT);
+            }
 
-    //        if (laneNumber < 4)
-    //        {
-    //            transform.GetChild(1).localPosition += new Vector3(-500, 0, 0);
-    //        }
-    //        else
-    //        {
-    //            transform.GetChild(1).localPosition += new Vector3(500, 0, 0);
+            if (laneNumber < 4)
+            {
+                transform.GetChild(1).localPosition += new Vector3(-500, 0, 0);
+            }
+            else
+            {
+                transform.GetChild(1).localPosition += new Vector3(500, 0, 0);
 
-    //        }
+            }
 
             tailSize.sizeDelta = new Vector2(162.0f / tailSizeScale, 557.0f / tailSizeScale);
-    //    }
+        }
 
 
     }

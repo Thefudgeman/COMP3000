@@ -48,6 +48,7 @@ public class GridOnClick : MonoBehaviour
                 GridUI.Instance.tailTimingLine = transform.gameObject;
                 GridUI.Instance.holdNoteData.tailTime = GetComponentInParent<EditorTimingLine>().timeInstantiated + (0.7f / SongControl.Instance.noteSpeed);
                 GridUI.Instance.tailAdded = true;
+                GridUI.Instance.
             }
         }
             Debug.Log("afasfa");
