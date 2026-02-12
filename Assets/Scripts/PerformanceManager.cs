@@ -20,11 +20,11 @@ public class PerformanceManager : MonoBehaviour
 
     public void Hit(double hitError)
     {
-        Debug.Log(hitError);
+        Debug.Log("hit");
     }
 
     public void Miss()
     {
-
+        Debug.Log("miss");
     }
 }

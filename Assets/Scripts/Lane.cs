@@ -25,15 +25,15 @@ public class Lane : MonoBehaviour
     public float axisNumber;
     private bool axisDown = false;
 
-    int noteHitIndex = 0;
-    int holdNoteHitIndex = 0;
+    public int noteHitIndex = 0;
+    public int holdNoteHitIndex = 0;
 
     // Start is called before the first frame update
     void Start()
     {
         string text = txt.text;
         string[] lines = text.Replace("\r", "").Split('\n');
-        for(int i = 0; i < lines.Length; i++)
+        for(int i = 0; i < lines.Length-1; i++)
         {
             if (lines[i].Substring(0,1) == LaneNumber)
             {
@@ -125,6 +125,12 @@ public class Lane : MonoBehaviour
         //    {
         if(noteHitIndex < timeStamps.Count)
         {
+            if ((timeStamps[noteHitIndex] + 0.13) * 1000 <= SongControl.GetSongTime())
+            {
+                PerformanceManager.Instance.Miss();
+                Destroy(notes[noteHitIndex].gameObject);
+                noteHitIndex++;
+            }
             if (Convert.ToInt32(LaneNumber) > 3)
             {
                 if (Input.GetKeyDown(input))
@@ -133,7 +139,6 @@ public class Lane : MonoBehaviour
                     PerformanceManager.Instance.Hit(hitError);
                     Destroy(notes[noteHitIndex].gameObject);
                     noteHitIndex++;
-                    //  Debug.Log("hiting");
                 }
             }
             else
@@ -149,14 +154,7 @@ public class Lane : MonoBehaviour
                     axisDown = true;
                     Destroy(notes[noteHitIndex].gameObject);
                     noteHitIndex++;
-                    Debug.Log("hiting");
                 }
-            }
-            if ((timeStamps[noteHitIndex] + 0.13) * 1000 <= SongControl.GetSongTime())
-            {
-                PerformanceManager.Instance.Miss();
-                Destroy(notes[noteHitIndex].gameObject);
-                noteHitIndex++;
             }
         }
        
