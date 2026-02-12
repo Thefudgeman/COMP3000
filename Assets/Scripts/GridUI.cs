@@ -14,7 +14,7 @@ public class GridUI : MonoBehaviour
     public List<EditorTimingLine> editorTimingLines = new List<EditorTimingLine>();
     public int beatDivision;
     public static GridUI Instance;
-    public bool addHoldNote = true;
+    public bool addHoldNote = false;
     public bool headAdded = false;
     public bool tailAdded = false;
     public bool holdNoteCreated = false;
@@ -36,10 +36,18 @@ public class GridUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(addHoldNote)
+        if(Input.GetKeyDown("h") &&!addHoldNote)
         {
-           // if (timingLine.transform.childCount == 0)
-          //  {
+            addHoldNote = true;
+        }
+        else if (Input.GetKeyDown("h") && addHoldNote)
+        {
+            addHoldNote = false;
+        }
+        if (addHoldNote)
+        {
+            // if (timingLine.transform.childCount == 0)
+            //  {
 
 
 
@@ -52,35 +60,34 @@ public class GridUI : MonoBehaviour
                     newNote.transform.Rotate(0, 0, -90);
                 }
                 newNote.transform.GetChild(0).localPosition = headTimingLine.transform.position;
-             //   newNote.transform.localPosition += new Vector3(0, 23);
+                //   newNote.transform.localPosition += new Vector3(0, 23);
                 newNote.GetComponent<EditorHoldNote>().headHitTime = (float)holdNoteData.headTime;
 
             }
-                
-            if(holdNoteData.tailTime != -1)
+
+            if (holdNoteData.tailTime != -1)
             {
                 newNote.transform.GetChild(1).position = tailTimingLine.transform.position;
-             //   newNote.transform.localPosition += new Vector3(0, 23);
+                //   newNote.transform.localPosition += new Vector3(0, 23);
                 newNote.GetComponent<EditorHoldNote>().tailHitTime = (float)holdNoteData.tailTime;
 
             }
 
-            if(headAdded && tailAdded)
+            if (headAdded && tailAdded)
             {
                 headTimingLine.GetComponent<EditorTimingLine>().holdNoteTimeStamps.Add(holdNoteData);
                 headAdded = false;
                 tailAdded = false;
-                holdNoteCreated= false;
+                holdNoteCreated = false;
                 Debug.Log(holdNoteCreated);
-                holdNoteData.tailTime = -1;
-                holdNoteData.headTime = -1;
+                holdNoteData = new HoldNoteData();
             }
 
-        //    }
-       //     else
-        //    {
+            //    }
+            //     else
+            //    {
 
-        //   }
+            //   }
         }
     }
 

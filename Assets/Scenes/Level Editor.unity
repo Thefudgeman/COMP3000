@@ -1223,7 +1223,7 @@ MonoBehaviour:
   timeStamps: []
   editorTimingLines: []
   beatDivision: 3
-  addHoldNote: 1
+  addHoldNote: 0
   headAdded: 0
   tailAdded: 0
   holdNoteCreated: 0

@@ -107,11 +107,10 @@ public class EditorTimingLine : MonoBehaviour
             {
                 if(transform.GetChild(0).gameObject.GetComponent<EditorHoldNote>() != null) 
                 {
-                    transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
-                    if(transform.GetChild(0).GetComponent<EditorHoldNote>().tailHitTime * 1000.0f > SongControl.GetSongTime())
+                    transform.GetChild(0).transform.GetChild(0).gameObject.SetActive(false);
+                    if(transform.GetChild(0).GetComponent<EditorHoldNote>().tailHitTime < SongControl.GetSongTime())
                     {
-                     //   Destroy(transform.GetChild(0).gameObject);
-
+                        Destroy(transform.GetChild(0).gameObject);
                     }
                 }
                 else

@@ -123,39 +123,43 @@ public class Lane : MonoBehaviour
 
         // if (timeStamps[noteHitIndex] < holdTimeStamps[holdNoteHitIndex].headTime)
         //    {
-        if (Convert.ToInt32(LaneNumber) > 3)
+        if(noteHitIndex < timeStamps.Count)
         {
-            if (Input.GetKeyDown(input))
+            if (Convert.ToInt32(LaneNumber) > 3)
             {
-                double hitError = SongControl.GetSongTime() - timeStamps[noteHitIndex];
-                PerformanceManager.Instance.Hit(hitError);
-                Destroy(notes[noteHitIndex].gameObject);
-                noteHitIndex++;
-              //  Debug.Log("hiting");
+                if (Input.GetKeyDown(input))
+                {
+                    double hitError = SongControl.GetSongTime() - timeStamps[noteHitIndex];
+                    PerformanceManager.Instance.Hit(hitError);
+                    Destroy(notes[noteHitIndex].gameObject);
+                    noteHitIndex++;
+                    //  Debug.Log("hiting");
+                }
             }
-        }
-        else
-        {
-            if (axisDown && Input.GetAxis(input) == 0)
+            else
             {
-                axisDown = false;
-            }
+                if (axisDown && Input.GetAxis(input) == 0)
+                {
+                    axisDown = false;
+                }
                 if (((Input.GetAxis(input) < 0 && (Convert.ToInt32(LaneNumber) == 0 || Convert.ToInt32(LaneNumber) == 1)) || (Input.GetAxis(input) > 0 && (Convert.ToInt32(LaneNumber) == 2 || Convert.ToInt32(LaneNumber) == 3))) && !axisDown)
+                {
+                   double hitError = SongControl.GetSongTime() - timeStamps[noteHitIndex];
+                    PerformanceManager.Instance.Hit(hitError);
+                    axisDown = true;
+                    Destroy(notes[noteHitIndex].gameObject);
+                    noteHitIndex++;
+                    Debug.Log("hiting");
+                }
+            }
+            if ((timeStamps[noteHitIndex] + 0.13) * 1000 <= SongControl.GetSongTime())
             {
-                //    double hitError = SongControl.GetSongTime() - timeStamps[noteHitIndex];
-                //     PerformanceManager.Instance.Hit(hitError);
-                axisDown = true;
+                PerformanceManager.Instance.Miss();
                 Destroy(notes[noteHitIndex].gameObject);
                 noteHitIndex++;
-                Debug.Log("hiting");
             }
         }
-        if ((timeStamps[noteHitIndex] + 0.13) * 1000 <= SongControl.GetSongTime())
-        {
-            PerformanceManager.Instance.Miss();
-            Destroy(notes[noteHitIndex].gameObject);
-            noteHitIndex++;
-        }
+       
         
 
       //  }
