@@ -48,12 +48,12 @@ public class Note : MonoBehaviour
         }
         if (laneNumber == 6 || laneNumber == 2)
         {
-            noteSpawnY = -400;
+            noteSpawnY = -320;
             transform.Rotate(0, 0, 270);
         }
         else if(laneNumber == 0 || laneNumber == 4)
         {
-            noteSpawnY = 400;
+            noteSpawnY = 320;
             transform.Rotate(0, 0, 90);
 
         }

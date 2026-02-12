@@ -83,11 +83,11 @@ public class Lane : MonoBehaviour
                 note.GetComponent<Note>().laneNumber = Convert.ToInt32(LaneNumber);
                 if (Convert.ToInt32(LaneNumber) < 4)
                 {
-                    note.GetComponent<Note>().noteSpawnX = -400;
+                    note.GetComponent<Note>().noteSpawnX = -320;
                 }
                 else
                 {
-                    note.GetComponent<Note>().noteSpawnX = 400;
+                    note.GetComponent<Note>().noteSpawnX = 320;
                 }
                 index++;
             }
@@ -110,19 +110,16 @@ public class Lane : MonoBehaviour
 
                 if (Convert.ToInt32(LaneNumber) < 4)
                 {
-                    note.GetComponent<HoldNote>().noteSpawnX = -400;
+                    note.GetComponent<HoldNote>().noteSpawnX = -320;
                 }
                 else
                 {
-                    note.GetComponent<HoldNote>().noteSpawnX = 400;
+                    note.GetComponent<HoldNote>().noteSpawnX = 320;
                 }
                 holdIndex++;
             }
 
         }
-
-        // if (timeStamps[noteHitIndex] < holdTimeStamps[holdNoteHitIndex].headTime)
-        //    {
         if(noteHitIndex < timeStamps.Count)
         {
             if ((timeStamps[noteHitIndex] + 0.13) * 1000 <= SongControl.GetSongTime())
@@ -160,16 +157,15 @@ public class Lane : MonoBehaviour
        
         
 
-      //  }
-   //     else
-        {
-            //if (Input.GetButtonDown(input))
+        
+        
+            //if (Input.GetButtonDown(input) && Convert.ToInt32(LaneNumber) > 3)
             //{
             //    double hitError = SongControl.GetSongTime() - holdTimeStamps[holdNoteHitIndex].headTime;
             //    PerformanceManager.Instance.Hit(hitError);
             //    while (Input.GetButtonDown(input))
             //    {
-            //        if(Input.GetButtonUp(input) && SongControl.GetSongTime() < holdTimeStamps[holdNoteHitIndex].tailTime + 0.2)
+            //        if (Input.GetButtonUp(input) && SongControl.GetSongTime() < holdTimeStamps[holdNoteHitIndex].tailTime + 0.2)
             //        {
             //            double tailHitError = SongControl.GetSongTime() - holdTimeStamps[holdNoteHitIndex].tailTime;
             //            PerformanceManager.Instance.Hit(hitError);
@@ -177,7 +173,7 @@ public class Lane : MonoBehaviour
             //        }
             //    }
             //}
-        }
+        
     }
 }
 
