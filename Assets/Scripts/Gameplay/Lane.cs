@@ -142,6 +142,12 @@ public class Lane : MonoBehaviour
             }
             else
             {
+                if ((timeStamps[noteHitIndex] + 0.13) * 1000 <= SongControl.GetSongTime())
+                {
+                    PerformanceManager.Instance.Miss();
+                    Destroy(notes[noteHitIndex].gameObject);
+                    noteHitIndex++;
+                }
                 if (axisDown && Input.GetAxis(input) == 0)
                 {
                     axisDown = false;
@@ -207,12 +213,39 @@ public class Lane : MonoBehaviour
                 {
                     axisDown = false;
                 }
-                if (((Input.GetAxis(input) < 0 && (Convert.ToInt32(LaneNumber) == 0 || Convert.ToInt32(LaneNumber) == 1)) || (Input.GetAxis(input) > 0 && (Convert.ToInt32(LaneNumber) == 2 || Convert.ToInt32(LaneNumber) == 3))) && !axisDown)
+                if (Input.GetAxis(input) < 0 && !holding)
                 {
                     double hitError = SongControl.GetSongTime() - holdTimeStamps[holdNoteHitIndex].headTime;
                     PerformanceManager.Instance.Hit(hitError);
+                    holdNotes[holdNoteHitIndex].transform.GetChild(0).gameObject.SetActive(false);
+
                     axisDown = true;
+                    holding = true;
                 }
+
+
+                if (((holdTimeStamps[holdNoteHitIndex].tailTime + 0.13) <= SongControl.GetSongTime()))
+                {
+                    PerformanceManager.Instance.Miss();
+                    Destroy(holdNotes[holdNoteHitIndex].gameObject);
+
+                    headMissed = false;
+                    holdNoteHitIndex++;
+                }
+
+                if (holding && Input.GetAxis(input) == 0)
+                {
+                    holding = false;
+
+                    double hitError = SongControl.GetSongTime() - holdTimeStamps[holdNoteHitIndex].tailTime;
+                    PerformanceManager.Instance.Hit(hitError);
+                    Destroy(holdNotes[holdNoteHitIndex].gameObject);
+
+                    headMissed = false;
+                    holdNoteHitIndex++;
+
+                }
+
             }
 
 
