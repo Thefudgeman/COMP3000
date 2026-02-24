@@ -124,7 +124,6 @@ public class HoldNote : MonoBehaviour
         if (headTimeSinceInstantiated >= (0.7 / SongControl.Instance.noteSpeed) + 0.13 ) //if player does not hit the object destroy it once it is outside of the margin of error
         {
             transform.GetChild(0).gameObject.SetActive(false);
-            Destroy(transform.GetChild(0).gameObject);
             Debug.Log(SongControl.GetSongTime());
         }
         else
