@@ -21,8 +21,17 @@ public class SaveLevelEditor : MonoBehaviour
     }
     public void SaveChanges()
     {
-        File.Create(Application.dataPath + "/SongTxtFiles/Flamewall.txt").Close();
-        string path = Application.dataPath + "/SongTxtFiles/Flamewall.txt";
+
+        int s;
+        for (s = AddSong.Instance.inputField.text.Length - 1; s > 0; s--)
+        {
+            if (AddSong.Instance.inputField.text[s] == '\\')
+            {
+                break;
+            }
+        }
+
+        string path = Application.dataPath + "/Music/"+ AddSong.Instance.inputField.text.Substring(s + 1, AddSong.Instance.inputField.text.Substring(s + 1).Length - 4) + "/" + AddSong.Instance.inputField.text.Substring(s + 1, AddSong.Instance.inputField.text.Substring(s + 1).Length - 4) + ".txt";
         StreamWriter sw = new StreamWriter(path, true);
         List<noteToAdd> timestamps = new List<noteToAdd>();
         List<holdNoteToAdd> holdTimestamps = new List<holdNoteToAdd>();
