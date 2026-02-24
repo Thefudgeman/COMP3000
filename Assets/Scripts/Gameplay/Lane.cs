@@ -24,6 +24,8 @@ public class Lane : MonoBehaviour
     public string input;
     public float axisNumber;
     private bool axisDown = false;
+    private bool holding = false;
+    private bool headMissed = false;
 
     public int noteHitIndex = 0;
     public int holdNoteHitIndex = 0;
@@ -154,26 +156,87 @@ public class Lane : MonoBehaviour
                 }
             }
         }
-       
-        
 
-        
-        
-            //if (Input.GetButtonDown(input) && Convert.ToInt32(LaneNumber) > 3)
-            //{
-            //    double hitError = SongControl.GetSongTime() - holdTimeStamps[holdNoteHitIndex].headTime;
-            //    PerformanceManager.Instance.Hit(hitError);
-            //    while (Input.GetButtonDown(input))
-            //    {
-            //        if (Input.GetButtonUp(input) && SongControl.GetSongTime() < holdTimeStamps[holdNoteHitIndex].tailTime + 0.2)
-            //        {
-            //            double tailHitError = SongControl.GetSongTime() - holdTimeStamps[holdNoteHitIndex].tailTime;
-            //            PerformanceManager.Instance.Hit(hitError);
+        if (holdNoteHitIndex < holdTimeStamps.Count)
+        {
+            if ((holdTimeStamps[holdNoteHitIndex].headTime + 0.13) <= SongControl.GetSongTime() && !headMissed)
+            {
+                PerformanceManager.Instance.Miss();
+                Debug.Log("holdMiss");
+                holdNotes[holdNoteHitIndex].transform.GetChild(0).gameObject.SetActive(false);
+                headMissed = true;
+            }
+            if (Convert.ToInt32(LaneNumber) > 3)
+            {
+                if (Input.GetKeyDown(input))
+                {
+                    double hitError = SongControl.GetSongTime() - holdTimeStamps[holdNoteHitIndex].headTime;
+                    PerformanceManager.Instance.Hit(hitError);
+                    holdNotes[holdNoteHitIndex].transform.GetChild(0).gameObject.SetActive(false);
 
-            //        }
-            //    }
-            //}
-        
+                    holding = true;
+                }
+
+                if (((holdTimeStamps[holdNoteHitIndex].tailTime + 0.13) <= SongControl.GetSongTime()))
+                {
+                    PerformanceManager.Instance.Miss();
+                    Destroy(holdNotes[holdNoteHitIndex].gameObject);
+
+                    headMissed = false;
+                    holdNoteHitIndex++;
+                }
+
+                if (holding && Input.GetKeyUp(input))
+                {
+                    holding = false;
+
+                    double hitError = SongControl.GetSongTime() - holdTimeStamps[holdNoteHitIndex].tailTime;
+                    PerformanceManager.Instance.Hit(hitError);
+                    Destroy(holdNotes[holdNoteHitIndex].gameObject);
+                    
+                    headMissed = false;
+                    holdNoteHitIndex++;
+
+                }
+
+
+            }
+            else
+            {
+                if (axisDown && Input.GetAxis(input) == 0)
+                {
+                    axisDown = false;
+                }
+                if (((Input.GetAxis(input) < 0 && (Convert.ToInt32(LaneNumber) == 0 || Convert.ToInt32(LaneNumber) == 1)) || (Input.GetAxis(input) > 0 && (Convert.ToInt32(LaneNumber) == 2 || Convert.ToInt32(LaneNumber) == 3))) && !axisDown)
+                {
+                    double hitError = SongControl.GetSongTime() - holdTimeStamps[holdNoteHitIndex].headTime;
+                    PerformanceManager.Instance.Hit(hitError);
+                    axisDown = true;
+                }
+            }
+
+
+        }
+
+
+
+
+
+        //if (Input.GetButtonDown(input) && Convert.ToInt32(LaneNumber) > 3)
+        //{
+        //    double hitError = SongControl.GetSongTime() - holdTimeStamps[holdNoteHitIndex].headTime;
+        //    PerformanceManager.Instance.Hit(hitError);
+        //    while (Input.GetButtonDown(input))
+        //    {
+        //        if (Input.GetButtonUp(input) && SongControl.GetSongTime() < holdTimeStamps[holdNoteHitIndex].tailTime + 0.2)
+        //        {
+        //            double tailHitError = SongControl.GetSongTime() - holdTimeStamps[holdNoteHitIndex].tailTime;
+        //            PerformanceManager.Instance.Hit(hitError);
+
+        //        }
+        //    }
+        //}
+
     }
 }
 
