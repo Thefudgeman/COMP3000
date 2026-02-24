@@ -198,5 +198,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   laneNumber: 0
-  headHitTime: 0
-  tailHitTime: 0
+  headHitTime: -1
+  tailHitTime: -1

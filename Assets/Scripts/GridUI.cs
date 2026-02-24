@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor.TerrainTools;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -50,7 +51,6 @@ public class GridUI : MonoBehaviour
             //  {
 
 
-
             if (holdNoteData.headTime != -1)
             {
                 if (!holdNoteCreated)
@@ -59,10 +59,30 @@ public class GridUI : MonoBehaviour
                     holdNoteCreated = true;
                     newNote.transform.Rotate(0, 0, -90);
                 }
+
+                if (newNote == null && holdNoteData.headTime != -1)
+                {
+                    headAdded = false;
+                    tailAdded = false;
+                    holdNoteCreated = false;
+                    holdNoteData = new HoldNoteData();
+
+                    return;
+                }
+
                 newNote.transform.GetChild(0).localPosition = headTimingLine.transform.position;
                 //   newNote.transform.localPosition += new Vector3(0, 23);
                 newNote.GetComponent<EditorHoldNote>().headHitTime = (float)holdNoteData.headTime;
 
+            }
+
+            if (newNote == null && holdNoteData.headTime != -1)
+            {
+                headAdded = false;
+                tailAdded = false;
+                holdNoteCreated = false;
+
+                holdNoteData = new HoldNoteData();
             }
 
             if (holdNoteData.tailTime != -1)

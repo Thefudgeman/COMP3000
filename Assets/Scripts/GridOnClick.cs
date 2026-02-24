@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GridOnClick : MonoBehaviour
@@ -37,18 +38,36 @@ public class GridOnClick : MonoBehaviour
         }
         else
         {
-            if(!GridUI.Instance.headAdded)
+            if (transform.childCount == 0)
             {
-                GridUI.Instance.headTimingLine = transform.gameObject;
-                GridUI.Instance.holdNoteData.headTime = GetComponentInParent<EditorTimingLine>().timeInstantiated + (0.7f / SongControl.Instance.noteSpeed);
-                GridUI.Instance.headAdded = true;
+                if (!GridUI.Instance.headAdded)
+                {
+                    GridUI.Instance.headTimingLine = transform.gameObject;
+                    GridUI.Instance.holdNoteData.headTime = GetComponentInParent<EditorTimingLine>().timeInstantiated + (0.7f / SongControl.Instance.noteSpeed);
+                    GridUI.Instance.headAdded = true;
+                }
+                else
+                {
+                    GridUI.Instance.tailTimingLine = transform.gameObject;
+                    GridUI.Instance.holdNoteData.tailTime = GetComponentInParent<EditorTimingLine>().timeInstantiated + (0.7f / SongControl.Instance.noteSpeed);
+                    GridUI.Instance.tailAdded = true;
+                }
             }
             else
             {
-                GridUI.Instance.tailTimingLine = transform.gameObject;
-                GridUI.Instance.holdNoteData.tailTime = GetComponentInParent<EditorTimingLine>().timeInstantiated + (0.7f / SongControl.Instance.noteSpeed);
-                GridUI.Instance.tailAdded = true;
+                HoldNoteData holdNoteData = new HoldNoteData();
+                holdNoteData.headTime = GetComponentInChildren<EditorHoldNote>().headHitTime;
+                if(GetComponentInChildren<EditorHoldNote>().tailHitTime != -1)
+                {
+                    holdNoteData.tailTime = GetComponentInChildren<EditorHoldNote>().tailHitTime;
+                }
+                HoldNoteData holdNoteDatas = GetComponentInParent<EditorTimingLine>().holdNoteTimeStamps.First(x => x.headTime == GetComponentInChildren<EditorHoldNote>().headHitTime);
+                GetComponentInParent<EditorTimingLine>().holdNoteTimeStamps.Remove(holdNoteDatas);
+                Debug.Log("Destroying");
+
+                Destroy(this.transform.GetChild(0).gameObject);
             }
+           
         }
             Debug.Log("afasfa");
     }

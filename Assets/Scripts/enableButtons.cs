@@ -30,6 +30,7 @@ public class enableButtons : MonoBehaviour
             var directory = Directory.CreateDirectory("Assets/Music/" + AddSong.Instance.inputField.text.Substring(i + 1, AddSong.Instance.inputField.text.Substring(i + 1).Length - 4));
             Debug.Log(directory.Name);
             File.Copy(AddSong.Instance.inputField.text, directory + "/" + AddSong.Instance.inputField.text.Substring(i + 1));
+            File.Create(directory + "/" + AddSong.Instance.inputField.text.Substring(i + 1, AddSong.Instance.inputField.text.Substring(i + 1).Length - 4) + ".txt");
         }
         catch (ArgumentException e)
         {
