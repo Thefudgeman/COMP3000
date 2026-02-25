@@ -213,7 +213,7 @@ public class Lane : MonoBehaviour
                 {
                     axisDown = false;
                 }
-                if (Input.GetAxis(input) < 0 && !holding)
+                if (Input.GetAxis(input) < 0 && !holding && !axisDown)
                 {
                     double hitError = SongControl.GetSongTime() - holdTimeStamps[holdNoteHitIndex].headTime;
                     PerformanceManager.Instance.Hit(hitError);
@@ -250,25 +250,6 @@ public class Lane : MonoBehaviour
 
 
         }
-
-
-
-
-
-        //if (Input.GetButtonDown(input) && Convert.ToInt32(LaneNumber) > 3)
-        //{
-        //    double hitError = SongControl.GetSongTime() - holdTimeStamps[holdNoteHitIndex].headTime;
-        //    PerformanceManager.Instance.Hit(hitError);
-        //    while (Input.GetButtonDown(input))
-        //    {
-        //        if (Input.GetButtonUp(input) && SongControl.GetSongTime() < holdTimeStamps[holdNoteHitIndex].tailTime + 0.2)
-        //        {
-        //            double tailHitError = SongControl.GetSongTime() - holdTimeStamps[holdNoteHitIndex].tailTime;
-        //            PerformanceManager.Instance.Hit(hitError);
-
-        //        }
-        //    }
-        //}
 
     }
 }
