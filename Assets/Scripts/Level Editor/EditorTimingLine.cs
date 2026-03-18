@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
@@ -8,11 +11,16 @@ public class EditorTimingLine : MonoBehaviour
 {
     public List<float> noteTimeStamps = new List<float>();
     public List<HoldNoteData> holdNoteTimeStamps = new List<HoldNoteData>();
+    public GameObject notePrefab;
+    public GameObject holdNotePrefab;
 
     public int laneNumber;
     public Vector3 position;
     public float hitTime;
-    public float timeInstantiated;
+    public float timeInstantiated= 1.0f;
+
+    public TextAsset txt;
+
     public float noteSpawnX;
     public float noteTapX;
     public float noteDespawnX
@@ -81,12 +89,65 @@ public class EditorTimingLine : MonoBehaviour
         {
             noteTapX = -900;
         }
+
+        string text = txt.text;
+        string[] lines = text.Replace("\r", "").Split('\n');
+
+        for (int i = 0; i < lines.Length - 1; i++)
+        {
+            if (Int32.Parse(lines[i].Substring(0, 1)) == laneNumber)
+            {
+                double times = timeInstantiated + (0.7f / SongControl.Instance.noteSpeed);
+                if (Int32.Parse(lines[i].Substring(lines[i].IndexOf(":") + 1, 1)) == 0)
+                {
+                    
+                    double timestamp = Convert.ToDouble(lines[i].Substring(lines[i].IndexOf(",") + 1, lines[i].Length - 4)) / 1000;
+
+                    for (double j = timeInstantiated + (0.7f / SongControl.Instance.noteSpeed); times < 1000; j += GridUI.Instance.timestampMultiplier * (1f / (SongControl.Instance.bpm / 60f))) //tempory upper limit will change depending on song length
+                    {
+                        
+                        if (Math.Abs(times - timestamp) < 0.0001)
+                        {
+                            Debug.Log("adding timestamp");
+                            noteTimeStamps.Add((float)timestamp);
+                        }
+                        times += GridUI.Instance.timestampMultiplier * (1f / (SongControl.Instance.bpm / 60f));
+                    }
+
+
+                }
+                else if (Int32.Parse(lines[i].Substring(lines[i].IndexOf(":") + 1, 1)) == 1)
+                {
+                    HoldNoteData holdNote = new HoldNoteData();
+                    string[] data = lines[i].Split(",");
+                    double timestamp = Convert.ToDouble(data[1]) / 1000;
+                    
+                    for (double j = timeInstantiated + (0.7f / SongControl.Instance.noteSpeed); times < 1000; j += GridUI.Instance.timestampMultiplier * (1f / (SongControl.Instance.bpm / 60f))) //tempory upper limit will change depending on song length
+                    {
+
+                        if (Math.Abs(times - timestamp) < 0.0001)
+                        {
+                            Debug.Log("Adding holdnote");
+                            holdNote.headTime = Convert.ToDouble(data[1]) / 1000;
+                            holdNote.tailTime = Convert.ToDouble(data[2].Substring(0, data[2].Length - 2)) / 1000;
+                            holdNoteTimeStamps.Add(holdNote);
+                        }
+                        times += GridUI.Instance.timestampMultiplier * (1f / (SongControl.Instance.bpm / 60f));
+                    }
+                   
+                }
+            }
+        }
+        if (holdNoteTimeStamps.Count > 0)
+        {
+            Debug.Log(holdNoteTimeStamps[0].headTime + "holdNoteTimestmp");
+        }
+
     }
 
     // Update is called once per frame
     void Update()
     {
-
         float spawnDelay = SongControl.Instance.songDelay - (0.7f / SongControl.Instance.noteSpeed);
         double timeSinceInstantiated = spawnDelay > 0 && timeInstantiated < 0
             ? (Time.timeSinceLevelLoad - spawnDelay) + timeInstantiated
@@ -126,7 +187,26 @@ public class EditorTimingLine : MonoBehaviour
         {
             if(timeSinceInstantiated - 0.001 > 0 && !GetComponent<RawImage>().enabled) // add one millisecond so that when skipping through song with arrow keys editor line is shown properly
             {
-                GetComponent<RawImage>().enabled = true;
+                if (noteTimeStamps.Any(note => Math.Abs(note - (timeInstantiated + (0.7f / SongControl.Instance.noteSpeed))) < 0.0001) && gameObject.transform.childCount == 0) //change to contain within 0.0001
+                {
+                    var newNote = Instantiate(notePrefab, transform);
+                    newNote.transform.position = gameObject.transform.position;
+                    newNote.transform.localPosition += new Vector3(0, 23);
+                    newNote.GetComponent<EditorNote>().timeStamp = GetComponentInParent<EditorTimingLine>().timeInstantiated + (0.7f / SongControl.Instance.noteSpeed);
+                }
+                else if (holdNoteTimeStamps.Any(note =>Math.Abs(note.headTime - (timeInstantiated + (0.7f / SongControl.Instance.noteSpeed))) < 0.0001))
+                {
+                    HoldNoteData holdNoteData = holdNoteTimeStamps.First(note => Math.Abs(note.headTime - (timeInstantiated + (0.7f / SongControl.Instance.noteSpeed))) < 0.0001);
+                    Debug.Log("Creating holdNote");
+                    var holdNote = Instantiate(holdNotePrefab, transform);
+                    holdNote.transform.position = gameObject.transform.position;
+                    holdNote.transform.localPosition += new Vector3(0, 23);
+                    holdNote.GetComponent<EditorHoldNote>().headHitTime = (float)holdNoteData.headTime;
+                    holdNote.GetComponent<EditorHoldNote>().tailHitTime = (float)holdNoteData.tailTime;
+                    holdNote.transform.Rotate(0, 0, -90);
+
+                }
+                    GetComponent<RawImage>().enabled = true;
             }
             if (laneNumber == 0 || laneNumber == 4 || laneNumber == 2 || laneNumber == 6)
             {

@@ -42,31 +42,31 @@ public class HoldNote : MonoBehaviour
 
         if (laneNumber == 1 || laneNumber == 5)
         {
-            transform.localPosition += new Vector3(-320, 0, 0);
+            transform.localPosition += new Vector3(-400, 0, 0);
 
         }
         else if (laneNumber == 3 || laneNumber == 7)
         {
             transform.GetChild(0).Rotate(0, 0, 180);
             transform.GetChild(1).Rotate(0, 0, 180);
-            transform.localPosition += new Vector3(320, 0, 0);
+            transform.localPosition += new Vector3(400, 0, 0);
 
         }
         if (laneNumber == 6 || laneNumber == 2)
         {
             transform.GetChild(0).Rotate(0, 0, 270);
             transform.GetChild(1).Rotate(0, 0, 270);
-            transform.localPosition += new Vector3(0,320, 0);
+            transform.localPosition += new Vector3(0,400, 0);
 
-            noteSpawnY = -320;
+            noteSpawnY = -400;
 
         }
         else if (laneNumber == 0 || laneNumber == 4)
         {
             transform.GetChild(0).Rotate(0, 0, 90);
             transform.GetChild(1).Rotate(0, 0, 90);
-            transform.localPosition += new Vector3(0, -320, 0);
-            noteSpawnY = 320;
+            transform.localPosition += new Vector3(0, -400, 0);
+            noteSpawnY = 400;
         }
 
 

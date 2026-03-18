@@ -79,6 +79,7 @@ public class Note : MonoBehaviour
             PerformanceManager.Instance.Miss();
             transform.parent.GetComponent<Lane>().noteHitIndex++;
             Destroy(gameObject);
+            
         }
         else
         {

@@ -157,10 +157,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8292ce70d640654ab18571403b677e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  noteTimeStamps: []
+  notePrefab: {fileID: 672450209737632265, guid: 7cc7ad18251ab924ca1fd29f6f431134, type: 3}
+  holdNotePrefab: {fileID: 7926207165129435114, guid: fbd7264b721fab44086ed2647e905e26, type: 3}
   laneNumber: 0
   position: {x: 0, y: 0, z: 0}
   hitTime: 0
   timeInstantiated: 0
+  txt: {fileID: 4900000, guid: 52959423ff344034b94f4c73718549c9, type: 3}
   noteSpawnX: 0
   noteTapX: 0
   noteSpawnY: 0
@@ -168,3 +172,4 @@ MonoBehaviour:
   timeStampIncrement: 0
   times: 0
   timeStampIncrementMultiplayer: 0
+  beatDivsion: 0

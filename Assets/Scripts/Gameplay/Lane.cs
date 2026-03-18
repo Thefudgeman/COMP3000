@@ -86,11 +86,11 @@ public class Lane : MonoBehaviour
                 note.GetComponent<Note>().laneNumber = Convert.ToInt32(LaneNumber);
                 if (Convert.ToInt32(LaneNumber) < 4)
                 {
-                    note.GetComponent<Note>().noteSpawnX = -320;
+                    note.GetComponent<Note>().noteSpawnX = -500;
                 }
                 else
                 {
-                    note.GetComponent<Note>().noteSpawnX = 320;
+                    note.GetComponent<Note>().noteSpawnX = 500;
                 }
                 index++;
             }
@@ -113,11 +113,11 @@ public class Lane : MonoBehaviour
 
                 if (Convert.ToInt32(LaneNumber) < 4)
                 {
-                    note.GetComponent<HoldNote>().noteSpawnX = -320;
+                    note.GetComponent<HoldNote>().noteSpawnX = -500;
                 }
                 else
                 {
-                    note.GetComponent<HoldNote>().noteSpawnX = 320;
+                    note.GetComponent<HoldNote>().noteSpawnX = 500;
                 }
                 holdIndex++;
             }

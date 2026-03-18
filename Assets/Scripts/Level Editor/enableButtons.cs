@@ -12,7 +12,7 @@ public class enableButtons : MonoBehaviour
     public TMP_Dropdown dropdown;
     public GameObject setup;
     public TMP_InputField bpm;
-    public enableButtons Instance;
+    public static enableButtons Instance;
 
     private void Start()
     {

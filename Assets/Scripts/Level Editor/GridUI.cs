@@ -25,6 +25,7 @@ public class GridUI : MonoBehaviour
     public GameObject headTimingLine;
     public GameObject newNote;
     public GameObject tailTimingLine;
+    public float timestampMultiplier;
     // Start is called before the first frame update
     void Start()
     {
@@ -202,6 +203,7 @@ public class GridUI : MonoBehaviour
 
     void SetNoteProperties(GameObject spawnedTile, float timesInt, int laneNumber, int l, int beatDivision)
     {
+        timestampMultiplier = timesInt;
         editorTimingLines.Add(spawnedTile.GetComponent<EditorTimingLine>());
         spawnedTile.GetComponent<EditorTimingLine>().laneNumber = laneNumber;
         spawnedTile.GetComponent<EditorTimingLine>().times = l;

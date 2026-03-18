@@ -61,7 +61,7 @@ public class GridOnClick : MonoBehaviour
                 {
                     holdNoteData.tailTime = GetComponentInChildren<EditorHoldNote>().tailHitTime;
                 }
-                HoldNoteData holdNoteDatas = GetComponentInParent<EditorTimingLine>().holdNoteTimeStamps.First(x => x.headTime == GetComponentInChildren<EditorHoldNote>().headHitTime);
+                HoldNoteData holdNoteDatas = GetComponentInParent<EditorTimingLine>().holdNoteTimeStamps.First(x => x.headTime - GetComponentInChildren<EditorHoldNote>().headHitTime < 0.0001);
                 GetComponentInParent<EditorTimingLine>().holdNoteTimeStamps.Remove(holdNoteDatas);
                 Debug.Log("Destroying");
 
