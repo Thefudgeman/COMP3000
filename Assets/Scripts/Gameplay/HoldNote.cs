@@ -31,13 +31,18 @@ public class HoldNote : MonoBehaviour
     RectTransform headSize;
     RectTransform tailSize;
     float timeAlive;
-   // LineRenderer lineRenderer;
+    LineRenderer lineRenderer;
 
     // Start is called before the first frame update
     void Start()
     {
 
-//        lineRenderer = gameObject.AddComponent<LineRenderer>();
+        lineRenderer = gameObject.AddComponent<LineRenderer>();
+        lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
+        lineRenderer.startWidth = 0.1f;
+        lineRenderer.endWidth = 0.1f;
+        lineRenderer.startColor = Color.black;
+        lineRenderer.endColor = Color.black;
 
         headTimeInstantiated = headHitTime - (0.7 / SongControl.Instance.noteSpeed);
         tailTimeInstantiated = tailHitTime - (0.7 / SongControl.Instance.noteSpeed);
@@ -150,8 +155,8 @@ public class HoldNote : MonoBehaviour
             headSize.sizeDelta = new Vector2(162.0f / headSizeScale, 557.0f / headSizeScale);
         }
 
-      //  lineRenderer.SetPosition(0, transform.GetChild(0).position);
-     //   lineRenderer.SetPosition(1, transform.GetChild(1).position);
+        lineRenderer.SetPosition(0, new Vector3(transform.GetChild(0).position.x, transform.GetChild(0).position.y, 0));
+        lineRenderer.SetPosition(1, new Vector3(transform.GetChild(1).position.x, transform.GetChild(1).position.y, 0));
 
     }
 }
