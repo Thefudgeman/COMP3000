@@ -34,8 +34,8 @@ public class Note : MonoBehaviour
     void Start()
     {
         timeInstantiated = hitTime - (0.7/SongControl.Instance.noteSpeed);
-        noteTapX = transform.parent.transform.position.x;
-        noteTapY = transform.parent.transform.position.y;
+        noteTapX = transform.parent.transform.position.x + 40;
+        noteTapY = transform.parent.transform.position.y + 40;
 
         if (laneNumber == 1 || laneNumber == 5)
         {
@@ -48,12 +48,12 @@ public class Note : MonoBehaviour
         }
         if (laneNumber == 6 || laneNumber == 2)
         {
-            noteSpawnY = -320;
+            noteSpawnY = -360;
             transform.Rotate(0, 0, 270);
         }
         else if(laneNumber == 0 || laneNumber == 4)
         {
-            noteSpawnY = 320;
+            noteSpawnY = 360;
             transform.Rotate(0, 0, 90);
 
         }
@@ -74,7 +74,7 @@ public class Note : MonoBehaviour
         float t = (float)(timeSinceInstantiated / (0.7f * 2 / SongControl.Instance.noteSpeed));
         float sizeScale = timeAlive/(float)timeSinceInstantiated;
 
-        if (timeSinceInstantiated > (0.7/ SongControl.Instance.noteSpeed) +0.13) //if player does not hit the object destroy it once it is outside of the margin of error
+        if (timeSinceInstantiated > (0.7/ SongControl.Instance.noteSpeed) + 0.13) //if player does not hit the object destroy it once it is outside of the margin of error
         {
             PerformanceManager.Instance.Miss();
             transform.parent.GetComponent<Lane>().noteHitIndex++;

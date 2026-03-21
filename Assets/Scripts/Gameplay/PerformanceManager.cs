@@ -40,18 +40,21 @@ public class PerformanceManager : MonoBehaviour
             score += 1000;
             perfectCount++;
             accuracySum += 100;
+            Debug.Log("Perf");
         }
         else if (hitError > 0.05 && hitError <= 0.1)
         {
             score += 500;
             greatCount++;
             accuracySum += 50;
+            Debug.Log("Great");
         }
         else
         {
             score += 250;
             okCount++;
             accuracySum += 25;
+            Debug.Log("Bad");
         }
         combo++;
 

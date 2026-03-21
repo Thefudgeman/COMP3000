@@ -31,42 +31,47 @@ public class HoldNote : MonoBehaviour
     RectTransform headSize;
     RectTransform tailSize;
     float timeAlive;
+   // LineRenderer lineRenderer;
+
     // Start is called before the first frame update
     void Start()
     {
+
+//        lineRenderer = gameObject.AddComponent<LineRenderer>();
+
         headTimeInstantiated = headHitTime - (0.7 / SongControl.Instance.noteSpeed);
         tailTimeInstantiated = tailHitTime - (0.7 / SongControl.Instance.noteSpeed);
-        noteTapX = transform.parent.transform.parent.transform.position.x;
-        noteTapY = transform.parent.transform.parent.transform.position.y;
+        noteTapX = transform.parent.transform.parent.transform.position.x + 40;
+        noteTapY = transform.parent.transform.parent.transform.position.y + 40;
         
 
         if (laneNumber == 1 || laneNumber == 5)
         {
-            transform.localPosition += new Vector3(-400, 0, 0);
+            transform.localPosition += new Vector3(-360, 0, 0);
 
         }
         else if (laneNumber == 3 || laneNumber == 7)
         {
             transform.GetChild(0).Rotate(0, 0, 180);
             transform.GetChild(1).Rotate(0, 0, 180);
-            transform.localPosition += new Vector3(400, 0, 0);
+            transform.localPosition += new Vector3(360, 0, 0);
 
         }
         if (laneNumber == 6 || laneNumber == 2)
         {
             transform.GetChild(0).Rotate(0, 0, 270);
             transform.GetChild(1).Rotate(0, 0, 270);
-            transform.localPosition += new Vector3(0,400, 0);
+            transform.localPosition += new Vector3(0, 360, 0);
 
-            noteSpawnY = -400;
+            noteSpawnY = -360;
 
         }
         else if (laneNumber == 0 || laneNumber == 4)
         {
             transform.GetChild(0).Rotate(0, 0, 90);
             transform.GetChild(1).Rotate(0, 0, 90);
-            transform.localPosition += new Vector3(0, -400, 0);
-            noteSpawnY = 400;
+            transform.localPosition += new Vector3(0, -360, 0);
+            noteSpawnY = 360;
         }
 
 
@@ -121,7 +126,7 @@ public class HoldNote : MonoBehaviour
         float headT = (float)(headTimeSinceInstantiated / (0.7f * 2 / SongControl.Instance.noteSpeed));
         float headSizeScale = timeAlive / (float)headTimeSinceInstantiated;
 
-        if (headTimeSinceInstantiated >= (0.7 / SongControl.Instance.noteSpeed) + 0.13 ) //if player does not hit the object destroy it once it is outside of the margin of error
+        if (headTimeSinceInstantiated >= (0.7 / SongControl.Instance.noteSpeed) +0.13 ) //if player does not hit the object destroy it once it is outside of the margin of error
         {
             transform.GetChild(0).gameObject.SetActive(false);
         }
@@ -145,7 +150,8 @@ public class HoldNote : MonoBehaviour
             headSize.sizeDelta = new Vector2(162.0f / headSizeScale, 557.0f / headSizeScale);
         }
 
-
+      //  lineRenderer.SetPosition(0, transform.GetChild(0).position);
+     //   lineRenderer.SetPosition(1, transform.GetChild(1).position);
 
     }
 }
