@@ -59,6 +59,8 @@ public class GridUI : MonoBehaviour
                     newNote = Instantiate(holdNote, headTimingLine.transform);
                     holdNoteCreated = true;
                     newNote.transform.Rotate(0, 0, -90);
+                    newNote.transform.localPosition -= new Vector3(0, 85);
+
                 }
 
                 if (newNote == null && holdNoteData.headTime != -1)
@@ -88,8 +90,9 @@ public class GridUI : MonoBehaviour
 
             if (holdNoteData.tailTime != -1)
             {
-                newNote.transform.GetChild(1).position = tailTimingLine.transform.position;
-                //   newNote.transform.localPosition += new Vector3(0, 23);
+                newNote.transform.GetChild(1).position += tailTimingLine.transform.position - headTimingLine.transform.position;
+
+
                 newNote.GetComponent<EditorHoldNote>().tailHitTime = (float)holdNoteData.tailTime;
 
             }

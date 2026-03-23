@@ -26,7 +26,7 @@ public class GridOnClick : MonoBehaviour
             {
                 var newNote = Instantiate(note, transform);
                 newNote.transform.position = newNote.transform.parent.transform.position;
-                newNote.transform.localPosition += new Vector3(0, 23);
+                newNote.transform.localPosition -= new Vector3(0, 23);
                 newNote.GetComponent<EditorNote>().timeStamp = GetComponentInParent<EditorTimingLine>().timeInstantiated + (0.7f / SongControl.Instance.noteSpeed);
                 GetComponentInParent<EditorTimingLine>().noteTimeStamps.Add(newNote.GetComponent<EditorNote>().timeStamp);
             }

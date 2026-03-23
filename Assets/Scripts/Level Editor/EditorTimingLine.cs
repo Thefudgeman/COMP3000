@@ -191,7 +191,7 @@ public class EditorTimingLine : MonoBehaviour
                 {
                     var newNote = Instantiate(notePrefab, transform);
                     newNote.transform.position = gameObject.transform.position;
-                    newNote.transform.localPosition += new Vector3(0, 23);
+                    newNote.transform.localPosition -= new Vector3(0, 23);
                     newNote.GetComponent<EditorNote>().timeStamp = GetComponentInParent<EditorTimingLine>().timeInstantiated + (0.7f / SongControl.Instance.noteSpeed);
                 }
                 else if (holdNoteTimeStamps.Any(note =>Math.Abs(note.headTime - (timeInstantiated + (0.7f / SongControl.Instance.noteSpeed))) < 0.0001))
@@ -200,7 +200,7 @@ public class EditorTimingLine : MonoBehaviour
                     Debug.Log("Creating holdNote");
                     var holdNote = Instantiate(holdNotePrefab, transform);
                     holdNote.transform.position = gameObject.transform.position;
-                    holdNote.transform.localPosition += new Vector3(0, 23);
+                    holdNote.transform.localPosition -= new Vector3(0, 23);
                     holdNote.GetComponent<EditorHoldNote>().headHitTime = (float)holdNoteData.headTime;
                     holdNote.GetComponent<EditorHoldNote>().tailHitTime = (float)holdNoteData.tailTime;
                     holdNote.transform.Rotate(0, 0, -90);
