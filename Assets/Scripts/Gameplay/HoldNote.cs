@@ -46,9 +46,14 @@ public class HoldNote : MonoBehaviour
 
         headTimeInstantiated = headHitTime - (0.7 / SongControl.Instance.noteSpeed);
         tailTimeInstantiated = tailHitTime - (0.7 / SongControl.Instance.noteSpeed);
-        noteTapX = transform.parent.transform.parent.transform.position.x + 40;
-        noteTapY = transform.parent.transform.parent.transform.position.y + 40;
-        
+        int multiplier = 1;
+        if (laneNumber == 1 || laneNumber == 2 || laneNumber == 3 || laneNumber == 6)
+        {
+            multiplier = -1;
+        }
+        noteTapX = transform.parent.transform.position.x + 40 * multiplier;
+        noteTapY = transform.parent.transform.position.y + 40 * multiplier;
+
 
         if (laneNumber == 1 || laneNumber == 5)
         {

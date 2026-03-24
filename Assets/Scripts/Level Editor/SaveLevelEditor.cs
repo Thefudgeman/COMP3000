@@ -32,7 +32,7 @@ public class SaveLevelEditor : MonoBehaviour
         }
 
         string path = Application.dataPath + "/Music/"+ AddSong.Instance.inputField.text.Substring(s + 1, AddSong.Instance.inputField.text.Substring(s + 1).Length - 4) + "/" + AddSong.Instance.inputField.text.Substring(s + 1, AddSong.Instance.inputField.text.Substring(s + 1).Length - 4) + ".txt";
-        StreamWriter sw = new StreamWriter(path, true);
+        StreamWriter sw = new StreamWriter(path, false);
         List<noteToAdd> timestamps = new List<noteToAdd>();
         List<holdNoteToAdd> holdTimestamps = new List<holdNoteToAdd>();
 

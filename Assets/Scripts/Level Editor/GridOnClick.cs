@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 using UnityEngine;
 
 public class GridOnClick : MonoBehaviour
@@ -38,7 +39,7 @@ public class GridOnClick : MonoBehaviour
         }
         else
         {
-            if (transform.childCount == 0)
+            if (transform.childCount == 0 || (GridUI.Instance.headAdded && !GridUI.Instance.tailAdded))
             {
                 if (!GridUI.Instance.headAdded)
                 {
@@ -61,8 +62,14 @@ public class GridOnClick : MonoBehaviour
                 {
                     holdNoteData.tailTime = GetComponentInChildren<EditorHoldNote>().tailHitTime;
                 }
-                HoldNoteData holdNoteDatas = GetComponentInParent<EditorTimingLine>().holdNoteTimeStamps.First(x => x.headTime - GetComponentInChildren<EditorHoldNote>().headHitTime < 0.0001);
+                HoldNoteData holdNoteDatas = GetComponentInParent<EditorTimingLine>().holdNoteTimeStamps.First(x => Math.Abs(x.headTime - GetComponentInChildren<EditorHoldNote>().headHitTime) < 0.0001);
+                Debug.Log(holdNoteDatas.headTime);
                 GetComponentInParent<EditorTimingLine>().holdNoteTimeStamps.Remove(holdNoteDatas);
+                Debug.Log("timimngsgs");
+                for(int i = 0; i < GetComponentInParent<EditorTimingLine>().holdNoteTimeStamps.Count; i++)
+                {
+                    Debug.Log(GetComponentInParent<EditorTimingLine>().holdNoteTimeStamps[i].headTime);
+                }
                 Debug.Log("Destroying");
 
                 Destroy(this.transform.GetChild(0).gameObject);

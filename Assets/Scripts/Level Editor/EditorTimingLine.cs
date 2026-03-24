@@ -20,6 +20,7 @@ public class EditorTimingLine : MonoBehaviour
     public float timeInstantiated= 1.0f;
 
     public TextAsset txt;
+    public bool loadMap = false;
 
     public float noteSpawnX;
     public float noteTapX;
@@ -90,54 +91,59 @@ public class EditorTimingLine : MonoBehaviour
             noteTapX = -900;
         }
 
-        string text = txt.text;
-        string[] lines = text.Replace("\r", "").Split('\n');
-
-        for (int i = 0; i < lines.Length - 1; i++)
+        if(loadMap)
         {
-            if (Int32.Parse(lines[i].Substring(0, 1)) == laneNumber)
+            string text = txt.text;
+            string[] lines = text.Replace("\r", "").Split('\n');
+
+            for (int i = 0; i < lines.Length - 1; i++)
             {
-                double times = timeInstantiated + (0.7f / SongControl.Instance.noteSpeed);
-                if (Int32.Parse(lines[i].Substring(lines[i].IndexOf(":") + 1, 1)) == 0)
+                if (Int32.Parse(lines[i].Substring(0, 1)) == laneNumber)
                 {
-                    
-                    double timestamp = Convert.ToDouble(lines[i].Substring(lines[i].IndexOf(",") + 1, lines[i].Length - 4)) / 1000;
-
-                    for (double j = timeInstantiated + (0.7f / SongControl.Instance.noteSpeed); times < 1000; j += GridUI.Instance.timestampMultiplier * (1f / (SongControl.Instance.bpm / 60f))) //tempory upper limit will change depending on song length
-                    {
-                        
-                        if (Math.Abs(times - timestamp) < 0.0001)
-                        {
-                            Debug.Log("adding timestamp");
-                            noteTimeStamps.Add((float)timestamp);
-                        }
-                        times += GridUI.Instance.timestampMultiplier * (1f / (SongControl.Instance.bpm / 60f));
-                    }
-
-
-                }
-                else if (Int32.Parse(lines[i].Substring(lines[i].IndexOf(":") + 1, 1)) == 1)
-                {
-                    HoldNoteData holdNote = new HoldNoteData();
-                    string[] data = lines[i].Split(",");
-                    double timestamp = Convert.ToDouble(data[1]) / 1000;
-                    
-                    for (double j = timeInstantiated + (0.7f / SongControl.Instance.noteSpeed); times < 1000; j += GridUI.Instance.timestampMultiplier * (1f / (SongControl.Instance.bpm / 60f))) //tempory upper limit will change depending on song length
+                    double times = timeInstantiated + (0.7f / SongControl.Instance.noteSpeed);
+                    if (Int32.Parse(lines[i].Substring(lines[i].IndexOf(":") + 1, 1)) == 0)
                     {
 
-                        if (Math.Abs(times - timestamp) < 0.0001)
+                        double timestamp = Convert.ToDouble(lines[i].Substring(lines[i].IndexOf(",") + 1, lines[i].Length - 4)) / 1000;
+
+                        for (double j = timeInstantiated + (0.7f / SongControl.Instance.noteSpeed); times < 1000; j += GridUI.Instance.timestampMultiplier * (1f / (SongControl.Instance.bpm / 60f))) //tempory upper limit will change depending on song length
                         {
-                            Debug.Log("Adding holdnote");
-                            holdNote.headTime = Convert.ToDouble(data[1]) / 1000;
-                            holdNote.tailTime = Convert.ToDouble(data[2].Substring(0, data[2].Length - 2)) / 1000;
-                            holdNoteTimeStamps.Add(holdNote);
+
+                            if (Math.Abs(times - timestamp) < 0.0001)
+                            {
+                                Debug.Log("adding timestamp");
+                                noteTimeStamps.Add((float)timestamp);
+                            }
+                            times += GridUI.Instance.timestampMultiplier * (1f / (SongControl.Instance.bpm / 60f));
                         }
-                        times += GridUI.Instance.timestampMultiplier * (1f / (SongControl.Instance.bpm / 60f));
+
+
                     }
-                   
+                    else if (Int32.Parse(lines[i].Substring(lines[i].IndexOf(":") + 1, 1)) == 1)
+                    {
+                        HoldNoteData holdNote = new HoldNoteData();
+                        string[] data = lines[i].Split(",");
+                        double timestamp = Convert.ToDouble(data[1]) / 1000;
+
+                        for (double j = timeInstantiated + (0.7f / SongControl.Instance.noteSpeed); times < 1000; j += GridUI.Instance.timestampMultiplier * (1f / (SongControl.Instance.bpm / 60f))) //tempory upper limit will change depending on song length
+                        {
+
+                            if (Math.Abs(times - timestamp) < 0.0001)
+                            {
+                                Debug.Log("Adding holdnote");
+                                holdNote.headTime = Convert.ToDouble(data[1]) / 1000;
+                                holdNote.tailTime = Convert.ToDouble(data[2].Substring(0, data[2].Length - 2)) / 1000;
+                                holdNoteTimeStamps.Add(holdNote);
+                            }
+                            times += GridUI.Instance.timestampMultiplier * (1f / (SongControl.Instance.bpm / 60f));
+                        }
+
+                    }
                 }
             }
-        }
+            }
+        
+        
         if (holdNoteTimeStamps.Count > 0)
         {
             Debug.Log(holdNoteTimeStamps[0].headTime + "holdNoteTimestmp");
@@ -169,14 +175,17 @@ public class EditorTimingLine : MonoBehaviour
                 if(transform.GetChild(0).gameObject.GetComponent<EditorHoldNote>() != null) 
                 {
                     transform.GetChild(0).transform.GetChild(0).gameObject.SetActive(false);
-                    if(transform.GetChild(0).GetComponent<EditorHoldNote>().tailHitTime < SongControl.GetSongTime())
+                    if(transform.GetChild(0).GetComponent<EditorHoldNote>().tailHitTime < SongControl.GetSongTime() && !GridUI.Instance.headAdded)
                     {
                         Destroy(transform.GetChild(0).gameObject);
                     }
                 }
                 else
                 {
-                    Destroy(transform.GetChild(0).gameObject);
+                    if(!(GridUI.Instance.headAdded && !GridUI.Instance.tailAdded))
+                    {
+                        Destroy(transform.GetChild(0).gameObject);
+                    }
 
                 }
             }

@@ -125,7 +125,7 @@ public class Lane : MonoBehaviour
         }
         if(noteHitIndex < timeStamps.Count)
         {
-            if ((timeStamps[noteHitIndex] + 0.13) * 1000 <= SongControl.GetSongTime())
+            if ((timeStamps[noteHitIndex] + 0.13f) * 1000 <= SongControl.GetSongTime())
             {
                 PerformanceManager.Instance.Miss();
                 Destroy(notes[noteHitIndex].gameObject);
@@ -144,7 +144,7 @@ public class Lane : MonoBehaviour
             }
             else
             {
-                if ((timeStamps[noteHitIndex] + 0.13) * 1000 <= SongControl.GetSongTime())
+                if ((timeStamps[noteHitIndex] + 0.13f) * 1000 <= SongControl.GetSongTime())
                 {
                     PerformanceManager.Instance.Miss();
                     Destroy(notes[noteHitIndex].gameObject);
