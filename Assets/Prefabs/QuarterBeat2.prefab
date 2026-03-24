@@ -164,7 +164,8 @@ MonoBehaviour:
   position: {x: 0, y: 0, z: 0}
   hitTime: 0
   timeInstantiated: 0
-  txt: {fileID: 4900000, guid: 52959423ff344034b94f4c73718549c9, type: 3}
+  txt: {fileID: 0}
+  loadMap: 0
   noteSpawnX: 0
   noteTapX: 0
   noteSpawnY: 0

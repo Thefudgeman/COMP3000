@@ -19,7 +19,7 @@ public class EditorTimingLine : MonoBehaviour
     public float hitTime;
     public float timeInstantiated= 1.0f;
 
-    public TextAsset txt;
+    public string text;
     public bool loadMap = false;
 
     public float noteSpawnX;
@@ -57,13 +57,13 @@ public class EditorTimingLine : MonoBehaviour
         {
             timeInstantiated = 1f / (SongControl.Instance.bpm / 60f) / 2f - (0.7f / SongControl.Instance.noteSpeed) + (1f / (SongControl.Instance.bpm / 60f) * times);
         }
-        else if (gameObject.name =="QuarterBeat(Clone)")
+        else if (gameObject.name == "QuarterBeat(Clone)")
         {
             timeInstantiated = 1f / (SongControl.Instance.bpm / 60f) / beatDivsion - (0.7f / SongControl.Instance.noteSpeed) + (1f / (SongControl.Instance.bpm / 60f) * times);
         }
         else if (gameObject.name == "QuarterBeat2(Clone)")
         {
-            timeInstantiated = 1f / (SongControl.Instance.bpm / 60f) / beatDivsion *(beatDivsion-1) - (0.7f / SongControl.Instance.noteSpeed) + (1f / (SongControl.Instance.bpm / 60f) * times);
+            timeInstantiated = 1f / (SongControl.Instance.bpm / 60f) / beatDivsion * (beatDivsion - 1) - (0.7f / SongControl.Instance.noteSpeed) + (1f / (SongControl.Instance.bpm / 60f) * times);
         }
 
         if (laneNumber == 6 || laneNumber == 2)
@@ -91,11 +91,9 @@ public class EditorTimingLine : MonoBehaviour
             noteTapX = -900;
         }
 
-        if(loadMap)
+        if (loadMap)
         {
-            string text = txt.text;
             string[] lines = text.Replace("\r", "").Split('\n');
-
             for (int i = 0; i < lines.Length - 1; i++)
             {
                 if (Int32.Parse(lines[i].Substring(0, 1)) == laneNumber)
@@ -141,9 +139,9 @@ public class EditorTimingLine : MonoBehaviour
                     }
                 }
             }
-            }
-        
-        
+        }
+
+
         if (holdNoteTimeStamps.Count > 0)
         {
             Debug.Log(holdNoteTimeStamps[0].headTime + "holdNoteTimestmp");
