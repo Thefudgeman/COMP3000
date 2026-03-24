@@ -1,15 +1,18 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class PerformanceManager : MonoBehaviour
 {
-
+    public TextMeshProUGUI displayScore;
+    public TextMeshProUGUI displayAccuracy;
+    public TextMeshProUGUI displayCombo;
     public static PerformanceManager Instance;
     int score=0;
-    int combo;
+    int combo = 0;
     int maxCombo = 0;
     int missCount=0;
     int perfectCount=0;
@@ -79,5 +82,8 @@ public class PerformanceManager : MonoBehaviour
     {
         noteCount++;
         accuracy = accuracySum / noteCount;
+        displayAccuracy.text = accuracy.ToString() + "%";
+        displayCombo.text = "x" +combo.ToString();
+        displayScore.text = score.ToString();
     }
 }

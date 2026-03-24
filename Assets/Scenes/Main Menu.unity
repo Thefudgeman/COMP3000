@@ -1122,7 +1122,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 621010100}
         m_TargetAssemblyTypeName: SceneChange, Assembly-CSharp
-        m_MethodName: ToGameplay
+        m_MethodName: ToSongSelect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

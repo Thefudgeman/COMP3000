@@ -15,7 +15,6 @@ public class Lane : MonoBehaviour
     List<HoldNote> holdNotes = new List<HoldNote>();
     List<Note> notes = new List<Note>();
     public string LaneNumber;
-    public TextAsset txt;
     public GameObject notePrefab;
     public GameObject holdPrefab;
     public AudioSource audioSource;
@@ -34,16 +33,16 @@ public class Lane : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        string text = txt.text;
-        string[] lines = text.Replace("\r", "").Split('\n');
-        for(int i = 0; i < lines.Length-1; i++)
+     //   Debug.Log(varsToPass.Instance.path);
+     //   txt = File.ReadAllLines(Application.dataPath + "/Music/" + varsToPass.Instance.path + "/" + varsToPass.Instance.path + ".txt");
+     //   string text = File.ReadAllLines(Application.dataPath + "/Music/" + varsToPass.Instance.path + "/" + varsToPass.Instance.path + ".txt");
+        string[] lines = File.ReadAllLines(Application.dataPath + "/Music/" + varsToPass.Instance.path + "/" + varsToPass.Instance.path + ".txt");
+        for (int i = 0; i < lines.Length; i++)
         {
             if (lines[i].Substring(0,1) == LaneNumber)
             {
                 if (lines[i].Substring(lines[i].IndexOf(":")+1,1) == "0")
                 {
-                    Debug.Log(lines[i]);
-                    Debug.Log(lines[i].Substring(0, 1));
                     AddNote(lines[i]);
                 }
                 else if (lines[i].Substring(lines[i].IndexOf(":")+1, 1) == "1")
@@ -57,7 +56,6 @@ public class Lane : MonoBehaviour
 
     void AddNote(string Line)
     {
-        Debug.Log(Line.Substring(Line.IndexOf(",") + 1, Line.Length - 2));
         timeStamps.Add(Convert.ToDouble(Line.Substring(Line.IndexOf(",")+1, Line.Length - 4))/1000);
     }
 
@@ -68,8 +66,6 @@ public class Lane : MonoBehaviour
         holdNote.headTime = Convert.ToDouble(data[1])/1000;
         holdNote.tailTime = Convert.ToDouble(data[2].Substring(0,data[2].Length-2))/1000;
         holdTimeStamps.Add(holdNote);
-        Debug.Log(holdNote.headTime);
-        Debug.Log(holdNote.tailTime);
     }
 
     // Update is called once per frame

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SongControl : MonoBehaviour
 {
@@ -19,8 +21,16 @@ public class SongControl : MonoBehaviour
         {
             Invoke(nameof(StartSong), songDelay);
         }
+        StartCoroutine(OutputRoutine(Application.dataPath + "/Music/" + varsToPass.Instance.path + "/" + varsToPass.Instance.path + ".mp3"));
     }
-
+    private IEnumerator OutputRoutine(string path)
+    {
+        var loader = new WWW(path);
+        yield return loader;
+        // output.texture = loader.texture;
+        AudioClip audio = loader.GetAudioClip();
+        audioSource.clip = audio;
+    }
 
     public void StartSong()
     {

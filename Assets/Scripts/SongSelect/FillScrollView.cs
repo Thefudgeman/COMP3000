@@ -18,12 +18,7 @@ public class FillScrollView : MonoBehaviour
             Button Item = Instantiate(ScrollViewItem);
             Item.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = Name;
             Item.transform.SetParent(transform.GetChild(0).GetChild(0).transform);
+            Item.transform.localScale = Vector3.one; //sets scale to 108x larger otherwise
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
