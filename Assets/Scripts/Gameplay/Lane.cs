@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using TMPro;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -36,7 +35,7 @@ public class Lane : MonoBehaviour
      //   Debug.Log(varsToPass.Instance.path);
      //   txt = File.ReadAllLines(Application.dataPath + "/Music/" + varsToPass.Instance.path + "/" + varsToPass.Instance.path + ".txt");
      //   string text = File.ReadAllLines(Application.dataPath + "/Music/" + varsToPass.Instance.path + "/" + varsToPass.Instance.path + ".txt");
-        string[] lines = File.ReadAllLines(Application.dataPath + "/Music/" + varsToPass.Instance.path + "/" + varsToPass.Instance.path + ".txt");
+        string[] lines = File.ReadAllLines(Application.persistentDataPath + "/Music/" + varsToPass.Instance.path + "/" + varsToPass.Instance.path + ".txt");
         for (int i = 0; i < lines.Length; i++)
         {
             if (lines[i].Substring(0,1) == LaneNumber)

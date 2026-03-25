@@ -446,8 +446,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8967c982de79694a9ab2687e7fa33e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  txt: {fileID: 4900000, guid: 52959423ff344034b94f4c73718549c9, type: 3}
+  txt: {fileID: 0}
   GridUIObject: {fileID: 568918939}
+  music: {fileID: 1765844603}
 --- !u!114 &165298294
 MonoBehaviour:
   m_ObjectHideFlags: 0

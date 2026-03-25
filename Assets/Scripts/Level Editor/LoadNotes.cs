@@ -37,9 +37,9 @@ public class LoadNotes : MonoBehaviour
         int secondLastPos = loader.url.LastIndexOf('/', lastPos - 1);
         int thirdLastPos = loader.url.LastIndexOf('/', secondLastPos - 1);
 
-        string text = File.ReadAllText(Application.dataPath + "/Music/" + loader.url.Substring(secondLastPos+1, loader.url.Substring(secondLastPos + 1).Length));
+        string text = File.ReadAllText(Application.persistentDataPath + "/Music/" + loader.url.Substring(secondLastPos+1, loader.url.Substring(secondLastPos + 1).Length));
 
-        string Songurl = Application.dataPath + "/Music/" + loader.url.Substring(secondLastPos + 1, loader.url.Substring(secondLastPos + 1).Length - 4) + ".mp3";
+        string Songurl = Application.persistentDataPath + "/Music/" + loader.url.Substring(secondLastPos + 1, loader.url.Substring(secondLastPos + 1).Length - 4) + ".mp3";
 
         using (UnityWebRequest request = UnityWebRequestMultimedia.GetAudioClip(Songurl, AudioType.MPEG))
         {

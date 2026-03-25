@@ -7,11 +7,12 @@ using TMPro;
 
 public class FillScrollView : MonoBehaviour
 {
-    string[] directories = Directory.GetDirectories("Assets/Music");
+    string[] directories;
     public Button ScrollViewItem;
     // Start is called before the first frame update
     void Start()
     {
+        directories = Directory.GetDirectories(Application.persistentDataPath + "/Music");
         foreach (string dir in directories)
         {
             string Name = dir.Substring(dir.LastIndexOf('\\') + 1);

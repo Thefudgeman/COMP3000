@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -21,7 +22,14 @@ public class SongControl : MonoBehaviour
         {
             Invoke(nameof(StartSong), songDelay);
         }
-        StartCoroutine(OutputRoutine(Application.dataPath + "/Music/" + varsToPass.Instance.path + "/" + varsToPass.Instance.path + ".mp3"));
+        try
+        {
+            StartCoroutine(OutputRoutine(Application.persistentDataPath + "/Music/" + varsToPass.Instance.path + "/" + varsToPass.Instance.path + ".mp3"));
+        }
+        catch(NullReferenceException e)
+        {
+            return;
+        }
     }
     private IEnumerator OutputRoutine(string path)
     {
