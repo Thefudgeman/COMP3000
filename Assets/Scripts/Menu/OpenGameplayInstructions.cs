@@ -7,6 +7,14 @@ public class OpenGameplayInstructions : MonoBehaviour
     public GameObject gameplayInstructions;
     public GameObject seeInstructionsQ;
 
+    private void Start()
+    {
+        if(PlayerPrefs.GetInt("ShownQ") == 1)
+        {
+            seeInstructionsQ.SetActive(false);
+        }
+    }
+
     public void OpenInstructions()
     {
         gameplayInstructions.SetActive(true);
@@ -25,5 +33,6 @@ public class OpenGameplayInstructions : MonoBehaviour
     public void CloseSeeInstructions()
     {
         seeInstructionsQ.SetActive(false);
+        PlayerPrefs.SetInt("ShownQ", 1);
     }
 }

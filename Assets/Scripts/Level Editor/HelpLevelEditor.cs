@@ -8,7 +8,16 @@ public class HelpLevelEditor : MonoBehaviour
     public GameObject helpMenu;
     public GameObject openingMessage;
     public GameObject setupMenu;
-    public Button button; 
+    public Button button;
+
+    void Start()
+    {
+        if(PlayerPrefs.GetInt("ShownLevelQ") == 1)
+        {
+            CloseOpeningMessage();
+            OpenSetup();
+        }
+    }
 
     public void OpenHelpMenu()
     {
@@ -27,10 +36,12 @@ public class HelpLevelEditor : MonoBehaviour
     public void CloseOpeningMessage()
     {
         openingMessage.SetActive(false);
+        PlayerPrefs.SetInt("ShownLevelQ", 1);
     }
 
     public void OpenSetup()
     {
+
         setupMenu.SetActive(true);
     }
 }
