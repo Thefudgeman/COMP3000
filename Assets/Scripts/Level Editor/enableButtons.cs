@@ -41,11 +41,12 @@ public class enableButtons : MonoBehaviour
         catch (ArgumentException e)
         {
             System.Windows.Forms.MessageBox.Show("Could not find file: " + AddSong.Instance.inputField.text);
+            return;
         }
         catch (FileNotFoundException e)
         {
             System.Windows.Forms.MessageBox.Show("Could not find file: " + AddSong.Instance.inputField.text);
-
+            return;
         }
 
         if (dropdown.value == 0)
