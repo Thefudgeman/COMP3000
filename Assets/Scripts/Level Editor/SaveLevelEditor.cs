@@ -108,6 +108,7 @@ public class SaveLevelEditor : MonoBehaviour
                 holdNotesIndex++;
             }
         }
+        sw.Write("\n#MapData\nBPM:" + SongControl.Instance.bpm);
             sw.Close();
     }
 }

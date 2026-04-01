@@ -36,7 +36,8 @@ public class Lane : MonoBehaviour
      //   txt = File.ReadAllLines(Application.dataPath + "/Music/" + varsToPass.Instance.path + "/" + varsToPass.Instance.path + ".txt");
      //   string text = File.ReadAllLines(Application.dataPath + "/Music/" + varsToPass.Instance.path + "/" + varsToPass.Instance.path + ".txt");
         string[] lines = File.ReadAllLines(Application.persistentDataPath + "/Music/" + varsToPass.Instance.path + "/" + varsToPass.Instance.path + ".txt");
-        for (int i = 0; i < lines.Length; i++)
+        int i = 0;
+        while (lines[i].Length != 0)
         {
             if (lines[i].Substring(0,1) == LaneNumber)
             {
@@ -50,6 +51,8 @@ public class Lane : MonoBehaviour
                 }
                 
             }
+            Debug.Log(lines[i]);
+            i++;
         }
     }
 

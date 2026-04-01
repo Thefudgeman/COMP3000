@@ -93,7 +93,8 @@ public class EditorTimingLine : MonoBehaviour
         if (loadMap)
         {
             string[] lines = text.Replace("\r", "").Split('\n');
-            for (int i = 0; i < lines.Length - 1; i++)
+            int i = 0;
+            while (lines[i].Length != 0)
             {
                 if (Int32.Parse(lines[i].Substring(0, 1)) == laneNumber)
                 {
@@ -137,6 +138,7 @@ public class EditorTimingLine : MonoBehaviour
 
                     }
                 }
+                i++;
             }
         }
 
