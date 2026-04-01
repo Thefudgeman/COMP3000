@@ -34,7 +34,7 @@ public class SubmitMap : MonoBehaviour
         txt =txt + "\nLeaderboardID:" + System.DateTime.UtcNow.Ticks;
         Debug.Log(url);
         StreamWriter sw = new StreamWriter(url, true);
-        sw.Write(txt);
+        sw.Write("\nLeaderboardID:" + System.DateTime.UtcNow.Ticks);
         sw.Close();
     }
 }
