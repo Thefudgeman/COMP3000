@@ -219,14 +219,22 @@ public class Lane : MonoBehaviour
             }
             if (Convert.ToInt32(LaneNumber) > 3)
             {
+                if(Input.GetKeyDown(input))
+                {
+                    holding = true;
+                }
                 if (Input.GetKeyDown(input) && SongControl.GetSongTime() - holdTimeStamps[holdNoteHitIndex].headTime > -0.13 && !headHit)
                 {
                     double hitError = SongControl.GetSongTime() - holdTimeStamps[holdNoteHitIndex].headTime;
                     PerformanceManager.Instance.Hit(hitError);
                     headHit = true;
                     holdNotes[holdNoteHitIndex].transform.GetChild(0).gameObject.SetActive(false);
+                }
 
-                    holding = true;
+                if (SongControl.GetSongTime() > holdTimeStamps[holdNoteHitIndex].headTime + 0.13 && !headHit && headMissed)
+                {
+                    PerformanceManager.Instance.Miss();
+                    headHit = true;
                 }
 
                 if (((holdTimeStamps[holdNoteHitIndex].tailTime + 0.13) <= SongControl.GetSongTime()))
@@ -238,7 +246,7 @@ public class Lane : MonoBehaviour
                     holdNoteHitIndex++;
                 }
 
-                if (holding && Input.GetKeyUp(input))
+                if (holding && Input.GetKeyUp(input) && holdTimeStamps[holdNoteHitIndex].headTime <= SongControl.GetSongTime())
                 {
                     holding = false;
 
@@ -264,21 +272,21 @@ public class Lane : MonoBehaviour
             }
             else
             {
-                if (axisDown && Input.GetAxis(input) == 0)
-                {
-                    axisDown = false;
-                }
-                if (Input.GetAxis(input) < 0 && !holding && !axisDown && SongControl.GetSongTime() - holdTimeStamps[holdNoteHitIndex].headTime > -0.13 && !headHit)
+
+                if (Input.GetAxis(input) != 0 && SongControl.GetSongTime() - holdTimeStamps[holdNoteHitIndex].headTime > -0.13 && !headHit)
                 {
                     double hitError = SongControl.GetSongTime() - holdTimeStamps[holdNoteHitIndex].headTime;
                     PerformanceManager.Instance.Hit(hitError);
                     holdNotes[holdNoteHitIndex].transform.GetChild(0).gameObject.SetActive(false);
 
                     headHit = true;
-                    axisDown = true;
-                    holding = true;
                 }
 
+                if(SongControl.GetSongTime() > holdTimeStamps[holdNoteHitIndex].headTime + 0.13 && !headHit && headMissed)
+                {
+                    PerformanceManager.Instance.Miss();
+                    headHit = true;
+                }
 
                 if (((holdTimeStamps[holdNoteHitIndex].tailTime + 0.13) <= SongControl.GetSongTime()))
                 {
@@ -291,7 +299,7 @@ public class Lane : MonoBehaviour
                     holdNoteHitIndex++;
                 }
 
-                if (holding && Input.GetAxis(input) == 0)
+                if (holding && Input.GetAxis(input) == 0 && holdTimeStamps[holdNoteHitIndex].headTime <= SongControl.GetSongTime())
                 {
                     holding = false;
 
@@ -312,6 +320,14 @@ public class Lane : MonoBehaviour
 
                 }
 
+                if (Input.GetAxis(input) != 0) //must be placed at end or holding will be false when checking for releasing the axis if at the top
+                {
+                    holding = true;
+                }
+                else
+                {
+                    holding = false;
+                }
             }
 
 
