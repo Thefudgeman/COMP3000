@@ -1,9 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using TMPro;
+using Unity.Services.Authentication;
+using Unity.Services.Core;
+using Unity.Services.Leaderboards;
+using Unity.Services.Leaderboards.Models;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Profiling.Memory.Experimental;
 
 public class PerformanceManager : MonoBehaviour
 {
@@ -21,21 +28,21 @@ public class PerformanceManager : MonoBehaviour
 
     public static PerformanceManager Instance;
     public GameObject Results;
-    int score=0;
+    int score = 0;
     int combo = 0;
     int maxCombo = 0;
-    int missCount=0;
-    int perfectCount=0;
-    int okCount=0;
-    int greatCount=0;
-    float accuracy=0;
-    float accuracySum=0;
-    int noteCount=0;
+    int missCount = 0;
+    int perfectCount = 0;
+    int okCount = 0;
+    int greatCount = 0;
+    float accuracy = 0;
+    float accuracySum = 0;
+    int noteCount = 0;
     public double lastNote = 0;
     bool showingResults = false;
     public int lastNoteFound = 0;
 
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,7 +52,7 @@ public class PerformanceManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(SongControl.GetSongTime() > lastNote && !showingResults && lastNoteFound == 8)
+        if (SongControl.GetSongTime() > lastNote && !showingResults && lastNoteFound == 8)
         {
             showingResults = true;
 
@@ -59,6 +66,7 @@ public class PerformanceManager : MonoBehaviour
 
 
             Results.SetActive(true);
+            SubmitScore();
         }
     }
 
@@ -66,7 +74,7 @@ public class PerformanceManager : MonoBehaviour
     {
         Debug.Log("hit");
         hitError = Math.Abs(hitError);
-        if(hitError <= 0.05)
+        if (hitError <= 0.05)
         {
             score += 1000;
             perfectCount++;
@@ -89,7 +97,7 @@ public class PerformanceManager : MonoBehaviour
         }
         combo++;
 
-        if(combo>maxCombo)
+        if (combo > maxCombo)
         {
             maxCombo = combo;
         }
@@ -103,7 +111,7 @@ public class PerformanceManager : MonoBehaviour
         missCount++;
         combo = 0;
         updateValues();
-        
+
     }
 
     public void updateValues()
@@ -111,7 +119,29 @@ public class PerformanceManager : MonoBehaviour
         noteCount++;
         accuracy = accuracySum / noteCount;
         displayAccuracy.text = accuracy.ToString() + "%";
-        displayCombo.text = "x" +combo.ToString();
+        displayCombo.text = "x" + combo.ToString();
         displayScore.text = score.ToString();
+    }
+
+    public async void SubmitScore()
+    {
+        await UnityServices.InitializeAsync();
+        await AuthenticationService.Instance.SignInAnonymouslyAsync();
+        string file = File.ReadLines(Application.persistentDataPath + "/Music/" + varsToPass.Instance.path + "/" + varsToPass.Instance.path + ".txt").Last();
+        file = file.Substring(file.IndexOf(":") + 1);
+        var leaderboardID = new AddPlayerScoreOptions
+        {
+            Metadata = new Dictionary<string, string>
+            {
+                {"leaderboardID", file }
+            }
+        };
+        Debug.Log(file);
+
+        var entry = await LeaderboardsService.Instance.AddPlayerScoreAsync(
+            "Leaderboard",
+            score,
+            new AddPlayerScoreOptions { Metadata = leaderboardID }
+            );
     }
 }

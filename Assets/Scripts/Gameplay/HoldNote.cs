@@ -138,13 +138,12 @@ public class HoldNote : MonoBehaviour
         float headT = (float)(headTimeSinceInstantiated / (0.7f * 2 / SongControl.Instance.noteSpeed));
         float headSizeScale = timeAlive / (float)headTimeSinceInstantiated;
 
-        if (headTimeSinceInstantiated >= (0.7 / SongControl.Instance.noteSpeed) +0.13 && !missed) //if player does not hit the object destroy it once it is outside of the margin of error
+        if (headTimeSinceInstantiated >= (0.7 / SongControl.Instance.noteSpeed) +0.13 && !missed)
         {
             missed = true;
-            PerformanceManager.Instance.Miss();
             transform.GetChild(0).gameObject.SetActive(false);
         }
-        else
+        else if(headTimeSinceInstantiated < (0.7 / SongControl.Instance.noteSpeed) + 0.13)
         {
 
             if (laneNumber == 0 || laneNumber == 4 || laneNumber == 2 || laneNumber == 6)
