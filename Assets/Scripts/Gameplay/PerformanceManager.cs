@@ -10,6 +10,15 @@ public class PerformanceManager : MonoBehaviour
     public TextMeshProUGUI displayScore;
     public TextMeshProUGUI displayAccuracy;
     public TextMeshProUGUI displayCombo;
+
+    public TextMeshProUGUI resultsScore;
+    public TextMeshProUGUI resultsAccuracy;
+    public TextMeshProUGUI resultsMaxCombo;
+    public TextMeshProUGUI resultsPerfect;
+    public TextMeshProUGUI resultsGreat;
+    public TextMeshProUGUI resultsOk;
+    public TextMeshProUGUI resultsMiss;
+
     public static PerformanceManager Instance;
     public GameObject Results;
     int score=0;
@@ -24,7 +33,7 @@ public class PerformanceManager : MonoBehaviour
     int noteCount=0;
     public double lastNote = 0;
     bool showingResults = false;
-    public bool lastNoteFound = false;
+    public int lastNoteFound = 0;
 
     
     // Start is called before the first frame update
@@ -36,9 +45,19 @@ public class PerformanceManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(SongControl.GetSongTime() > lastNote && !showingResults && lastNoteFound)
+        if(SongControl.GetSongTime() > lastNote && !showingResults && lastNoteFound == 8)
         {
             showingResults = true;
+
+            resultsScore.SetText(score.ToString());
+            resultsAccuracy.SetText(accuracy.ToString());
+            resultsMaxCombo.SetText(maxCombo.ToString());
+            resultsPerfect.SetText(perfectCount.ToString());
+            resultsGreat.SetText(greatCount.ToString());
+            resultsOk.SetText(okCount.ToString());
+            resultsMiss.SetText(missCount.ToString());
+
+
             Results.SetActive(true);
         }
     }
