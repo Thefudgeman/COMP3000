@@ -1,16 +1,14 @@
+using PlayFab;
+using PlayFab.ClientModels;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using TMPro;
-using Unity.Services.Authentication;
 using Unity.Services.Core;
-using Unity.Services.Leaderboards;
-using Unity.Services.Leaderboards.Models;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.Profiling.Memory.Experimental;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class PerformanceManager : MonoBehaviour
 {
@@ -41,6 +39,8 @@ public class PerformanceManager : MonoBehaviour
     public double lastNote = 0;
     bool showingResults = false;
     public int lastNoteFound = 0;
+    string mapID = "0";
+    int playerLeaderboardScore = -1;
 
 
     // Start is called before the first frame update
@@ -123,25 +123,62 @@ public class PerformanceManager : MonoBehaviour
         displayScore.text = score.ToString();
     }
 
-    public async void SubmitScore()
+    public void SubmitScore()
     {
-        await UnityServices.InitializeAsync();
-        await AuthenticationService.Instance.SignInAnonymouslyAsync();
         string file = File.ReadLines(Application.persistentDataPath + "/Music/" + varsToPass.Instance.path + "/" + varsToPass.Instance.path + ".txt").Last();
-        file = file.Substring(file.IndexOf(":") + 1);
-        var leaderboardID = new AddPlayerScoreOptions
-        {
-            Metadata = new Dictionary<string, string>
-            {
-                {"leaderboardID", file }
-            }
-        };
-        Debug.Log(file);
+        mapID = file.Substring(file.IndexOf(":") + 1);
 
-        var entry = await LeaderboardsService.Instance.AddPlayerScoreAsync(
-            "Leaderboard",
-            score,
-            new AddPlayerScoreOptions { Metadata = leaderboardID }
-            );
+        var getPlayerScore = new GetPlayerStatisticsRequest
+        {
+            StatisticNames = new List<string> { mapID }
+        };
+
+        PlayFabClientAPI.GetPlayerStatistics(getPlayerScore, OnGetPlayerScore, OnGetScoreError);
+    }
+
+    void OnGetPlayerScore(GetPlayerStatisticsResult result)
+    {
+        foreach (var resultScore in result.Statistics) 
+        {
+            if(resultScore.StatisticName == mapID)
+            {
+                Debug.Log(resultScore.Value);
+                playerLeaderboardScore = resultScore.Value;
+            }
+        }
+        Debug.Log(playerLeaderboardScore.ToString());
+        if (score > playerLeaderboardScore)
+        {
+            Debug.Log("Submitting Score");
+            var request = new UpdatePlayerStatisticsRequest
+            {
+                Statistics = new List<StatisticUpdate>
+            {
+                new StatisticUpdate
+                {
+                    StatisticName = mapID,
+                    Value = score,
+
+                }
+            }
+            };
+            PlayFabClientAPI.UpdatePlayerStatistics(request, OnScoreSubmitted, OnScoreError);
+        }
+    }
+
+    void OnGetScoreError(PlayFabError error)
+    {
+        Debug.Log(error.GenerateErrorReport());
+    }
+
+    void OnScoreSubmitted(UpdatePlayerStatisticsResult result)
+    {
+        Debug.Log("score submitted");
+    }
+
+    void OnScoreError(PlayFabError error)
+    {
+        Debug.Log("error");
+        Debug.Log(error.GenerateErrorReport());
     }
 }

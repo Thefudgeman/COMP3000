@@ -1,25 +1,29 @@
 using SFB;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
-using UnityEngine.UI;
+
 
 public class SubmitMap : MonoBehaviour
 {
 
     string txt;
-
+    string path;
     public void OnClick()
     {
         var paths = StandaloneFileBrowser.OpenFilePanel("Title", "", "txt", false);
         if (paths.Length > 0)
         {
             StartCoroutine(OutputRoutine(paths[0]));
+            
         }
     }
+
+
+
 
     private IEnumerator OutputRoutine(string url)
     {
@@ -32,6 +36,7 @@ public class SubmitMap : MonoBehaviour
         int secondLastPos = loader.url.LastIndexOf('/', lastPos - 1);
 
         txt = File.ReadAllText(Application.persistentDataPath + "/Music/" + loader.url.Substring(secondLastPos + 1, loader.url.Substring(secondLastPos + 1).Length));
+        path = Application.persistentDataPath + "/Music/" + loader.url.Substring(secondLastPos + 1, loader.url.Substring(secondLastPos + 1).Length);
         string[] lines = txt.Split("\n");
         if (lines[lines.Length-1].Contains("LeaderboardID:"))
         {
@@ -58,6 +63,6 @@ public class SubmitMap : MonoBehaviour
             sw.Write("\nLeaderboardID:" + System.DateTime.UtcNow.Ticks);
             sw.Close();
         }
-
+        
     }
 }
