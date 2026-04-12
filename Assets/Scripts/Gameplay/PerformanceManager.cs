@@ -24,6 +24,11 @@ public class PerformanceManager : MonoBehaviour
     public TextMeshProUGUI resultsOk;
     public TextMeshProUGUI resultsMiss;
 
+    public Animator leftTimingAnimator;
+    public Animator rightTimingAnimator;
+    public TextMeshProUGUI leftTimingText;
+    public TextMeshProUGUI rightTimingText;
+
     public static PerformanceManager Instance;
     public GameObject Results;
     int score = 0;
@@ -42,11 +47,17 @@ public class PerformanceManager : MonoBehaviour
     string mapID = "0";
     int playerLeaderboardScore = -1;
 
+    Color32 perfectColour = new Color32(0, 255, 255, 255);
+    Color32 greatColour = new Color32(36, 255, 0, 255);
+    Color32 okColour = new Color32(255, 133, 0, 255);
+    Color32 missColour = new Color32(255,0,0,255);
+
 
     // Start is called before the first frame update
     void Start()
     {
         Instance = this;
+        
     }
 
     // Update is called once per frame
@@ -55,34 +66,59 @@ public class PerformanceManager : MonoBehaviour
         if (SongControl.GetSongTime() > lastNote && !showingResults && lastNoteFound == 8)
         {
             showingResults = true;
-
-            resultsScore.SetText(score.ToString());
-            resultsAccuracy.SetText(accuracy.ToString());
-            resultsMaxCombo.SetText(maxCombo.ToString());
-            resultsPerfect.SetText(perfectCount.ToString());
-            resultsGreat.SetText(greatCount.ToString());
-            resultsOk.SetText(okCount.ToString());
-            resultsMiss.SetText(missCount.ToString());
-
-
-            Results.SetActive(true);
+            StartCoroutine(showResults());
             SubmitScore();
         }
     }
 
-    public void Hit(double hitError)
+    IEnumerator showResults()
+    {
+        yield return new WaitForSeconds(0.5f); //needs delay as count for last note(s) timing won't update fast enough
+        resultsScore.SetText(score.ToString());
+        resultsAccuracy.SetText(accuracy.ToString()+"%");
+        resultsMaxCombo.SetText("x"+maxCombo.ToString());
+        resultsPerfect.SetText(perfectCount.ToString());
+        resultsGreat.SetText(greatCount.ToString());
+        resultsOk.SetText(okCount.ToString());
+        resultsMiss.SetText(missCount.ToString());
+
+        Results.SetActive(true);
+
+    }
+
+    public void Hit(double hitError, int laneNumber)
     {
         Debug.Log("hit");
         hitError = Math.Abs(hitError);
         if (hitError <= 0.05)
         {
-            score += 1000;
+            if(laneNumber < 4)
+            {
+                leftTimingText.SetText("Perfect!");
+                leftTimingText.color = perfectColour;
+            }
+            else
+            {
+                rightTimingText.SetText("Perfect!");
+                rightTimingText.color = perfectColour;
+            }
+                score += 1000;
             perfectCount++;
             accuracySum += 100;
             Debug.Log("Perf");
         }
         else if (hitError > 0.05 && hitError <= 0.1)
         {
+            if (laneNumber < 4)
+            {
+                leftTimingText.SetText("Great!");
+                leftTimingText.color = greatColour;
+            }
+            else
+            {
+                rightTimingText.SetText("Great!");
+                rightTimingText.color = greatColour;
+            }
             score += 500;
             greatCount++;
             accuracySum += 50;
@@ -90,12 +126,30 @@ public class PerformanceManager : MonoBehaviour
         }
         else
         {
+            if (laneNumber < 4)
+            {
+                leftTimingText.SetText("Ok");
+                leftTimingText.color = okColour;
+            }
+            else
+            {
+                rightTimingText.SetText("Ok");
+                rightTimingText.color = okColour;
+            }
             score += 250;
             okCount++;
             accuracySum += 25;
             Debug.Log("Bad");
         }
         combo++;
+        if(laneNumber < 4)
+        {
+            leftTimingAnimator.Play("LeftTimingText", -1, 0f);
+        }
+        else
+        {
+            rightTimingAnimator.Play("LeftTimingText", -1, 0f);
+        }
 
         if (combo > maxCombo)
         {
@@ -105,10 +159,23 @@ public class PerformanceManager : MonoBehaviour
         Debug.Log(score);
     }
 
-    public void Miss()
+    public void Miss(int laneNumber)
     {
+        if (laneNumber < 4)
+        {
+            leftTimingText.SetText("Miss");
+            leftTimingText.color = missColour;
+            leftTimingAnimator.Play("LeftTimingText", -1, 0f);
+        }
+        else
+        {
+            rightTimingText.SetText("Miss");
+            rightTimingText.color = missColour;
+            rightTimingAnimator.Play("RightTimingText", -1, 0f);
+        }
         Debug.Log("miss");
         missCount++;
+        Debug.Log(missCount);
         combo = 0;
         updateValues();
 

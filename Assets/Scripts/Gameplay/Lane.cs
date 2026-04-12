@@ -172,9 +172,9 @@ public class Lane : MonoBehaviour
         }
         if(noteHitIndex < timeStamps.Count)
         {
-            if ((timeStamps[noteHitIndex] + 0.13f) * 1000 <= SongControl.GetSongTime())
+            if ((timeStamps[noteHitIndex] + 0.13f) <= SongControl.GetSongTime())
             {
-                PerformanceManager.Instance.Miss();
+                PerformanceManager.Instance.Miss(Convert.ToInt32(LaneNumber));
                 Destroy(notes[noteHitIndex].gameObject);
                 noteHitIndex++;
             }
@@ -184,15 +184,16 @@ public class Lane : MonoBehaviour
                 {
                     double hitError = SongControl.GetSongTime() - timeStamps[noteHitIndex];
                     Debug.Log(SongControl.GetSongTime() - timeStamps[noteHitIndex] + " error");
-                    PerformanceManager.Instance.Hit(hitError);
+                    PerformanceManager.Instance.Hit(hitError, Convert.ToInt32(LaneNumber));
                     Destroy(notes[noteHitIndex].gameObject);
                     noteHitIndex++;
                 }
             }
             else
             {
-                if ((timeStamps[noteHitIndex] + 0.13f) * 1000 <= SongControl.GetSongTime())
+                if ((timeStamps[noteHitIndex] + 0.13f) <= SongControl.GetSongTime())
                 {
+                    PerformanceManager.Instance.Miss(Convert.ToInt32(LaneNumber));
                     Destroy(notes[noteHitIndex].gameObject);
                     noteHitIndex++;
                 }
@@ -203,7 +204,7 @@ public class Lane : MonoBehaviour
                 if (((Input.GetAxis(input) < 0 && (Convert.ToInt32(LaneNumber) == 0 || Convert.ToInt32(LaneNumber) == 1)) || (Input.GetAxis(input) > 0 && (Convert.ToInt32(LaneNumber) == 2 || Convert.ToInt32(LaneNumber) == 3))) && !axisDown && SongControl.GetSongTime() - timeStamps[noteHitIndex] > -0.13)
                 {
                    double hitError = SongControl.GetSongTime() - timeStamps[noteHitIndex];
-                    PerformanceManager.Instance.Hit(hitError);
+                    PerformanceManager.Instance.Hit(hitError, Convert.ToInt32(LaneNumber));
                     axisDown = true;
                     Destroy(notes[noteHitIndex].gameObject);
                     noteHitIndex++;
@@ -226,19 +227,20 @@ public class Lane : MonoBehaviour
                 if (Input.GetKeyDown(input) && SongControl.GetSongTime() - holdTimeStamps[holdNoteHitIndex].headTime > -0.13 && !headHit)
                 {
                     double hitError = SongControl.GetSongTime() - holdTimeStamps[holdNoteHitIndex].headTime;
-                    PerformanceManager.Instance.Hit(hitError);
+                    PerformanceManager.Instance.Hit(hitError, Convert.ToInt32(LaneNumber));
                     headHit = true;
                     holdNotes[holdNoteHitIndex].transform.GetChild(0).gameObject.SetActive(false);
                 }
 
                 if (SongControl.GetSongTime() > holdTimeStamps[holdNoteHitIndex].headTime + 0.13 && !headHit && headMissed)
                 {
-                    PerformanceManager.Instance.Miss();
+                    PerformanceManager.Instance.Miss(Convert.ToInt32(LaneNumber));
                     headHit = true;
                 }
 
                 if (((holdTimeStamps[holdNoteHitIndex].tailTime + 0.13) <= SongControl.GetSongTime()))
                 {
+                    PerformanceManager.Instance.Miss(Convert.ToInt32(LaneNumber));
 
                     headHit = false;
                     headMissed = false;
@@ -253,11 +255,11 @@ public class Lane : MonoBehaviour
                     if(SongControl.GetSongTime() - holdTimeStamps[holdNoteHitIndex].tailTime >= -0.13)
                     {
                         double hitError = SongControl.GetSongTime() - holdTimeStamps[holdNoteHitIndex].tailTime;
-                        PerformanceManager.Instance.Hit(hitError);
+                        PerformanceManager.Instance.Hit(hitError, Convert.ToInt32(LaneNumber));
                     }
                     else if(SongControl.GetSongTime() - holdTimeStamps[holdNoteHitIndex].tailTime < 0.13)
                     {
-                        PerformanceManager.Instance.Miss();
+                        PerformanceManager.Instance.Miss(Convert.ToInt32(LaneNumber));
                     }
 
                     Destroy(holdNotes[holdNoteHitIndex].gameObject);
@@ -276,7 +278,7 @@ public class Lane : MonoBehaviour
                 if (Input.GetAxis(input) != 0 && SongControl.GetSongTime() - holdTimeStamps[holdNoteHitIndex].headTime > -0.13 && !headHit)
                 {
                     double hitError = SongControl.GetSongTime() - holdTimeStamps[holdNoteHitIndex].headTime;
-                    PerformanceManager.Instance.Hit(hitError);
+                    PerformanceManager.Instance.Hit(hitError, Convert.ToInt32(LaneNumber));
                     holdNotes[holdNoteHitIndex].transform.GetChild(0).gameObject.SetActive(false);
 
                     headHit = true;
@@ -284,13 +286,13 @@ public class Lane : MonoBehaviour
 
                 if(SongControl.GetSongTime() > holdTimeStamps[holdNoteHitIndex].headTime + 0.13 && !headHit && headMissed)
                 {
-                    PerformanceManager.Instance.Miss();
+                    PerformanceManager.Instance.Miss(Convert.ToInt32(LaneNumber));
                     headHit = true;
                 }
 
                 if (((holdTimeStamps[holdNoteHitIndex].tailTime + 0.13) <= SongControl.GetSongTime()))
                 {
-                    PerformanceManager.Instance.Miss();
+                    PerformanceManager.Instance.Miss(Convert.ToInt32(LaneNumber));
                     Destroy(holdNotes[holdNoteHitIndex].gameObject);
                     headHit = false;
 
@@ -306,11 +308,11 @@ public class Lane : MonoBehaviour
                     if (SongControl.GetSongTime() - holdTimeStamps[holdNoteHitIndex].tailTime > -0.13)
                     {
                         double hitError = SongControl.GetSongTime() - holdTimeStamps[holdNoteHitIndex].tailTime;
-                        PerformanceManager.Instance.Hit(hitError);
+                        PerformanceManager.Instance.Hit(hitError, Convert.ToInt32(LaneNumber));
                     }
                     else if (SongControl.GetSongTime() - holdTimeStamps[holdNoteHitIndex].tailTime < 0.13)
                     {
-                        PerformanceManager.Instance.Miss();
+                        PerformanceManager.Instance.Miss(Convert.ToInt32(LaneNumber));
                     }
                     Destroy(holdNotes[holdNoteHitIndex].gameObject);
                     headHit = false;
