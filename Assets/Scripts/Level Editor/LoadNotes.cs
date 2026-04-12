@@ -55,7 +55,10 @@ public class LoadNotes : MonoBehaviour
                 music.clip = clip;
             }
         }
+        enableButtons.Instance.loadingMap = true;
+        string[] file = File.ReadAllLines(Application.persistentDataPath + "/Music/" + loader.url.Substring(secondLastPos + 1, loader.url.Substring(secondLastPos + 1).Length - 4) + ".txt");
 
+        SongControl.Instance.bpm = float.Parse(file[file.Length - 2].Substring(file[file.Length-2].IndexOf(":")+1));
         enableButtons.Instance.enableButton();
         Debug.Log(GridUIObject.transform.GetChild(0).transform.name);
         foreach (Transform child in GridUIObject.transform)

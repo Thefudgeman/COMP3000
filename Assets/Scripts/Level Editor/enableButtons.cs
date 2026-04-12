@@ -13,6 +13,7 @@ public class enableButtons : MonoBehaviour
     public GameObject setup;
     public TMP_InputField bpm;
     public static enableButtons Instance;
+    public bool loadingMap = false;
 
     private void Start()
     {
@@ -32,11 +33,13 @@ public class enableButtons : MonoBehaviour
                     break;
                 }
             }
-
-            var directory = Directory.CreateDirectory(Application.persistentDataPath + "/Music/" + AddSong.Instance.inputField.text.Substring(i + 1, AddSong.Instance.inputField.text.Substring(i + 1).Length - 4));
-            Debug.Log(directory.Name);
-            File.Copy(AddSong.Instance.inputField.text, directory + "/" + AddSong.Instance.inputField.text.Substring(i + 1));
-            File.Create(directory + "/" + AddSong.Instance.inputField.text.Substring(i + 1, AddSong.Instance.inputField.text.Substring(i + 1).Length - 4) + ".txt");
+            if (!loadingMap)
+            {
+                var directory = Directory.CreateDirectory(Application.persistentDataPath + "/Music/" + AddSong.Instance.inputField.text.Substring(i + 1, AddSong.Instance.inputField.text.Substring(i + 1).Length - 4));
+                Debug.Log(directory.Name);
+                File.Copy(AddSong.Instance.inputField.text, directory + "/" + AddSong.Instance.inputField.text.Substring(i + 1));
+                File.Create(directory + "/" + AddSong.Instance.inputField.text.Substring(i + 1, AddSong.Instance.inputField.text.Substring(i + 1).Length - 4) + ".txt");
+            }
         }
         catch (ArgumentException e)
         {
@@ -71,7 +74,10 @@ public class enableButtons : MonoBehaviour
         playPauseButton.GetComponent<Button>().enabled = true;
         saveButton.GetComponent<Button>().enabled = true;
         setup.SetActive(false);
-        SongControl.Instance.bpm = float.Parse(bpm.text);
-        GridUI.Instance.GenerateGrid();
+        if(!loadingMap)
+        {
+            SongControl.Instance.bpm = float.Parse(bpm.text);
+        }
+            GridUI.Instance.GenerateGrid();
     }
 }
