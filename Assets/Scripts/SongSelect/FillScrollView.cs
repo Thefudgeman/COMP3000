@@ -12,6 +12,7 @@ public class FillScrollView : MonoBehaviour
     public Toggle ScrollViewItem;
     public ToggleGroup ToggleGroup;
     public AudioSource audioSource;
+    public GameObject scrollViewContent;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +26,7 @@ public class FillScrollView : MonoBehaviour
             Item.transform.localScale = Vector3.one; //sets scale to 108x larger otherwise
             Item.group = ToggleGroup;
             Item.GetComponent<ChooseLevel>().audioSource = audioSource;
+            Item.GetComponent<ChooseLevel>().scrollViewContent = scrollViewContent;
             StartCoroutine(OutputRoutine(Name, Item));
         }
     }
