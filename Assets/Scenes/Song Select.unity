@@ -659,6 +659,7 @@ GameObject:
   - component: {fileID: 658882794}
   - component: {fileID: 658882793}
   - component: {fileID: 658882796}
+  - component: {fileID: 658882797}
   m_Layer: 5
   m_Name: Songs list
   m_TagString: Untagged
@@ -684,7 +685,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 610, y: -2.3283e-10}
+  m_AnchoredPosition: {x: 610, y: 0}
   m_SizeDelta: {x: 700, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &658882793
@@ -706,7 +707,7 @@ MonoBehaviour:
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 20
+  m_ScrollSensitivity: 40
   m_Viewport: {fileID: 1905939569}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 314338204}
@@ -770,6 +771,21 @@ MonoBehaviour:
   ScrollViewItem: {fileID: -7714608433353351757, guid: 1923cf5bd7b12364c91ac6c15571ce6b, type: 3}
   ToggleGroup: {fileID: 2085222179}
   audioSource: {fileID: 677946470}
+  scrollViewContent: {fileID: 2085222175}
+--- !u!114 &658882797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 658882791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dd5e0ef423a6514bb2bfee139a8aff5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ScrollViewNavigation
+  scrollViewContent: {fileID: 2085222175}
+  index: 0
 --- !u!1 &673069872
 GameObject:
   m_ObjectHideFlags: 0
@@ -934,7 +950,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

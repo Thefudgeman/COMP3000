@@ -38,5 +38,10 @@ public class FillScrollView : MonoBehaviour
         // output.texture = loader.texture;
         AudioClip audio = loader.GetAudioClip();
         Item.GetComponent<ChooseLevel>().clip = audio;
+        if (Item.transform.GetSiblingIndex() == 0)
+        {
+            Item.transform.GetComponent<Toggle>().isOn = true;
+            Item.transform.GetComponent<ChooseLevel>().onPressed();
+        }
     }
 }

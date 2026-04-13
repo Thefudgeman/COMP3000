@@ -9,6 +9,7 @@ using UnityEngine;
 using PlayFab;
 using PlayFab.ClientModels;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class DisplayLeaderboard : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class DisplayLeaderboard : MonoBehaviour
     public GameObject leaderboardItem;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    async void Start()
+    void Start()
     {
         Instance = this;
         updateLeaderboard();
@@ -35,9 +36,14 @@ public class DisplayLeaderboard : MonoBehaviour
     async void updateLeaderboard()
     {
 
-        while (Application.isPlaying)
+        while (leaderboard)
         {
             await Task.Delay(500);
+
+            if(!leaderboard)
+            {
+                return;
+            }
 
             var getLeaderboard = new GetLeaderboardRequest
             {
@@ -47,8 +53,6 @@ public class DisplayLeaderboard : MonoBehaviour
             };
 
             PlayFabClientAPI.GetLeaderboard(getLeaderboard, OnGetLeaderboard, OnGetLeaderboardError);
-          
-
         }
     }
 
