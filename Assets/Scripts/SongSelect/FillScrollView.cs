@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.IO;
 using TMPro;
 using UnityEngine;
@@ -38,10 +39,11 @@ public class FillScrollView : MonoBehaviour
         // output.texture = loader.texture;
         AudioClip audio = loader.GetAudioClip();
         Item.GetComponent<ChooseLevel>().clip = audio;
-        if (Item.transform.GetSiblingIndex() == 0)
+        if (Item.transform.GetSiblingIndex() == varsToPass.Instance.scrollviewIndex)
         {
             Item.transform.GetComponent<Toggle>().isOn = true;
             Item.transform.GetComponent<ChooseLevel>().onPressed();
+            Debug.Log(varsToPass.Instance.scrollviewIndex + " indexinginininin");
         }
     }
 }

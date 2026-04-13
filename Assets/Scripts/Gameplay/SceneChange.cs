@@ -1,34 +1,46 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneChange : MonoBehaviour
 {
+    public Animator sceneChange;
     // Start is called before the first frame update
     void Start()
     {
         
     }
 
+    IEnumerator LoadScene(int sceneIndex)
+    {
+        sceneChange.SetTrigger("Start");
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene(sceneIndex);
+    }
+
     public void ToMenu()
     {
-        SceneManager.LoadScene(0);
+        StartCoroutine(LoadScene(0));
     }
 
     public void ToSongSelect()
     {
-        SceneManager.LoadScene(1);
+
+        StartCoroutine(LoadScene(1));
     }
 
     public void ToLevelEditor()
     {
-        SceneManager.LoadScene(2);
+
+        StartCoroutine(LoadScene(2));
     }
 
     public void ToGameplay()
     {
-        SceneManager.LoadScene(3);
+
+        StartCoroutine(LoadScene(3));
     }
 
     public void Quit()

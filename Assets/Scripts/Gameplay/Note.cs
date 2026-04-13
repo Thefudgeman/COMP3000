@@ -74,7 +74,7 @@ public class Note : MonoBehaviour
 
         float spawnDelay = SongControl.Instance.songDelay - (0.7f / SongControl.Instance.noteSpeed);
         double timeSinceInstantiated = spawnDelay > 0 && timeInstantiated < 0
-            ? (Time.timeSinceLevelLoad - spawnDelay) + timeInstantiated
+            ? (SongControl.GetSongTime() - spawnDelay) + timeInstantiated
             : SongControl.GetSongTime() - timeInstantiated;
         float t = (float)(timeSinceInstantiated / (0.7f * 2 / SongControl.Instance.noteSpeed));
         float sizeScale = timeAlive/(float)timeSinceInstantiated;
