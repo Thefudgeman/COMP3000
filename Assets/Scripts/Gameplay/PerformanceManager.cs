@@ -9,28 +9,38 @@ using TMPro;
 using Unity.Services.Core;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.UI;
 
 public class PerformanceManager : MonoBehaviour
 {
-    public TextMeshProUGUI displayScore;
-    public TextMeshProUGUI displayAccuracy;
-    public TextMeshProUGUI displayCombo;
+    [SerializeField] TextMeshProUGUI displayScore;
+    [SerializeField] TextMeshProUGUI displayAccuracy;
+    [SerializeField] TextMeshProUGUI displayCombo;
 
-    public TextMeshProUGUI resultsScore;
-    public TextMeshProUGUI resultsAccuracy;
-    public TextMeshProUGUI resultsMaxCombo;
-    public TextMeshProUGUI resultsPerfect;
-    public TextMeshProUGUI resultsGreat;
-    public TextMeshProUGUI resultsOk;
-    public TextMeshProUGUI resultsMiss;
+    [SerializeField] TextMeshProUGUI resultsScore;
+    [SerializeField] TextMeshProUGUI resultsAccuracy;
+    [SerializeField] TextMeshProUGUI resultsMaxCombo;
+    [SerializeField] TextMeshProUGUI resultsPerfect;
+    [SerializeField] TextMeshProUGUI resultsGreat;
+    [SerializeField] TextMeshProUGUI resultsOk;
+    [SerializeField] TextMeshProUGUI resultsMiss;
 
-    public Animator leftTimingAnimator;
-    public Animator rightTimingAnimator;
-    public TextMeshProUGUI leftTimingText;
-    public TextMeshProUGUI rightTimingText;
+    [SerializeField] Animator leftTimingAnimator;
+    [SerializeField] Animator rightTimingAnimator;
+    [SerializeField] TextMeshProUGUI leftTimingText;
+    [SerializeField] TextMeshProUGUI rightTimingText;
+
+    [SerializeField] Slider healthBar;
+    [SerializeField] GameObject failMenu;
+
+    [SerializeField] AudioSource hitSounds;
+    [SerializeField] AudioClip hitSound;
+    [SerializeField] AudioClip missSound;
 
     public static PerformanceManager Instance;
-    public GameObject Results;
+    [SerializeField] GameObject Results;
+    [SerializeField] Animator resultsFadeIn;
+
     int score = 0;
     int combo = 0;
     int maxCombo = 0;
@@ -46,6 +56,9 @@ public class PerformanceManager : MonoBehaviour
     public int lastNoteFound = 0;
     string mapID = "0";
     int playerLeaderboardScore = -1;
+
+    float currentVelocity;
+    float target = 100;
 
     Color32 perfectColour = new Color32(0, 255, 255, 255);
     Color32 greatColour = new Color32(36, 255, 0, 255);
@@ -69,6 +82,8 @@ public class PerformanceManager : MonoBehaviour
             StartCoroutine(showResults());
             SubmitScore();
         }
+
+        healthBar.value = Mathf.MoveTowards(healthBar.value, target, 100 * Time.deltaTime);
     }
 
     IEnumerator showResults()
@@ -83,6 +98,7 @@ public class PerformanceManager : MonoBehaviour
         resultsMiss.SetText(missCount.ToString());
 
         Results.SetActive(true);
+        resultsFadeIn.SetTrigger("Start");
 
     }
 
@@ -90,6 +106,8 @@ public class PerformanceManager : MonoBehaviour
     {
         Debug.Log("hit");
         hitError = Math.Abs(hitError);
+       // hitSounds.clip = hitSound;
+        hitSounds.PlayOneShot(hitSound);
         if (hitError <= 0.05)
         {
             if(laneNumber < 4)
@@ -102,7 +120,8 @@ public class PerformanceManager : MonoBehaviour
                 rightTimingText.SetText("Perfect!");
                 rightTimingText.color = perfectColour;
             }
-                score += 1000;
+            target += 6;
+            score += 1000;
             perfectCount++;
             accuracySum += 100;
             Debug.Log("Perf");
@@ -119,6 +138,7 @@ public class PerformanceManager : MonoBehaviour
                 rightTimingText.SetText("Great!");
                 rightTimingText.color = greatColour;
             }
+            target += 4;
             score += 500;
             greatCount++;
             accuracySum += 50;
@@ -136,6 +156,7 @@ public class PerformanceManager : MonoBehaviour
                 rightTimingText.SetText("Ok");
                 rightTimingText.color = okColour;
             }
+            target += 2;
             score += 250;
             okCount++;
             accuracySum += 25;
@@ -161,6 +182,12 @@ public class PerformanceManager : MonoBehaviour
 
     public void Miss(int laneNumber)
     {
+        if(combo >= 15)
+        {
+            hitSounds.clip = missSound;
+            hitSounds.PlayOneShot(missSound);
+        }
+
         if (laneNumber < 4)
         {
             leftTimingText.SetText("Miss");
@@ -173,12 +200,25 @@ public class PerformanceManager : MonoBehaviour
             rightTimingText.color = missColour;
             rightTimingAnimator.Play("RightTimingText", -1, 0f);
         }
+        Mathf.SmoothDamp(healthBar.value, healthBar.value - 10, ref currentVelocity, 150*Time.deltaTime);
+        target -= 10;
+
+        if (target <= 0)
+        {
+            levelFailed();
+        }
         Debug.Log("miss");
         missCount++;
         Debug.Log(missCount);
         combo = 0;
         updateValues();
 
+    }
+
+    public void levelFailed()
+    {
+        SongControl.Instance.audioSource.Pause();
+        failMenu.SetActive(true);
     }
 
     public void updateValues()
@@ -188,6 +228,11 @@ public class PerformanceManager : MonoBehaviour
         displayAccuracy.text = accuracy.ToString() + "%";
         displayCombo.text = "x" + combo.ToString();
         displayScore.text = score.ToString();
+
+        if(target > 100)
+        {
+            target = 100;
+        }
     }
 
     public void SubmitScore()

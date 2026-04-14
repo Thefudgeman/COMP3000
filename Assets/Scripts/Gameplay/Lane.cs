@@ -197,11 +197,11 @@ public class Lane : MonoBehaviour
                     Destroy(notes[noteHitIndex].gameObject);
                     noteHitIndex++;
                 }
-                if (axisDown && Input.GetAxis(input) == 0)
+                if (axisDown && (Input.GetAxis(input) < 0.3 || Input.GetAxis(input) > 0.3))
                 {
                     axisDown = false;
                 }
-                if (((Input.GetAxis(input) < 0 && (Convert.ToInt32(LaneNumber) == 0 || Convert.ToInt32(LaneNumber) == 1)) || (Input.GetAxis(input) > 0 && (Convert.ToInt32(LaneNumber) == 2 || Convert.ToInt32(LaneNumber) == 3))) && !axisDown && SongControl.GetSongTime() - timeStamps[noteHitIndex] > -0.13)
+                if (Input.GetAxis(input) != 0  && !axisDown && SongControl.GetSongTime() - timeStamps[noteHitIndex] > -0.13)
                 {
                    double hitError = SongControl.GetSongTime() - timeStamps[noteHitIndex];
                     PerformanceManager.Instance.Hit(hitError, Convert.ToInt32(LaneNumber));

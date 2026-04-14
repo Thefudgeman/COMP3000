@@ -39,11 +39,16 @@ public class FillScrollView : MonoBehaviour
         // output.texture = loader.texture;
         AudioClip audio = loader.GetAudioClip();
         Item.GetComponent<ChooseLevel>().clip = audio;
-        if (Item.transform.GetSiblingIndex() == varsToPass.Instance.scrollviewIndex)
+
+        if(varsToPass.Instance.scrollviewIndex == null && Item.transform.GetSiblingIndex() == 0)
         {
             Item.transform.GetComponent<Toggle>().isOn = true;
             Item.transform.GetComponent<ChooseLevel>().onPressed();
-            Debug.Log(varsToPass.Instance.scrollviewIndex + " indexinginininin");
+        }
+        else if (Item.transform.GetSiblingIndex() == varsToPass.Instance.scrollviewIndex)
+        {
+            Item.transform.GetComponent<Toggle>().isOn = true;
+            Item.transform.GetComponent<ChooseLevel>().onPressed();
         }
     }
 }

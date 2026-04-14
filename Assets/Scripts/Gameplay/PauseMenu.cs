@@ -17,7 +17,7 @@ public class PauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && pauseMenu.activeSelf == false)
+        if (Input.GetKeyDown(KeyCode.Escape) && pauseMenu.activeSelf == false && SongControl.Instance.audioSource.isPlaying)
         {
             pauseMenu.SetActive(true);
             music.Pause();

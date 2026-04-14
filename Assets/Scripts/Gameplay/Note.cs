@@ -1,3 +1,5 @@
+using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -7,7 +9,7 @@ using UnityEngine.UIElements;
 
 public class Note : MonoBehaviour
 {
-    double timeInstantiated;
+    public double timeInstantiated;
     public int laneNumber;
     public float hitTime;
     public float noteSpawnX;
@@ -28,6 +30,9 @@ public class Note : MonoBehaviour
             return noteTapY - (noteSpawnY - noteTapY);
         }
     }
+
+    public double timeSinceInstantiated;
+
     RectTransform size;
     float timeAlive;
     // Start is called before the first frame update
@@ -73,15 +78,15 @@ public class Note : MonoBehaviour
     {
 
         float spawnDelay = SongControl.Instance.songDelay - (0.7f / SongControl.Instance.noteSpeed);
-        double timeSinceInstantiated = spawnDelay > 0 && timeInstantiated < 0
-            ? (SongControl.GetSongTime() - spawnDelay) + timeInstantiated
+        timeSinceInstantiated = spawnDelay > 0 && timeInstantiated < 0
+            ? (Time.timeSinceLevelLoad - spawnDelay) + timeInstantiated
             : SongControl.GetSongTime() - timeInstantiated;
         float t = (float)(timeSinceInstantiated / (0.7f * 2 / SongControl.Instance.noteSpeed));
         float sizeScale = timeAlive/(float)timeSinceInstantiated;
 
-        if (timeSinceInstantiated > (0.7/ SongControl.Instance.noteSpeed) + 0.13f) //if player does not hit the object destroy it once it is outside of the margin of error
+        if (timeSinceInstantiated > (0.7/ SongControl.Instance.noteSpeed) + 0.14f) //if player does not hit the object destroy it once it is outside of the margin of error
         {
-           // PerformanceManager.Instance.Miss();
+            PerformanceManager.Instance.Miss(Convert.ToInt32(GetComponentInParent<Lane>().LaneNumber));
             transform.parent.GetComponent<Lane>().noteHitIndex++;
             Destroy(gameObject);
             
