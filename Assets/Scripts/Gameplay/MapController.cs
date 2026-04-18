@@ -15,12 +15,12 @@ public class MapController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            SongControl.Instance.audioSource.timeSamples += (int)(SongControl.Instance.audioSource.clip.frequency * (1 / (SongControl.Instance.bpm / 60) / 4));
+            SongControl.Instance.audioSource.timeSamples += (int)(SongControl.Instance.audioSource.clip.frequency * (1 / (SongControl.Instance.bpm / 60) / GridUI.Instance.beatDivision));
             Debug.Log((double)SongControl.Instance.audioSource.timeSamples / SongControl.Instance.audioSource.clip.frequency);
         }
         else if (Input.GetKeyDown(KeyCode.LeftArrow) && SongControl.GetSongTime() > 0)
         {
-            SongControl.Instance.audioSource.timeSamples -= (int)(SongControl.Instance.audioSource.clip.frequency * (1 / (SongControl.Instance.bpm / 60) / 4));
+            SongControl.Instance.audioSource.timeSamples -= (int)(SongControl.Instance.audioSource.clip.frequency * (1 / (SongControl.Instance.bpm / 60) / GridUI.Instance.beatDivision));
             Debug.Log((double)SongControl.Instance.audioSource.timeSamples / SongControl.Instance.audioSource.clip.frequency);
         }
     }
