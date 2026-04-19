@@ -23,6 +23,11 @@ public class enableButtons : MonoBehaviour
     public void enableButton()
     {
 
+        if (Convert.ToInt32(bpm.text) > 500)
+        {
+            return;
+        }
+
         try
         {
             int i;
@@ -38,7 +43,7 @@ public class enableButtons : MonoBehaviour
                 var directory = Directory.CreateDirectory(Application.persistentDataPath + "/Music/" + AddSong.Instance.inputField.text.Substring(i + 1, AddSong.Instance.inputField.text.Substring(i + 1).Length - 4));
                 Debug.Log(directory.Name);
                 File.Copy(AddSong.Instance.inputField.text, directory + "/" + AddSong.Instance.inputField.text.Substring(i + 1));
-                File.Create(directory + "/" + AddSong.Instance.inputField.text.Substring(i + 1, AddSong.Instance.inputField.text.Substring(i + 1).Length - 4) + ".txt");
+                File.Create(directory + "/" + AddSong.Instance.inputField.text.Substring(i + 1, AddSong.Instance.inputField.text.Substring(i + 1).Length - 4) + ".txt").Dispose();
             }
         }
         catch (ArgumentException e)

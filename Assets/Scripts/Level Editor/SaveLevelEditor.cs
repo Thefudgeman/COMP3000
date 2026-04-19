@@ -4,10 +4,13 @@ using UnityEngine;
 using System.IO;
 using System.Linq;
 using System;
+using UnityEngine.UI;
 
 public class SaveLevelEditor : MonoBehaviour
 {
     public GameObject gridUI;
+    public GameObject saveMenu;
+    public Button done;
     public class noteToAdd
     {
         public int laneNumber;
@@ -21,6 +24,7 @@ public class SaveLevelEditor : MonoBehaviour
     }
     public void SaveChanges()
     {
+        saveMenu.SetActive(true);
 
         int s;
         for (s = AddSong.Instance.inputField.text.Length - 1; s > 0; s--)
@@ -110,6 +114,9 @@ public class SaveLevelEditor : MonoBehaviour
         }
         sw.Write("\n#MapData\nBPM:" + SongControl.Instance.bpm);
             sw.Close();
+
+        saveMenu.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().SetText("Saved");
+        done.GetComponent<Button>().interactable = true;
     }
 }
 
