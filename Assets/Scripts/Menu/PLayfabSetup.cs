@@ -31,27 +31,6 @@ public class PLayfabSetup : MonoBehaviour
     void onRegisterSuccess(LoginResult result)
     {
         Debug.Log("registered");
-        SetName();
-    }
-
-    void SetName()
-    {
-        var request = new UpdateUserTitleDisplayNameRequest
-        {
-            DisplayName = "name"
-        };
-
-        PlayFabClientAPI.UpdateUserTitleDisplayName(request, OnSetNameSuccess, OnSetNameError);
-    }
-
-    void OnSetNameSuccess(UpdateUserTitleDisplayNameResult result)
-    {
-        Debug.Log(result);
-    }
-
-    void OnSetNameError(PlayFabError error)
-    {
-        Debug.Log(error.GenerateErrorReport());
     }
 
     // Update is called once per frame
