@@ -1180,8 +1180,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 14
+  m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1972,7 +1972,7 @@ GameObject:
   - component: {fileID: 481033345}
   - component: {fileID: 481033344}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: TitleText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2442,8 +2442,8 @@ RectTransform:
   - {fileID: 1585056612}
   - {fileID: 1446160402}
   - {fileID: 758974969}
-  - {fileID: 1802966331}
   - {fileID: 251753578}
+  - {fileID: 1802966331}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -5840,7 +5840,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1802966331
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6797,6 +6797,7 @@ GameObject:
   - component: {fileID: 1974030352}
   - component: {fileID: 1974030351}
   - component: {fileID: 1974030350}
+  - component: {fileID: 1974030353}
   m_Layer: 5
   m_Name: Done
   m_TagString: Untagged
@@ -6867,7 +6868,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1974030351}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1974030353}
+        m_TargetAssemblyTypeName: ChooseUsername, Assembly-CSharp
+        m_MethodName: SetName
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1974030351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6906,6 +6919,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1974030348}
   m_CullTransparentMesh: 1
+--- !u!114 &1974030353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1974030348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89e59c7a5ddc1a645bfdc400fb532110, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChooseUsername
+  username: {fileID: 2071796127}
+  errorText: {fileID: 215648858}
+  SetUsernameUI: {fileID: 251753579}
 --- !u!1 &1983046150
 GameObject:
   m_ObjectHideFlags: 0
@@ -7285,7 +7313,7 @@ MonoBehaviour:
   m_HideSoftKeyboard: 0
   m_CharacterValidation: 0
   m_RegexValue: 
-  m_GlobalPointSize: 14
+  m_GlobalPointSize: 24
   m_CharacterLimit: 0
   m_OnEndEdit:
     m_PersistentCalls:
@@ -7319,7 +7347,7 @@ MonoBehaviour:
   m_CaretWidth: 1
   m_ReadOnly: 0
   m_RichText: 1
-  m_GlobalFontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_GlobalFontAsset: {fileID: 11400000, guid: f8802cdf5316acb45b71a160083153ee, type: 2}
   m_OnFocusSelectAll: 1
   m_ResetOnDeActivation: 1
   m_KeepTextSelectionVisible: 0
