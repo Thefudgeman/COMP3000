@@ -28,10 +28,26 @@ public class VolumeSettings : MonoBehaviour
 
     void Start()
     {
-        masterVolume.value = PlayerPrefs.GetFloat("MasterVolume");
-        musicVolume.value = PlayerPrefs.GetFloat("MusicVolume");
-        hitSoundVolume.value = PlayerPrefs.GetFloat("HitSoundVolume");
-        soundFxVolume.value = PlayerPrefs.GetFloat("SoundFXVolume");
+        if (PlayerPrefs.GetFloat("MasterVolume") > 0.0)
+        {
+            masterVolume.value = PlayerPrefs.GetFloat("MasterVolume");
+
+        }
+        if (PlayerPrefs.GetFloat("MusicVolume") > 0.0)
+        {
+            musicVolume.value = PlayerPrefs.GetFloat("MusicVolume");
+
+        }
+        if (PlayerPrefs.GetFloat("HitSoundVolume") > 0.0)
+        {
+            hitSoundVolume.value = PlayerPrefs.GetFloat("HitSoundVolume");
+
+        }
+        if (PlayerPrefs.GetFloat("SoundFXVolume") > 0.0)
+        {
+            soundFxVolume.value = PlayerPrefs.GetFloat("SoundFXVolume");
+
+        }
 
         audioMixer.SetFloat("Master", Mathf.Log10(masterVolume.value) * 20);
         audioMixer.SetFloat("Music", Mathf.Log10(musicVolume.value) * 20);
