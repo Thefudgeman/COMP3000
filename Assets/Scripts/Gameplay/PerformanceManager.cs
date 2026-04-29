@@ -76,6 +76,7 @@ public class PerformanceManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(lastNote + " " + lastNoteFound);
         if (SongControl.GetSongTime() > lastNote && !showingResults && lastNoteFound == 8)
         {
             showingResults = true;

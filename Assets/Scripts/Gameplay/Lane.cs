@@ -55,6 +55,7 @@ public class Lane : MonoBehaviour
             i++;
         }
            StartCoroutine(setLastNoteTime(lines[i - 1]));
+        
     }
 
     IEnumerator setLastNoteTime(string line)
@@ -63,44 +64,54 @@ public class Lane : MonoBehaviour
         if (holdTimeStamps.Count == 0 && timeStamps.Count == 0)
         {
             PerformanceManager.Instance.lastNoteFound++;
+            Debug.Log("lanenumber " + LaneNumber);
 
             yield break;
         }
         else if (holdTimeStamps.Count > 0 && timeStamps.Count == 0)
         {
-
+            Debug.Log("lanenumber " + LaneNumber);
             if (holdTimeStamps[holdTimeStamps.Count - 1].tailTime > PerformanceManager.Instance.lastNote)
             {
                 PerformanceManager.Instance.lastNote = holdTimeStamps[holdTimeStamps.Count - 1].tailTime;
             }
+            PerformanceManager.Instance.lastNoteFound++;
+
 
         }
         if (holdTimeStamps.Count == 0 && timeStamps.Count > 0)
         {
+            Debug.Log("lanenumber " + LaneNumber);
 
             if (timeStamps[timeStamps.Count - 1] > PerformanceManager.Instance.lastNote)
             {
                 PerformanceManager.Instance.lastNote = timeStamps[timeStamps.Count - 1];
             }
+            PerformanceManager.Instance.lastNoteFound++;
+
         }
         else if (timeStamps[timeStamps.Count - 1] > holdTimeStamps[holdTimeStamps.Count - 1].tailTime)
         {
-
+            Debug.Log("lanenumber " + LaneNumber);
             if (timeStamps[timeStamps.Count - 1] > PerformanceManager.Instance.lastNote)
             {
                 PerformanceManager.Instance.lastNote = timeStamps[timeStamps.Count - 1];
 
             }
+            PerformanceManager.Instance.lastNoteFound++;
+
         }
         else
         {
-
+            Debug.Log("lanenumber " + LaneNumber);
             if (holdTimeStamps[holdTimeStamps.Count - 1].tailTime > PerformanceManager.Instance.lastNote)
             {
                 PerformanceManager.Instance.lastNote = holdTimeStamps[holdTimeStamps.Count - 1].tailTime;
             }
+            PerformanceManager.Instance.lastNoteFound++;
+
         }
-        PerformanceManager.Instance.lastNoteFound++;
+
 
     }
 
