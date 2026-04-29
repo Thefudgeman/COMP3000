@@ -37,7 +37,7 @@ public class Lane : MonoBehaviour
      //   string text = File.ReadAllLines(Application.dataPath + "/Music/" + varsToPass.Instance.path + "/" + varsToPass.Instance.path + ".txt");
         string[] lines = File.ReadAllLines(Application.persistentDataPath + "/Music/" + varsToPass.Instance.path + "/" + varsToPass.Instance.path + ".txt");
         int i = 0;
-        while (lines[i].Length != 0)
+        while (lines[i].Length != 0 && i < lines.Length - 1)
         {
             if (lines[i].Substring(0,1) == LaneNumber)
             {
@@ -55,7 +55,6 @@ public class Lane : MonoBehaviour
             i++;
         }
            StartCoroutine(setLastNoteTime(lines[i - 1]));
-        
     }
 
     IEnumerator setLastNoteTime(string line)
